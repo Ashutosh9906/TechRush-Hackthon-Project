@@ -1,0 +1,151 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+:root{
+    --color_I: #f2e6ee;
+    --color_II: #977dff;
+    --color_V: #977dff;
+    --color_VI: #ffccf2;
+    --color_III: #0033ff;
+    --color_IV: #0600ab;
+    --color_VII: #00003d;
+}
+body{
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    background: linear-gradient(135deg,var(--color_III),var(--color_VI));
+    color: black;
+    min-height: 100vh;
+    line-height: 1.5;
+}
+.image-gradient{
+    position: absolute;
+    top: 0;
+    right: 0;
+    opacity: 0.5;
+    z-index: -1;
+}
+
+/* glowing effect around the gradient */
+.layerblur{
+    height: 0;
+    width: 20rem;
+    position: absolute;
+    top: 75%;
+    right: 8%;
+    box-shadow: 0 0 100px 15px black ;
+    z-index: -1;
+}
+.container{
+    width: 100%;
+    margin: 0 auto;
+    padding: 0;
+    position: relative;
+    overflow: hidden;
+}
+header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 5rem;
+    z-index: 999;
+    /* background-color: white; */
+}
+header h1{
+    margin: 0;
+    font-size: 3rem;
+
+}
+nav{
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    margin-left: -5%;
+}
+.logo{
+    font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+nav a{
+    font-size: 1rem;
+    letter-spacing: 0.1rem;
+    transition: color 0.2s ease-in-out;
+    text-decoration: none;
+    color: inherit;
+}
+nav a:hover{
+    color: var(--color_VII);
+}
+/* MAIN */
+main{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: calc(90vh - 6rem);
+}
+.content{
+    max-width: 40rem;
+    margin-left:10% ;
+    z-index: 999;
+}
+.tag-box{
+    position: relative;
+    width: 18rem;
+    height: 2.5rem;
+    border-radius: 50px;
+    /* background: linear-gradient(var(--color_VII), var(--color_IV)); */
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    border-radius: 30px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(8px);
+    background-size: 200%;
+    animation: anigradient 2.5s linear infinite;
+}
+@keyframes anigradient {
+    to{
+        background-position: 200%;
+    }
+}
+.tag-box.tag{
+    position: absolute;
+    inset: 3px 3px 3px 3px;
+    background-color: #977dff;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.5 ease-in-out;
+    cursor: pointer;
+}
+.tag-box .tag:hover{
+    color: #f2e6ee;
+}
+.content h1{
+    font-size: 4rem;
+    font-weight: 600;
+    letter-spacing: 0.1rem;
+    margin: 2rem 0;
+    line-height: 1.2;
+    text-shadow: 0 0 10px rgb(84, 84, 84);
+}
+.buttons{
+    display: flex;
+    gap: 1rem;
+    margin-top: 3rem;
+}
+.learn-more{
+    text-decoration: none;
+    border: 1px solid rgb(84, 84, 84);
+    padding: 0.7rem 1.2rem;
+    border-radius: 50px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    transition: background-color 0.2s ease;
+}
+learn-more:hover{
+    background-color: rgb(84, 84, 84);
+}
+
+
