@@ -90,7 +90,7 @@ main{
 }
 .tag-box{
     position: relative;
-    width: 18rem;
+    width: 8rem;
     height: 2.5rem;
     border-radius: 50px;
     /* background: linear-gradient(var(--color_VII), var(--color_IV)); */
@@ -107,10 +107,9 @@ main{
         background-position: 200%;
     }
 }
-.tag-box.tag{
+.tag{
     position: absolute;
     inset: 3px 3px 3px 3px;
-    background-color: #977dff;
     border-radius: 50px;
     display: flex;
     align-items: center;
@@ -118,34 +117,55 @@ main{
     transition: 0.5 ease-in-out;
     cursor: pointer;
 }
-.tag-box .tag:hover{
-    color: #f2e6ee;
+.tag-box:hover{
+    transition: transform 0.4s ease-in-out, box-shadow 0.4s ease-in-out;
+    transform: scale(1.05); /* Makes it pop up */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Adds depth */
 }
 .content h1{
     font-size: 4rem;
     font-weight: 600;
     letter-spacing: 0.1rem;
-    margin: 2rem 0;
+    margin: 0.4rem 0;
     line-height: 1.2;
     text-shadow: 0 0 10px rgb(84, 84, 84);
 }
 .buttons{
     display: flex;
     gap: 1rem;
-    margin-top: 3rem;
+    margin-top: 1.5rem;
 }
 .learn-more{
     text-decoration: none;
-    border: 1px solid rgb(84, 84, 84);
-    padding: 0.7rem 1.2rem;
+    color: var(--color_VII);
+    /* border: 1px solid rgb(84, 84, 84); */
+    padding: 0.4rem 1.2rem;
     border-radius: 50px;
     font-size: 1.2rem;
     font-weight: 600;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.02em;
     transition: background-color 0.2s ease;
 }
-learn-more:hover{
-    background-color: rgb(84, 84, 84);
+.learn-more:hover{
+    background-color: transparent;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+
 }
+/* #headphone-main-visual{
+    position: absolute;
+    top: -70%;
+    scale: 0.5;
+    right: -20%;
+} */
+ #headphone-main-visual {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 90vh; /* Makes the image 90% of the viewport height */
+    width: auto;  /* Maintains the image's aspect ratio */
+    z-index: 1;   /* Places it behind the text but above the background */
+}
+
 
 
