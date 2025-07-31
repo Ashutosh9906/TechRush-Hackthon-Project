@@ -7,7 +7,7 @@
     <title>BURST</title>
 </head>
 <body>
-    <img class="image-gradient" src="./public/gradient.png" alt="gradient">
+    <img class="image-gradient" src="..\public\gradient.png" alt="gradient">
     <div class="layerblur"></div>
 
     <div class="container">
@@ -15,9 +15,20 @@
              <h1 class="logo"><!--<img src="Brust logo.png">-->Burst</h1> 
             <nav>
                 <a href="#">HOME</a>
-                <a href="#">CATEGORIES</a>
-                <a href="#">PROFILE</a>
-                <a href="#">CART</a>
+                <div class="dropdown">
+                    <a class="nav-link" href="#">CATEGORIES</a>
+                    <div class="dropdown-content">
+                        <a href="#">True Wireless Earbuds</a>
+                        <a href="#">Wired Earphones</a>
+                        <a href="#">Wireless Headphones</a>
+                        <a href="#">Wired Headphones</a>
+                        <a href="#">Gaming Headphones</a>
+                        <a href="#">Neackbands</a>
+                        <a href="#">LIMITED EDITION</a>
+                    </div>
+                </div>
+                <a href="#"><img src="../public/user.svg" alt="Profile"></a>
+                <a href="#"><img src="../public/shopping-bag.svg" alt="Cart"></a>
             </nav>
         </header>
 
@@ -35,7 +46,7 @@
                 </div>
             </div>
             <div class="visual">
-                <img id="headphone-main-visual" src="cyberpunk-headphones.png" alt="headphones">
+                <img id="headphone-main-visual" src="../public/cyberpunk-headphones.png" alt="headphones">
             </div>
         </main>
     </div>

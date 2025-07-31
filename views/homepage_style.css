@@ -32,10 +32,61 @@ body{
     height: 0;
     width: 20rem;
     position: absolute;
-    top: 75%;
-    right: 8%;
+    top: 85%;
+    right: 20%;
     box-shadow: 0 0 100px 15px black ;
     z-index: -1;
+}
+/* Main container for the dropdown */
+.dropdown {
+    position: relative;
+    display: inline-block; /* Keeps elements contained */
+}
+
+/* The dropdown menu - hidden by default */
+.dropdown-content {
+    /* Hiding properties */
+    visibility: hidden;
+    opacity: 0;
+    
+    /* Positioning */
+    position: absolute;
+    top: 100%; /* Position it right below the CATEGORIES link */
+    left: 50%;
+    transform: translateX(-50%); /* Center the dropdown */
+    z-index: 1000;
+
+    /* Styling */
+    background: rgba(255, 255, 255, 0.15); /* Glass effect */
+    backdrop-filter: blur(10px);
+    min-width: 220px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    padding: 0.5rem 0;
+    
+    /* Animation */
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+/* Style the links inside the dropdown */
+.dropdown-content a {
+    color: white; /* Or your desired text color */
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block; /* Makes the entire area clickable */
+    text-align: left;
+    transition: background-color 0.2s ease;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* ❗ Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+    visibility: visible;
+    opacity: 1;
 }
 .container{
     width: 100%;
@@ -152,19 +203,15 @@ main{
     transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 
 }
-/* #headphone-main-visual{
+#headphone-main-visual {
     position: absolute;
-    top: -70%;
-    scale: 0.5;
-    right: -20%;
-} */
- #headphone-main-visual {
-    position: absolute;
+    scale: 1.08;
     top: 50%;
-    transform: translateY(-50%);
-    height: 90vh; /* Makes the image 90% of the viewport height */
-    width: auto;  /* Maintains the image's aspect ratio */
-    z-index: 1;   /* Places it behind the text but above the background */
+    right: 400px;
+    transform: translateY(-45%);
+    height: 90vh;
+    width: auto;
+    z-index: 1;
 }
 
 
