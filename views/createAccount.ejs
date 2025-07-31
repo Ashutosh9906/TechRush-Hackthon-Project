@@ -94,19 +94,6 @@
                     </div>
                 </div>
 
-
-                <!-- Address -->
-                <div class="mb-3">
-                    <label for="address" class="form-label">Address</label>
-                    <textarea class="form-control" id="address" name="address" rows="3" required></textarea>
-                </div>
-
-                <!-- Date of Birth -->
-                <div class="mb-3">
-                    <label for="BirthDate" class="form-label">Date of Birth</label>
-                    <input type="date" class="form-control" id="birthDate" name="birthDate" required>
-                </div>
-
                 <!-- Email with Verify Button -->
                 <div class="mb-3">
                     <label for="email" class="form-label">Email address</label>
@@ -384,11 +371,10 @@
                     const data = {
                         firstName: document.getElementById("firstName").value,
                         lastName: document.getElementById("lastName").value,
-                        address: document.getElementById("address").value,
-                        birthDate: document.getElementById("birthDate").value,
                         email: document.getElementById("email").value,
                         password: document.getElementById("password").value,
                     };
+                    console.log(data);
                     try {
                         const response = await fetch("/user/createAccount", {
                             method: "POST",
