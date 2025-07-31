@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('./partials/head') %>
+        <title>Create Account</title>
+        <style>
+            body {
+                background-color: #f8f9fa;
+            }
+
+
+            .form-container {
+                max-width: 800px;
+                margin: auto;
+                background: #fff;
+                padding: 2.5rem 2rem;
+                border-radius: 1rem;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+            }
+
+            .form-label {
+                font-weight: 500;
+            }
+
+            .form-control,
+            textarea {
+                border-radius: 0.5rem;
+            }
+
+            .btn {
+                font-weight: 500;
+            }
+
+            .btn-success {
+                width: 100%;
+            }
+
+            .fade-in {
+                animation: fadeIn 0.5s forwards;
+            }
+
+            .fade-out {
+                animation: fadeOut 0.5s forwards;
+            }
+
+            @keyframes fadeIn {
+                from {
+                    opacity: 0;
+                }
+
+                to {
+                    opacity: 1;
+                }
+            }
+
+            @keyframes fadeOut {
+                from {
+                    opacity: 1;
+                }
+
+                to {
+                    opacity: 0;
+                }
+            }
+
+            h2 {
+                color: #001f3f;
+                font-weight: bold;
+            }
+
+            label {
+                color: #001f3f;
+                font-weight: 500;
+            }
+        </style>
+</head>
+
+<body>
+    <%- include('./partials/nav') %>
+        <div class="container mt-5">
+            <div class="form-container">
+                <h2 class="mb-4 text-center">Create Account in Crescent</h2>
+
+                <!-- Username -->
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="firstName" class="form-label">First Name</label>
+                        <input type="text" class="form-control" id="firstName" name="firstName" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="lastName" class="form-label">Last Name</label>
+                        <input type="text" class="form-control" id="lastName" name="lastName" required>
+                    </div>
+                </div>
+
+
+                <!-- Address -->
+                <div class="mb-3">
+                    <label for="address" class="form-label">Address</label>
+                    <textarea class="form-control" id="address" name="address" rows="3" required></textarea>
+                </div>
+
+                <!-- Date of Birth -->
+                <div class="mb-3">
+                    <label for="BirthDate" class="form-label">Date of Birth</label>
+                    <input type="date" class="form-control" id="birthDate" name="birthDate" required>
+                </div>
+
+                <!-- Email with Verify Button -->
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email address</label>
+                    <div class="d-flex">
+                        <input type="email"
+                            pattern="/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/"
+                            class="form-control rounded-0 rounded-start" aria-required="true" id="email" name="email"
+                            placeholder="Enter email" required>
+                        <button type="button" class="btn btn-primary rounded-0 rounded-end px-4 fw-semibold"
+                            style="width: 160px;" onclick="showOtp()" id="verifyEmailBtn">
+                            Verify Email
+                        </button>
+                    </div>
+                    <div id="emailHelp" class="form-text text-success d-none mt-1">You have 5 minutes for
+                        verification,
+                        kindly check your inbox</div>
+                </div>
+
+                <!-- OTP Field (Initially Hidden) -->
+                <div id="otpSection" class="mb-3 d-none">
+                    <div class="d-flex align-items-center mb-1">
+                        <label for="otp" class="form-label mb-0 me-2">OTP</label>
+                        <span id="otp-timer" class="text-danger small d-none">01:00</span>
+                    </div>
+                    </label>
+                    <div class="d-flex">
+                        <input type="text" class="form-control rounded-0 rounded-start" id="otp" name="otp"
+                            placeholder="Enter OTP" required>
+                        <button type="button" class="btn btn-success rounded-0 rounded-end px-4 fw-semibold"
+                            style="width: 160px;" onclick="verifyOtp()">Verify OTP</button>
+                    </div>
+
+                    <!-- Invalid OTP Message -->
+                    <div id="otpError" class="form-text text-danger mt-1 d-none">
+                        ❌ Invalid OTP. Try again.
+                    </div>
+                </div>
+
+                <div id="otpSuccess" class="form-text text-success mt-2 d-none">
+                    ✅ Email verified successfully!
+                </div>
+
+                <!-- Password -->
+                <div class="mb-4">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="password" name="password" required>
+                </div>
+
+                <!-- Submit -->
+                <button type="submit" onclick="submitForm()" class="btn btn-success">Create Account</button>
+            </div>
+        </div>
+
+        <%- include('./partials/scripts') %>
+            <script>
+                let emailHelpTimeout;
+                let otpTimerInterval;
+                let otpSectionTimeout;
+
+                const TIMER_DURATION = 60; // 60 seconds
+
+                async function showOtp() {
+                    const email = document.getElementById('email').value;
+                    const emailHelp = document.getElementById('emailHelp');
+                    const otpSection = document.getElementById('otpSection');
+                    const timerDisplay = document.getElementById('otp-timer');
+                    const verifyEmailBtn = document.getElementById('verifyEmailBtn');
+
+                    if (email == "") {
+                        return;
+                    }
+                    const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    if (!(pattern.test(email))) {
+                        // Show invalid message
+                        emailHelp.innerText = "❌ Invalid Email";
+                        emailHelp.classList.add("text-danger");
+                        emailHelp.classList.remove("d-none", "fade-out");
+                        void emailHelp.offsetWidth;
+                        emailHelp.classList.add("fade-in");
+
+                        // Hide and reset after 2 seconds
+                        clearTimeout(emailHelpTimeout)
+                        emailHelpTimeout = setTimeout(() => {
+                            emailHelp.classList.remove("fade-in");
+                            emailHelp.classList.add("fade-out");
+
+                            setTimeout(() => {
+                                emailHelp.classList.add("d-none");
+                                emailHelp.classList.remove("text-danger", "fade-out");
+                                emailHelp.innerText = "You have 5 minutes for verification,kindly check your inbox";
+                            }, 500); // Wait for fade-out to complete
+                        }, 2000); // Show for 2 seconds
+
+                        return;
+                    }
+
+                    // Show loading spinner in emailHelp
+                    emailHelp.innerHTML = `
+                         <div class="d-flex align-items-center gap-2">
+                            <div class="spinner-border text-success" role="status" style="width: 1rem; height: 1rem;">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                            <span>Processing...</span>
+                        </div>`;
+                    emailHelp.classList.remove('d-none', 'fade-out', 'text-danger');
+                    void emailHelp.offsetWidth;
+                    emailHelp.classList.add('fade-in');
+
+
+                    const response = await fetch("/user/sendOtp", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json" // Tells the server you're sending JSON
+                        },
+                        body: JSON.stringify({ email }),
+                    })
+                    const responseBody = await response.json();
+                    // console.log(responseBody);
+                    if (responseBody.err) {
+                        emailHelp.innerText = "❌ Email already exist";
+                        emailHelp.classList.add("text-danger");
+                        emailHelp.classList.remove("d-none", "fade-out");
+                        void emailHelp.offsetWidth;
+                        emailHelp.classList.add("fade-in");
+
+                        clearTimeout(emailHelpTimeout);
+                        setTimeout(() => {
+                            emailHelp.classList.remove("fade-in");
+                            emailHelp.classList.add("fade-out");
+
+                            setTimeout(() => {
+                                emailHelp.classList.add("d-none");
+                                emailHelp.classList.remove("text-danger", "fade-out");
+                                emailHelp.innerText = "You have 5 minutes for verification,kindly check your inbox";
+                            }, 500); // Wait for fade-out to complete
+                        }, 2000); // Show for 2 seconds
+                        return;
+                    }
+                    console.log("MSG : ", responseBody.msg)
+                    if (responseBody.msg == "CoolDown Period") {
+                        emailHelp.innerText = "❌ Cooldown Period, Try After an 1 Minute";
+                        emailHelp.classList.add("text-danger");
+                        emailHelp.classList.remove("d-none", "fade-out");
+                        void emailHelp.offsetWidth;
+                        emailHelp.classList.add("fade-in");
+
+                        clearTimeout(emailHelpTimeout);
+                        setTimeout(() => {
+                            emailHelp.classList.remove("fade-in");
+                            emailHelp.classList.add("fade-out");
+
+                            setTimeout(() => {
+                                emailHelp.classList.add("d-none");
+                                emailHelp.classList.remove("text-danger", "fade-out");
+                                emailHelp.innerText = "You have 5 minutes for verification,kindly check your inbox";
+                            }, 500); // Wait for fade-out to complete
+                        }, 2000); // Show for 2 seconds
+                        return;
+                    }
+
+                    clearTimeout(otpSectionTimeout);
+                    clearInterval(otpTimerInterval);
+
+                    // Show OTP section
+                    otpSection.classList.remove('d-none');
+                    otpSection.style.display = 'block'; // Ensure it's rendered
+
+                    // Force browser to apply styles before continuing
+                    requestAnimationFrame(() => {
+                        otpSection.classList.remove('fade-out', 'fade-in'); // Clean slates
+                        void otpSection.offsetWidth; // Trigger reflow
+                        otpSection.classList.add('fade-in');
+                    });
+
+
+                    // Reset and show emailHelp
+                    emailHelp.classList.remove('d-none', 'fade-out', 'text-danger');
+                    emailHelp.innerText = "You have 5 minutes for verification, kindly check your inbox";
+                    void emailHelp.offsetWidth;
+                    emailHelp.classList.add('fade-in');
+
+                    // Disable button
+                    verifyEmailBtn.disabled = true;
+
+                    // Hide email help after 5 seconds
+                    clearTimeout(emailHelpTimeout);
+                    emailHelpTimeout = setTimeout(() => {
+                        emailHelp.classList.remove('fade-in');
+                        emailHelp.classList.add('fade-out');
+                        setTimeout(() => {
+                            emailHelp.classList.add('d-none');
+                        }, 500);
+                    }, 5000);
+
+                    // Start timer
+                    let remaining = TIMER_DURATION;
+                    timerDisplay.classList.remove('d-none');
+                    updateTimerDisplay(remaining);
+
+                    otpTimerInterval = setInterval(() => {
+                        remaining--;
+                        updateTimerDisplay(remaining);
+
+                        if (remaining <= 0) {
+                            clearInterval(otpTimerInterval);
+                            timerDisplay.classList.add('fade-out');
+                            setTimeout(() => {
+                                timerDisplay.classList.add('d-none');
+                                timerDisplay.classList.remove('fade-out');
+                                timerDisplay.textContent = '';
+                            }, 500);
+                            verifyEmailBtn.disabled = false;
+                        }
+                    }, 1000);
+
+                    // Schedule OTP section to hide after 5 minutes
+                    otpSectionTimeout = setTimeout(() => {
+                        otpSection.classList.remove('fade-in');
+                        otpSection.classList.add('fade-out');
+                        setTimeout(() => {
+                            otpSection.classList.add('d-none');
+                        }, 500);
+                    }, 1000 * 60 * 5);
+                }
+
+                function updateTimerDisplay(seconds) {
+                    const timerDisplay = document.getElementById('otp-timer');
+                    const minutes = Math.floor(seconds / 60);
+                    const secs = seconds % 60;
+                    timerDisplay.textContent = `Resend OTP in ${minutes}:${secs.toString().padStart(2, '0')}`;
+                }
+
+                async function verifyOtp() {
+                    const email = document.getElementById('email').value;
+                    const otp = document.getElementById('otp').value;
+                    const response = await fetch("/user/verifyOtp", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json" // Tells the server you're sending JSON
+                        },
+                        body: JSON.stringify({ email, otp }),
+                    })
+                    if (response.ok) {
+                        // Hide OTP section with fade-out
+                        const otpSection = document.getElementById("otpSection");
+                        otpSection.classList.remove("fade-in");
+                        otpSection.classList.add("fade-out");
+
+                        setTimeout(() => {
+                            otpSection.classList.add("d-none");
+                        }, 500);
+
+                        // Show success message
+                        const successMsg = document.getElementById("otpSuccess");
+                        successMsg.classList.remove("d-none");
+                        successMsg.classList.add("fade-in");
+
+                        // Hide error message (in case shown earlier)
+                        document.getElementById("otpError").classList.add("d-none");
+
+                        //disable the verify Email button
+                        document.getElementById("verifyEmailBtn").disabled = true;
+                        document.getElementById("verifyEmailBtn").innerText = "Verified";
+                        document.getElementById("verifyEmailBtn").classList.remove("btn-primary");
+                        document.getElementById("verifyEmailBtn").classList.add("btn-success");
+                    } else {
+                        // Show red error message
+                        const errorMsg = document.getElementById("otpError");
+                        errorMsg.classList.remove("d-none");
+                        errorMsg.classList.add("fade-in");
+                    }
+
+                }
+                async function submitForm() {
+                    const data = {
+                        firstName: document.getElementById("firstName").value,
+                        lastName: document.getElementById("lastName").value,
+                        address: document.getElementById("address").value,
+                        birthDate: document.getElementById("birthDate").value,
+                        email: document.getElementById("email").value,
+                        password: document.getElementById("password").value,
+                    };
+                    try {
+                        const response = await fetch("/user/createAccount", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                            },
+                            body: JSON.stringify(data),
+                        });
+                        const responseBody = await response.json();
+                        if (responseBody.redirect) {
+                            //console.log("response", responseBody); // Success response
+                            console.log("Redirect to : ", responseBody.redirect);
+                            localStorage.setItem("firstName", responseBody.firstName)
+                            localStorage.setItem("ID", responseBody.id)
+                            window.location.href = responseBody.redirect;
+                        }
+                    } catch (error) {
+                        console.error("Network error:", error);
+                        alert("Server error. Try again later.");
+                    }
+                }
+            </script>
+
+
+
+</body>
+
+</html>

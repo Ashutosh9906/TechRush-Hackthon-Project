@@ -6,6 +6,7 @@ config();
 
 //custom modules
 const manageStock = require("./routes/manageStock")
+const staticRoute = require("./routes/staticRoute")
 
 const app = express();
 const PORT = 7000;
@@ -19,6 +20,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended:false }))
 
 //defining the base route
+app.use("/user", staticRoute)
 app.use("/product", manageStock)
 
 //starting the server on PORT 7000
