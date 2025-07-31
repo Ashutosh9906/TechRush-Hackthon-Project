@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Modern Blue Chair</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 20px;
+      background: linear-gradient(135deg, #cce3f6, #a2c7f5, #7db5f3);
+      background-attachment: fixed;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: auto;
+      background: #ffffff;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+      padding: 30px;
+      border-radius: 20px;
+      transition: 0.3s ease-in-out;
+    }
+
+    .image-slider {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      margin-bottom: 25px;
+    }
+
+    .image-slider img {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 10px;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: transform 0.3s, border-color 0.3s;
+    }
+
+    .image-slider img:hover {
+      transform: scale(1.1) rotate(3deg);
+      border-color: #3b82f6;
+    }
+
+    .product-section {
+      display: flex;
+      gap: 30px;
+      flex-wrap: wrap;
+    }
+
+    .left {
+      flex: 1 1 300px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .left img {
+      width: 100%;
+      max-width: 400px;
+      border-radius: 20px;
+      border: 6px solid #93c5fd;
+      transition: transform 0.3s ease;
+    }
+
+    .left img:hover {
+      transform: scale(1.05);
+    }
+
+    .right {
+      flex: 1 1 300px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .category {
+      font-size: 13px;
+      color: #3b82f6;
+      margin-bottom: 5px;
+      text-transform: uppercase;
+      font-weight: bold;
+    }
+
+    .title {
+      font-size: 32px;
+      font-weight: bold;
+      color: #1e3a8a;
+      animation: fadeInUp 0.5s ease-in-out;
+    }
+
+    .subtitle {
+      color: #64748b;
+      margin-bottom: 10px;
+    }
+
+    .stars {
+      color: #38bdf8;
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+
+    .price {
+      font-size: 26px;
+      color: #2563eb;
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+
+    .tab-menu {
+      display: flex;
+      gap: 20px;
+      margin: 20px 0 10px;
+    }
+
+    .tab-menu span {
+      cursor: pointer;
+      font-size: 16px;
+      color: #888;
+      transition: all 0.3s ease;
+      border-bottom: 2px solid transparent;
+    }
+
+    .tab-menu span:hover,
+    .tab-menu span.active {
+      color: #2563eb;
+      border-bottom: 3px solid #2563eb;
+      font-weight: bold;
+    }
+
+    .tab-content {
+      display: none;
+      color: #333;
+      font-size: 15px;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .tab-content.active {
+      display: block;
+      animation: fadeInUp 0.5s ease;
+    }
+
+    .read-more {
+      color: #0284c7;
+      cursor: pointer;
+      display: inline-block;
+      margin-top: 8px;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    .read-more:hover {
+      color: #0ea5e9;
+    }
+
+    .options {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+
+    .color-circle {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background-color: #3b82f6;
+      border: 2px solid #aaa;
+      box-shadow: 0 0 0 2px #e0f2fe;
+    }
+
+    .quantity-control {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .quantity-control button {
+      background: #2563eb;
+      color: #fff;
+      border: none;
+      padding: 6px 12px;
+      font-size: 18px;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: background 0.3s ease;
+    }
+
+    .quantity-control button:hover {
+      background: #1d4ed8;
+    }
+
+    .quantity-number {
+      width: 45px;
+      text-align: center;
+      font-size: 16px;
+      padding: 5px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    .total-price {
+      font-weight: bold;
+      margin-bottom: 20px;
+      font-size: 18px;
+      color: #059669;
+    }
+
+    .wishlist-btn,
+    .add-cart-btn {
+      padding: 14px;
+      border-radius: 6px;
+      text-align: center;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .wishlist-btn:hover,
+    .add-cart-btn:hover {
+      transform: scale(1.05);
+    }
+
+    .wishlist-btn {
+      background: none;
+      border: 2px solid #2563eb;
+      color: #2563eb;
+    }
+
+    .add-cart-btn {
+      background: #059669;
+      color: #fff;
+      border: none;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+
+    @keyframes fadeInUp {
+      0% {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="image-slider">
+      <img src="Headphone.jpg" alt="Headphone" onclick="changeImage(this)">
+      <img src="Headphone.jpg" alt="Headphone" onclick="changeImage(this)">
+      <img src="Headphone.jpg" alt="Headphone" onclick="changeImage(this)">
+    </div>
+
+    <div class="product-section">
+      <div class="left">
+        <img src="Headphone.jpg" alt="Main Headphone" id="main-image">
+      </div>
+      <div class="right">
+        <div>
+          <div class="category">Furniture</div>
+          <div class="title">Modern Blue Chair</div>
+          <div class="subtitle">Stylish & Comfortable</div>
+          <div class="stars">★★★★★</div>
+          <div class="price" id="price">₹3,499</div>
+
+          <div class="tab-menu">
+            <span class="active" onclick="showTab('desc')">Description</span>
+            <span onclick="showTab('details')">Details</span>
+          </div>
+
+          <div class="tab-content active" id="desc">
+            This chair brings elegance and comfort together with its sleek modern design and soft fabric.
+            <span class="read-more" onclick="toggleReadMore(this)">Read more</span>
+            <span class="more-text" style="display:none"> It's perfect for your living room, bedroom, or study space. Crafted with premium materials for durability and long-lasting comfort.</span>
+          </div>
+
+          <div class="tab-content" id="details">
+            Material: Velvet | Color: Blue | Weight: 7kg | Warranty: 2 years
+          </div>
+        </div>
+
+        <div class="options">
+          <div class="color-circle" title="Blue"></div>
+          <div class="quantity-control">
+            <button onclick="updateQty(-1)">−</button>
+            <input type="number" class="quantity-number" id="qty" value="1" min="1" onchange="calcPrice()">
+            <button onclick="updateQty(1)">+</button>
+          </div>
+        </div>
+
+        <div class="total-price" id="total">Total: ₹3,499</div>
+        <div class="wishlist-btn">♡ Add to Wishlist</div>
+        <div class="add-cart-btn">🛒 Add to Cart</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const basePrice = 3499;
+
+    function updateQty(val) {
+      let qtyInput = document.getElementById('qty');
+      let qty = parseInt(qtyInput.value) + val;
+      qty = Math.max(1, qty);
+      qtyInput.value = qty;
+      calcPrice();
+    }
+
+    function calcPrice() {
+      const qty = parseInt(document.getElementById('qty').value);
+      document.getElementById('total').innerText = "Total: ₹" + (qty * basePrice).toLocaleString();
+    }
+
+    function showTab(tabId) {
+      document.querySelectorAll('.tab-menu span').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+      document.querySelector(`.tab-menu span[onclick*="${tabId}"]`).classList.add('active');
+      document.getElementById(tabId).classList.add('active');
+    }
+
+    function toggleReadMore(elem) {
+      const moreText = elem.nextElementSibling;
+      if (moreText.style.display === "none") {
+        moreText.style.display = "inline";
+        elem.innerText = "Read less";
+      } else {
+        moreText.style.display = "none";
+        elem.innerText = "Read more";
+      }
+    }
+
+    function changeImage(thumb) {
+      document.getElementById("main-image").src = thumb.src;
+    }
+  </script>
+</body>
+</html>
