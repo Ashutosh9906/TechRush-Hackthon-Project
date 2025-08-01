@@ -28,6 +28,23 @@ body{
     50% { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
 }
+/* Noise Overlay */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Tiny random dots */
+    background-image: 
+        radial-gradient(rgba(0, 0, 0, 0.12) 1px, transparent 0);
+
+    background-size: 3px 3px; /* density of dots */
+    opacity: 0.9; /* how visible the grain is */
+    pointer-events: none; /* lets clicks pass through */
+    z-index: -1;
+}
 .image-gradient{
     position: absolute;
     top: 0;
@@ -93,7 +110,7 @@ body{
     color: black;
 }
 
-/* ❗ Show the dropdown menu on hover */
+/* Show the dropdown menu on hover */
 .dropdown:hover .dropdown-content {
     visibility: visible;
     opacity: 1;
