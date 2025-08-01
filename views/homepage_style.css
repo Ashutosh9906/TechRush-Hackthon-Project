@@ -19,6 +19,14 @@ body{
     color: black;
     min-height: 100vh;
     line-height: 1.5;
+    background: linear-gradient(120deg, var(--color_III), var(--color_II), var(--color_VI));
+    background-size: 200% 200%; /* Make the background larger than the viewport */
+    animation: gradientDrift 15s ease infinite; /* Apply the animation */
+}
+@keyframes gradientDrift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
 }
 .image-gradient{
     position: absolute;
@@ -174,7 +182,7 @@ main{
 }
 .content h1{
     font-size: 4rem;
-    font-weight: 600;
+    font-weight: 800;
     letter-spacing: 0.1rem;
     margin: 0.4rem 0;
     line-height: 1.2;
@@ -202,6 +210,15 @@ main{
     transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 
 }
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+    }
+}
 #headphone-main-visual {
     position: absolute;
     scale: 1.08;
@@ -211,8 +228,9 @@ main{
     height: 90vh;
     width: auto;
     z-index: -1;
+    opacity: 0; 
+    animation: fadeInUp 0.8s ease-out 0.3s forwards;
 }
-/* --- Product Showcase Section --- */
 .product-showcase {
     padding: 4rem 0;
     width: 100%;
@@ -222,37 +240,80 @@ main{
     font-size: 2.5rem;
     text-align: center;
     margin-bottom: 2rem;
-    color: #fff; /* Assuming a dark background */
+    font-weight: 800;
+    text-shadow: 0 0 10px rgb(84, 84, 84);
+    color: black;
 }
-
+.slider-wrapper {
+    position: relative; /* Acts as a positioning container for the buttons */
+    width: 100%;
+}
 .product-scroll-container {
     display: flex;
-    overflow-x: auto; /* This enables horizontal scrolling */
+    overflow-x: auto;
     gap: 1.5rem;
-    padding: 1rem 5%; /* Adjust padding to match your site's layout */
-    /* Hides the scrollbar but keeps functionality */
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
+    padding: 1rem 5%;
+    /* This makes the JavaScript scrolling smooth */
+    scroll-behavior: smooth;
+    /* Hide the actual scrollbar */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
 }
-
-/* Hides scrollbar for Chrome, Safari and Opera */
 .product-scroll-container::-webkit-scrollbar {
     display: none;
+}
+/* Styling for both scroll buttons */
+.scroll-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    
+    background-color: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(5px);
+    border: none;
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    cursor: pointer;
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s ease;
+}
+
+.scroll-btn:hover {
+    background-color: rgba(255, 255, 255, 0.4);
+}
+
+.scroll-btn svg {
+    stroke: white;
+}
+
+/* Position the left and right buttons */
+#scroll-left-btn {
+    left: 1rem;
+}
+
+#scroll-right-btn {
+    right: 1rem;
 }
 
 /* --- Product Card Styling --- */
 .product-card {
-    /* This flex property is key to prevent cards from shrinking */
-    flex: 0 0 280px; 
-    
-    /* Using the same glass effect as the dropdown */
-    background: rgba(255, 255, 255, 0.1);
+    flex: 0 0 280px;
+    background: linear-gradient(135deg,var(--color_II),var(--color_VII));
     backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    /* border: 1px solid rgba(255, 255, 255, 0.2); */
     border-radius: 12px;
     padding: 1rem;
     text-align: center;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    /* Added flex display to help structure content vertically */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .product-card:hover {
@@ -260,27 +321,58 @@ main{
     box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
 }
 
+/* MODIFIED: Increased height to give image more space */
+.product-image-container {
+    width: 100%;
+    height: 220px; /* Increased height */
+    overflow: hidden;
+    border-radius: 8px; /* Slightly adjusted radius */
+    margin-bottom: 1rem;
+}
+
+/* MODIFIED: Changed object-fit to 'cover' */
 .product-image-container img {
     width: 100%;
-    height: 200px;
-    object-fit: contain; /* Use 'contain' to see the full product */
-    margin-bottom: 1rem;
-    border-radius: 12px 12px 0 0;
+    height: 100%; /* Make image fill the container's height */
+    object-fit: cover; /* This is the key change to make the image fill the space */
+    display: block;
 }
 
 .product-name {
-    font-size: 1.2rem;
-    font-weight: 600;
+    font-family: impact;
+    font-size: 1.6rem;
+    letter-spacing: 0.08rem;
+    font-weight: 200;
     margin: 0.5rem 0;
-    color: #fff;
+    color: var(--color_I);
 }
 
-.product-price {
-    font-size: 1.1rem;
-    font-weight: 500;
-    color: #ddd;
+/* REMOVED original .product-price class */
+
+/* NEW: Container for both prices */
+.price-container {
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    gap: 0.75rem; /* Space between the two prices */
     margin-bottom: 1rem;
 }
+
+/* NEW: Style for the original, struck-through price */
+.original-price {
+    font-size: 1.2rem;
+    font-weight: 400;
+    color:rgb(127, 127, 127);
+    text-decoration: line-through; /* This adds the cancel line */
+}
+
+/* NEW: Style for the current, discounted price */
+.discounted-price {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #ffffff;
+}
+
 
 .add-to-cart-btn {
     background-color: #fff;
@@ -291,12 +383,12 @@ main{
     font-weight: bold;
     cursor: pointer;
     width: 80%;
+    align-self: center; /* Center button within the flex container */
     transition: background-color 0.3s ease;
 }
 
 .add-to-cart-btn:hover {
     background-color: #ccc;
 }
-
 
 
