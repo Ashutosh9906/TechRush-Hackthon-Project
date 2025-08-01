@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('./partials/head') %>
+        <title>Login - Crescent Bank</title>
+        <style>
+            body {
+                background-color: #f0f4f8;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            }
+
+            .container {
+                max-width: 450px;
+                background-color: #ffffff;
+                border-radius: 12px;
+                padding: 30px;
+                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            }
+
+            h2 {
+                color: #001f3f;
+                font-weight: bold;
+            }
+
+            label {
+                color: #001f3f;
+                font-weight: 500;
+            }
+
+            .form-control {
+                border: 1px solid #ccc;
+                border-radius: 6px;
+            }
+
+            .btn-success {
+                background-color: #00d1b2;
+                border: none;
+            }
+
+            .btn-success:hover {
+                background-color: #00a894;
+            }
+
+            .form-text {
+                font-size: 0.9rem;
+            }
+
+            .fade-in {
+                opacity: 1;
+                transition: opacity 0.5s ease-in;
+            }
+
+            .fade-out {
+                opacity: 0;
+                transition: opacity 0.5s ease-out;
+            }
+        </style>
+</head>
+
+<body>
+    <%- include('./partials/nav') %>
+
+        <div class="d-flex justify-content-center align-items-center vh-100">
+            <div class="container">
+                <h2 class="text-center mb-4">Login to Crescent Bank</h2>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email" name="email" required>
+                    <div id="emailHelp" class="form-text text-danger d-none mt-1">❌ Invalid Email</div>
+                </div>
+
+                <div class="mb-4">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="password" name="password" required>
+                </div>
+
+                <button type="submit" onclick="verifyEmail()" class="btn btn-success w-100">Login</button>
+            </div>
+        </div>
+
+        <%- include('./partials/scripts') %>
+
+            <script>
+                const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+                async function verifyEmail() {
+                    const email = document.getElementById('email').value;
+                    const password = document.getElementById('password').value;
+                    const emailHelp = document.getElementById('emailHelp');
+
+                    if (!pattern.test(email)) {
+                        emailHelp.textContent = "❌ Invalid Email";
+                        emailHelp.classList.remove("d-none", "fade-out");
+                        void emailHelp.offsetWidth; // Trigger reflow
+                        emailHelp.classList.add("fade-in");
+
+                        setTimeout(() => {
+                            emailHelp.classList.remove("fade-in");
+                            emailHelp.classList.add("fade-out");
+                            setTimeout(() => {
+                                emailHelp.classList.add("d-none");
+                            }, 500);
+                        }, 2000);
+                        return;
+                    } else {
+                        emailHelp.classList.add("d-none");
+                    }
+
+                    try {
+                        const response = await fetch("/user/verifyPassword", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+                            body: JSON.stringify({ email, password })
+                        });
+                        const responseBody = await response.json();
+                        //console.log(responseBody);
+                        if (responseBody.err) {
+                            console.error("Server error:", responseBody.err);  // Custom error from backend
+                            emailHelp.textContent = "❌ Email does not exist, Create Account first!";
+                            emailHelp.classList.remove("d-none", "fade-out");
+                            void emailHelp.offsetWidth; // Trigger reflow
+                            emailHelp.classList.add("fade-in");
+
+                            setTimeout(() => {
+                                emailHelp.classList.remove("fade-in");
+                                emailHelp.classList.add("fade-out");
+                                setTimeout(() => {
+                                    emailHelp.classList.add("d-none");
+                                }, 500);
+                            }, 2000);
+                            return;
+                        } 
+                        if(responseBody.redirect) {
+                            //console.log("response", responseBody); // Success response
+                            console.log("Redirect to : ", responseBody.redirect);
+                            localStorage.setItem("firstName", responseBody.firstName)
+                            localStorage.setItem("ID", responseBody.id)
+                            window.location.href = responseBody.redirect;
+                        }
+                    } catch (error) {
+                        console.error("Fetch or json parse failed", error);
+                    }
+
+                    // Optional: handle response here
+                }
+            </script>
+</body>
+
+</html>
