@@ -9,12 +9,29 @@
       box-sizing: border-box;
       font-family: 'Segoe UI', sans-serif;
     }
+    :root{
+    --color_I: #f2e6ee;
+    --color_II: #977dff;
+    --color_V: #977dff;
+    --color_VI: #ffccf2;
+    --color_III: #0033ff;
+    --color_IV: #0600ab;
+    --color_VII: #00003d;
+    --secsolor_I: #ffa930;
+    }
 
     body {
       margin: 0;
       padding: 20px;
-      background: linear-gradient(135deg, #cce3f6, #a2c7f5, #7db5f3);
       background-attachment: fixed;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      background: linear-gradient(120deg,var(--color_II),var(--color_VI));
+      color: black;
+      min-height: 100vh;
+      line-height: 1.5;
+      background: linear-gradient(120deg, var(--color_III), var(--color_VI), var(--color_VI));
+      background-size: 200% 200%; /* Make the background larger than the viewport */
+      animation: gradientDrift 15s ease infinite; /* Apply the animation */
     }
 
     .container {
@@ -22,9 +39,20 @@
       margin: auto;
       background: #ffffff;
       box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
-      padding: 30px;
+      padding: 40px 30px 60px;
+      min-height: 700px;
       border-radius: 20px;
       transition: 0.3s ease-in-out;
+      /* Styling */
+    background: rgba(255, 255, 255, 0.15); /* Glass effect */
+    backdrop-filter: blur(10px);
+    min-width: 220px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    padding: 0.2rem 0;
+    
+    /* Animation */
+    transition: opacity 0.3s ease, visibility 0.3s ease;
     }
 
     .image-slider {
@@ -81,7 +109,7 @@
 
     .category {
       font-size: 13px;
-      color: #3b82f6;
+      color: #000000;
       margin-bottom: 5px;
       text-transform: uppercase;
       font-weight: bold;
@@ -90,24 +118,24 @@
     .title {
       font-size: 32px;
       font-weight: bold;
-      color: #1e3a8a;
+      color: #000;
       animation: fadeInUp 0.5s ease-in-out;
     }
 
     .subtitle {
-      color: #64748b;
+      color: #000;
       margin-bottom: 10px;
     }
 
     .stars {
-      color: #38bdf8;
+      color: #ffff00;
       font-size: 20px;
       margin-bottom: 10px;
     }
 
     .price {
       font-size: 26px;
-      color: #2563eb;
+      color: #008000;
       font-weight: bold;
       margin-bottom: 15px;
     }
@@ -121,7 +149,7 @@
     .tab-menu span {
       cursor: pointer;
       font-size: 16px;
-      color: #888;
+      color: #008000;
       transition: all 0.3s ease;
       border-bottom: 2px solid transparent;
     }
@@ -147,7 +175,7 @@
     }
 
     .read-more {
-      color: #0284c7;
+      color: #008000;
       cursor: pointer;
       display: inline-block;
       margin-top: 8px;
@@ -156,7 +184,7 @@
     }
 
     .read-more:hover {
-      color: #0ea5e9;
+      color: #008000;
     }
 
     .options {
@@ -214,7 +242,7 @@
 
     .wishlist-btn,
     .add-cart-btn {
-      padding: 14px;
+      padding: 10px;
       border-radius: 6px;
       text-align: center;
       font-size: 16px;
@@ -279,13 +307,15 @@
           </div>
 
           <div class="tab-content active" id="desc">
-            This chair brings elegance and comfort together with its sleek modern design and soft fabric.
+            **Bold. Wireless. Powerful.**
+Experience rich sound and comfort with these stylish red Sony wireless headphones — perfect for music, calls, and all-day wear.
+
             <span class="read-more" onclick="toggleReadMore(this)">Read more</span>
-            <span class="more-text" style="display:none"> It's perfect for your living room, bedroom, or study space. Crafted with premium materials for durability and long-lasting comfort.</span>
+            <span class="more-text" style="display:none"><br> Enjoy immersive audio with deep bass and crystal-clear clarity.<br>Lightweight design with long battery life for uninterrupted listening.</span>
           </div>
 
           <div class="tab-content" id="details">
-            Material: Velvet | Color: Blue | Weight: 7kg | Warranty: 2 years
+            Material: Premium Plastic & Foam | Color: Red | Weight: 250g | Battery Life: Up to 30 hrs | Warranty: 1 year
           </div>
         </div>
 
