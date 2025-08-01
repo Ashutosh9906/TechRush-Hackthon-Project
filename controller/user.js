@@ -9,7 +9,7 @@ const Otp = require("../models/otp");
 async function handleUserInfo(req, res) {
     //console.log(req.body);
     try {
-        const { firstName, lastName, email, password } = req.body;
+        const { firstName, address, lastName, email, password } = req.body;
 
         const isUser = await User.findOne({ email });
         if (isUser) {
@@ -30,6 +30,7 @@ async function handleUserInfo(req, res) {
         const user = await User.create({
             firstName,
             lastName,
+            address,
             email,
             password: hashPassword,
         })
