@@ -11,6 +11,7 @@
     --color_III: #0033ff;
     --color_IV: #0600ab;
     --color_VII: #00003d;
+    --secsolor_I: #ffa930;
 }
 body{
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
@@ -32,10 +33,62 @@ body{
     height: 0;
     width: 20rem;
     position: absolute;
-    top: 75%;
-    right: 8%;
+    top: 85%;
+    right: 20%;
     box-shadow: 0 0 100px 15px black ;
     z-index: -1;
+}
+/* Main container for the dropdown */
+.dropdown {
+    position: relative;
+    display: inline-block; /* Keeps elements contained */
+}
+
+/* The dropdown menu - hidden by default */
+.dropdown-content {
+    /* Hiding properties */
+    visibility: hidden;
+    opacity: 0;
+    
+    /* Positioning */
+    position: absolute;
+    top: 100%; /* Position it right below the CATEGORIES link */
+    left: 50%;
+    transform: translateX(-50%); /* Center the dropdown */
+    z-index: 1000;
+
+    /* Styling */
+    background: rgba(255, 255, 255, 0.15); /* Glass effect */
+    backdrop-filter: blur(10px);
+    min-width: 220px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    padding: 0.5rem 0;
+    
+    /* Animation */
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+/* Style the links inside the dropdown */
+.dropdown-content a {
+    color: white; /* Or your desired text color */
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block; /* Makes the entire area clickable */
+    text-align: left;
+    transition: background-color 0.2s ease;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: black;
+}
+
+/* ❗ Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+    visibility: visible;
+    opacity: 1;
 }
 .container{
     width: 100%;
@@ -73,9 +126,6 @@ nav a{
     text-decoration: none;
     color: inherit;
 }
-nav a:hover{
-    color: var(--color_VII);
-}
 /* MAIN */
 main{
     display: flex;
@@ -94,7 +144,7 @@ main{
     height: 2.5rem;
     border-radius: 50px;
     /* background: linear-gradient(var(--color_VII), var(--color_IV)); */
-    background: rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.406);
     backdrop-filter: blur(10px);
     border-radius: 30px;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
@@ -152,19 +202,100 @@ main{
     transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 
 }
-/* #headphone-main-visual{
+#headphone-main-visual {
     position: absolute;
-    top: -70%;
-    scale: 0.5;
-    right: -20%;
-} */
- #headphone-main-visual {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    height: 90vh; /* Makes the image 90% of the viewport height */
-    width: auto;  /* Maintains the image's aspect ratio */
-    z-index: 1;   /* Places it behind the text but above the background */
+    scale: 1.08;
+    top: 55%;
+    right: 400px;
+    transform: translateY(-45%);
+    height: 90vh;
+    width: auto;
+    z-index: -1;
+}
+/* --- Product Showcase Section --- */
+.product-showcase {
+    padding: 4rem 0;
+    width: 100%;
+}
+
+.product-showcase h2 {
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 2rem;
+    color: #fff; /* Assuming a dark background */
+}
+
+.product-scroll-container {
+    display: flex;
+    overflow-x: auto; /* This enables horizontal scrolling */
+    gap: 1.5rem;
+    padding: 1rem 5%; /* Adjust padding to match your site's layout */
+    /* Hides the scrollbar but keeps functionality */
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+/* Hides scrollbar for Chrome, Safari and Opera */
+.product-scroll-container::-webkit-scrollbar {
+    display: none;
+}
+
+/* --- Product Card Styling --- */
+.product-card {
+    /* This flex property is key to prevent cards from shrinking */
+    flex: 0 0 280px; 
+    
+    /* Using the same glass effect as the dropdown */
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    padding: 1rem;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+}
+
+.product-image-container img {
+    width: 100%;
+    height: 200px;
+    object-fit: contain; /* Use 'contain' to see the full product */
+    margin-bottom: 1rem;
+    border-radius: 12px 12px 0 0;
+}
+
+.product-name {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin: 0.5rem 0;
+    color: #fff;
+}
+
+.product-price {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #ddd;
+    margin-bottom: 1rem;
+}
+
+.add-to-cart-btn {
+    background-color: #fff;
+    color: #333;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 20px;
+    font-weight: bold;
+    cursor: pointer;
+    width: 80%;
+    transition: background-color 0.3s ease;
+}
+
+.add-to-cart-btn:hover {
+    background-color: #ccc;
 }
 
 

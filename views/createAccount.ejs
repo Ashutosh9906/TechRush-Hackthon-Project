@@ -5,35 +5,76 @@
     <%- include('./partials/head') %>
         <title>Create Account</title>
         <style>
-            body {
-                background-color: #f8f9fa;
+            :root {
+                --color_I: #f2e6ee;
+                --color_II: #977dff;
+                --color_V: #977dff;
+                --color_VI: #ffccf2;
+                --color_III: #0033ff;
+                --color_IV: #0600ab;
+                --color_VII: #00003d;
             }
 
+            body {
+                background: linear-gradient(120deg, var(--color_III), var(--color_VI));
+                color: black;
+                font-family: 'Segoe UI', sans-serif;
+                min-height: 100vh;
+            }
 
             .form-container {
                 max-width: 800px;
                 margin: auto;
-                background: #fff;
+                background: linear-gradient(120deg, var(--color_VI), var(--color_III));
+                backdrop-filter: blur(15px);
                 padding: 2.5rem 2rem;
                 border-radius: 1rem;
-                box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+                border: 1px solid rgba(255, 255, 255, 0.2);
             }
 
             .form-label {
-                font-weight: 500;
+                font-weight: 600;
+                color: var(--color_VII);
             }
 
             .form-control,
             textarea {
                 border-radius: 0.5rem;
+                background: rgba(255, 255, 255, 0.8);
+                border: none;
             }
 
             .btn {
-                font-weight: 500;
+                font-weight: 600;
+                transition: all 0.3s ease;
             }
 
             .btn-success {
+                background-color: var(--color_II);
+                border: none;
                 width: 100%;
+                color: white;
+            }
+
+            .btn-success:hover {
+                background-color: var(--color_VII);
+            }
+
+            .btn-primary {
+                background-color: var(--color_III);
+                border: none;
+                color: white;
+            }
+
+            .btn-primary:hover {
+                background-color: var(--color_IV);
+            }
+
+            h2 {
+                color: var(--color_VII);
+                font-weight: bold;
+                text-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
             }
 
             .fade-in {
@@ -64,16 +105,13 @@
                 }
             }
 
-            h2 {
-                color: #001f3f;
-                font-weight: bold;
-            }
-
-            label {
-                color: #001f3f;
+            #emailHelp,
+            #otpError,
+            #otpSuccess {
                 font-weight: 500;
             }
         </style>
+
 </head>
 
 <body>
@@ -92,6 +130,12 @@
                         <label for="lastName" class="form-label">Last Name</label>
                         <input type="text" class="form-control" id="lastName" name="lastName" required>
                     </div>
+                </div>
+
+                 <!-- Address -->
+                <div class="mb-3">
+                    <label for="address" class="form-label">Address</label>
+                    <textarea class="form-control" id="address" name="address" rows="3" required></textarea>
                 </div>
 
                 <!-- Email with Verify Button -->
@@ -371,6 +415,7 @@
                     const data = {
                         firstName: document.getElementById("firstName").value,
                         lastName: document.getElementById("lastName").value,
+                        address: document.getElementById("address").value,
                         email: document.getElementById("email").value,
                         password: document.getElementById("password").value,
                     };
