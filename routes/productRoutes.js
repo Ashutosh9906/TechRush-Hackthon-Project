@@ -8,7 +8,8 @@ const { handleItemAll,
         handleRemoveitem, 
         handleProductStock, 
         handleProductDetail 
-    } = require("../controller/product")
+    } = require("../controller/product");
+const { verifyToken } = require("../middlewares/validateEmail");
 
 const router = Router();
 
@@ -16,8 +17,8 @@ const router = Router();
 router.get("/all", handleItemAll)
 router.get("/", handleItemCatgories)
 router.get("/:id", handleProductDetail)
-router.post("/", handleAddProduct)
-router.patch("/", handleProductStock)
-router.delete("/", handleRemoveitem)
+router.post("/", verifyToken, handleAddProduct)
+router.patch("/", verifyToken, handleProductStock)
+router.delete("/", verifyToken, handleRemoveitem)
 
 module.exports = router;
