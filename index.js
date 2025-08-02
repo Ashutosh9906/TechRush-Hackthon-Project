@@ -10,7 +10,8 @@ config();
 //custom modules
 const productRoute = require("./routes/productRoutes")
 const staticRoute = require("./routes/staticRoute")
-const cartRoute = require("./routes/cartRoutes") 
+const cartRoute = require("./routes/cartRoutes")
+const reviewRoute = require("./routes/reviewRoutes")
 const { verifyToken } = require("./middlewares/validateEmail")
 
 
@@ -35,6 +36,7 @@ app.use(cookieParser());
 //defining the base route
 app.use("/user", staticRoute)
 app.use("/product", productRoute)
+app.use("/review", reviewRoute)
 app.use("/cart", verifyToken, cartRoute)
 
 //starting the server on PORT 7000

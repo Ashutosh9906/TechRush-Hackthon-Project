@@ -56,7 +56,7 @@ async function handleQuantityCount(req, res) {
 async function handleDeleteItem(req, res) {
     try {
         const { cartId } = req.body;
-        userId = req.user.id;
+        const userId = req.user.id;
         const cartItem = await Cart.findById(cartId);
         console.log("Cart Item : ", cartItem);
         if (!cartItem) {
