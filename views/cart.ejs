@@ -11,13 +11,31 @@
       margin: 0;
       padding: 0;
     }
+    :root{
+    --color_I: #f2e6ee;
+    --color_II: #977dff;
+    --color_V: #977dff;
+    --color_VI: #ffccf2;
+    --color_III: #0033ff;
+    --color_IV: #0600ab;
+    --color_VII: #00003d;
+    --secsolor_I: #ffa930;
+    }
 
     body {
-      background: linear-gradient(to right, #dbeafe, #e0f2fe);
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    background: linear-gradient(120deg,var(--color_II),var(--color_IV));
+    color: black;
+    min-height: 100vh;
+    line-height: 1.5;
+    background: linear-gradient(120deg, var(--color_III), var(--color_VI), var(--color_VI));
+    background-size: 200% 200%; /* Make the background larger than the viewport */
+    animation: gradientDrift 15s ease infinite; /* Apply the animation */
       padding: 40px 20px;
       display: flex;
       justify-content: center;
     }
+    
 
     .main {
       display: flex;
@@ -29,7 +47,8 @@
 
     .cart-container {
       flex: 2;
-      background-color: #fff;
+      background: linear-gradient(to right, #ede9fe, #ddd6fe);
+
       border-radius: 20px;
       padding: 30px;
       box-shadow: 0 0 20px rgba(30, 58, 138, 0.1);
@@ -39,7 +58,9 @@
       flex: 1;
       position: sticky;
       top: 40px;
-      background-color: #f8fafc;
+      background: linear-gradient(to right, #ede9fe, #ddd6fe);
+
+
       border-radius: 20px;
       padding: 30px;
       box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
@@ -191,10 +212,10 @@
       <h1>Your Shopping Cart</h1>
 
       <div class="cart-item" data-price="4149">
-        <img src="https://m.media-amazon.com/images/I/61D4Z3yKPAL._AC_UF1000,1000_QL80_.jpg" />
+        <img src="../public/cartimg_1.png" alt="Headphone" />
         <div class="item-details">
-          <div class="item-title">Blue Headphones</div>
-          <div class="item-description">High-quality over-ear headphones with deep bass and noise cancellation.</div>
+          <div class="item-title">Apple AirPods Pro</div>
+          <div class="item-description">Premium wireless earbuds with active noise cancellation and spatial audio.</div>
           <div class="quantity-control">
             <button onclick="updateQty(this, -1)">−</button>
             <span class="qty">1</span>
@@ -207,10 +228,10 @@
       </div>
 
       <div class="cart-item" data-price="2157">
-        <img src="https://m.media-amazon.com/images/I/61LtuGzXeaL._AC_UF1000,1000_QL80_.jpg" />
+        <img src="../public/cartimg_2.png" alt="Headphone" />
         <div class="item-details">
-          <div class="item-title">Wireless Mouse</div>
-          <div class="item-description">Ergonomic wireless mouse with long battery life and smooth tracking.</div>
+          <div class="item-title">Zebronics Wired Earphones</div>
+          <div class="item-description">Lightweight in-ear wired earphones with tangle-free cable and stereo sound.</div>
           <div class="quantity-control">
             <button onclick="updateQty(this, -1)">−</button>
             <span class="qty">1</span>
@@ -223,10 +244,10 @@
       </div>
 
       <div class="cart-item" data-price="7462">
-        <img src="https://m.media-amazon.com/images/I/71v3N6di+jL._AC_UF1000,1000_QL80_.jpg" />
+        <img src="../public/cartimg_3.png" alt="Headphone" />
         <div class="item-details">
-          <div class="item-title">Smartwatch</div>
-          <div class="item-description">Feature-rich smartwatch with health tracking and AMOLED display.</div>
+          <div class="item-title">Noise Wireless Headphones</div>
+          <div class="item-description">Over-ear Bluetooth headphones with deep bass and long battery life.</div>
           <div class="quantity-control">
             <button onclick="updateQty(this, -1)">−</button>
             <span class="qty">1</span>
@@ -239,10 +260,10 @@
       </div>
 
       <div class="cart-item" data-price="2905">
-        <img src="https://m.media-amazon.com/images/I/81K+7Gx4CWL._AC_UF894,1000_QL80_.jpg" />
+        <img src="../public/cartimg_4.png" alt="Headphone" />
         <div class="item-details">
-          <div class="item-title">Mechanical Keyboard</div>
-          <div class="item-description">Tactile mechanical keyboard with RGB lighting and ergonomic design.</div>
+          <div class="item-title">Mechanical KeyboardBoat Rockerz 255 Neckband</div>
+          <div class="item-description">Wireless Bluetooth neckband with deep bass and fast charging.</div>
           <div class="quantity-control">
             <button onclick="updateQty(this, -1)">−</button>
             <span class="qty">1</span>
@@ -255,10 +276,10 @@
       </div>
 
       <div class="cart-item" data-price="1619">
-        <img src="https://m.media-amazon.com/images/I/61Zp5n0MQuL._AC_UF894,1000_QL80_.jpg" />
+        <img src="../public/cartimg_5.png" alt="Headphone" />
         <div class="item-details">
-          <div class="item-title">Fast Charger</div>
-          <div class="item-description">Compact fast charger with dual ports and intelligent charging support.</div>
+          <div class="item-title">JBL Bluetooth Speaker</div>
+          <div class="item-description">Portable wireless speaker with deep bass and waterproof design.</div>
           <div class="quantity-control">
             <button onclick="updateQty(this, -1)">−</button>
             <span class="qty">1</span>
@@ -271,10 +292,10 @@
       </div>
 
       <div class="cart-item" data-price="4972">
-        <img src="https://m.media-amazon.com/images/I/71Q9d6N7xkL._AC_UF1000,1000_QL80_.jpg" />
+        <img src="../public/cartimg_6.png" alt="Headphone" />
         <div class="item-details">
-          <div class="item-title">Bluetooth Speakers</div>
-          <div class="item-description">Portable Bluetooth speakers with rich sound and waterproof design.</div>
+          <div class="item-title">Sony WH-CH520 Wireless Headphones</div>
+          <div class="item-description">Lightweight wireless headphones with 50-hour battery life and clear sound.</div>
           <div class="quantity-control">
             <button onclick="updateQty(this, -1)">−</button>
             <span class="qty">1</span>
