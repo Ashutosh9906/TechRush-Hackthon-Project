@@ -35,7 +35,7 @@ app.use(cookieParser());
 //defining the base route
 app.use("/user", staticRoute)
 app.use("/product", manageStock)
-app.use("/cart", cartRoute)
+app.use("/cart", verifyToken, cartRoute)
 
 //starting the server on PORT 7000
 app.listen(PORT, () => console.log("Server started at PORT:7000"));
