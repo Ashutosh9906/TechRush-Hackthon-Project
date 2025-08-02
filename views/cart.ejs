@@ -84,10 +84,17 @@
       color: #1e293b;
     }
 
+    .item-description {
+      font-size: 14px;
+      color: #64748b;
+      margin-bottom: 6px;
+    }
+
     .quantity-control {
       display: flex;
       align-items: center;
       gap: 10px;
+      flex-wrap: wrap;
     }
 
     .quantity-control button {
@@ -110,6 +117,26 @@
       font-size: 18px;
       font-weight: 600;
       color: #0f172a;
+    }
+
+    .remove-btn {
+      background-color: #ef4444;
+      color: white;
+      border: none;
+      padding: 6px 10px;
+      border-radius: 6px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .buy-now-btn {
+      background-color: #10b981;
+      color: white;
+      border: none;
+      padding: 6px 10px;
+      border-radius: 6px;
+      font-size: 14px;
+      cursor: pointer;
     }
 
     .summary-box h2 {
@@ -160,54 +187,109 @@
 </head>
 <body>
   <div class="main">
-    <!-- LEFT CART SECTION -->
     <div class="cart-container">
       <h1>Your Shopping Cart</h1>
 
-      <div class="cart-item" data-price="49.99">
-        <img src="https://via.placeholder.com/80/3b82f6/ffffff?text=Headphones" />
+      <div class="cart-item" data-price="4149">
+        <img src="https://m.media-amazon.com/images/I/61D4Z3yKPAL._AC_UF1000,1000_QL80_.jpg" />
         <div class="item-details">
           <div class="item-title">Blue Headphones</div>
+          <div class="item-description">High-quality over-ear headphones with deep bass and noise cancellation.</div>
           <div class="quantity-control">
             <button onclick="updateQty(this, -1)">−</button>
             <span class="qty">1</span>
             <button onclick="updateQty(this, 1)">+</button>
+            <button class="remove-btn" onclick="removeItem(this)">Remove</button>
+            <button class="buy-now-btn" onclick="buyNow(this)">Buy Now</button>
           </div>
         </div>
-        <div class="total-price">$<span class="item-total">49.99</span></div>
+        <div class="total-price">₹<span class="item-total">4149.00</span></div>
       </div>
 
-      <div class="cart-item" data-price="25.99">
-        <img src="https://via.placeholder.com/80/1e3a8a/ffffff?text=Mouse" />
+      <div class="cart-item" data-price="2157">
+        <img src="https://m.media-amazon.com/images/I/61LtuGzXeaL._AC_UF1000,1000_QL80_.jpg" />
         <div class="item-details">
           <div class="item-title">Wireless Mouse</div>
+          <div class="item-description">Ergonomic wireless mouse with long battery life and smooth tracking.</div>
           <div class="quantity-control">
             <button onclick="updateQty(this, -1)">−</button>
             <span class="qty">1</span>
             <button onclick="updateQty(this, 1)">+</button>
+            <button class="remove-btn" onclick="removeItem(this)">Remove</button>
+            <button class="buy-now-btn" onclick="buyNow(this)">Buy Now</button>
           </div>
         </div>
-        <div class="total-price">$<span class="item-total">25.99</span></div>
+        <div class="total-price">₹<span class="item-total">2157.00</span></div>
       </div>
 
-      <div class="cart-item" data-price="89.90">
-        <img src="https://via.placeholder.com/80/0c4a6e/ffffff?text=Watch" />
+      <div class="cart-item" data-price="7462">
+        <img src="https://m.media-amazon.com/images/I/71v3N6di+jL._AC_UF1000,1000_QL80_.jpg" />
         <div class="item-details">
           <div class="item-title">Smartwatch</div>
+          <div class="item-description">Feature-rich smartwatch with health tracking and AMOLED display.</div>
           <div class="quantity-control">
             <button onclick="updateQty(this, -1)">−</button>
             <span class="qty">1</span>
             <button onclick="updateQty(this, 1)">+</button>
+            <button class="remove-btn" onclick="removeItem(this)">Remove</button>
+            <button class="buy-now-btn" onclick="buyNow(this)">Buy Now</button>
           </div>
         </div>
-        <div class="total-price">$<span class="item-total">89.90</span></div>
+        <div class="total-price">₹<span class="item-total">7462.00</span></div>
+      </div>
+
+      <div class="cart-item" data-price="2905">
+        <img src="https://m.media-amazon.com/images/I/81K+7Gx4CWL._AC_UF894,1000_QL80_.jpg" />
+        <div class="item-details">
+          <div class="item-title">Mechanical Keyboard</div>
+          <div class="item-description">Tactile mechanical keyboard with RGB lighting and ergonomic design.</div>
+          <div class="quantity-control">
+            <button onclick="updateQty(this, -1)">−</button>
+            <span class="qty">1</span>
+            <button onclick="updateQty(this, 1)">+</button>
+            <button class="remove-btn" onclick="removeItem(this)">Remove</button>
+            <button class="buy-now-btn" onclick="buyNow(this)">Buy Now</button>
+          </div>
+        </div>
+        <div class="total-price">₹<span class="item-total">2905.00</span></div>
+      </div>
+
+      <div class="cart-item" data-price="1619">
+        <img src="https://m.media-amazon.com/images/I/61Zp5n0MQuL._AC_UF894,1000_QL80_.jpg" />
+        <div class="item-details">
+          <div class="item-title">Fast Charger</div>
+          <div class="item-description">Compact fast charger with dual ports and intelligent charging support.</div>
+          <div class="quantity-control">
+            <button onclick="updateQty(this, -1)">−</button>
+            <span class="qty">1</span>
+            <button onclick="updateQty(this, 1)">+</button>
+            <button class="remove-btn" onclick="removeItem(this)">Remove</button>
+            <button class="buy-now-btn" onclick="buyNow(this)">Buy Now</button>
+          </div>
+        </div>
+        <div class="total-price">₹<span class="item-total">1619.00</span></div>
+      </div>
+
+      <div class="cart-item" data-price="4972">
+        <img src="https://m.media-amazon.com/images/I/71Q9d6N7xkL._AC_UF1000,1000_QL80_.jpg" />
+        <div class="item-details">
+          <div class="item-title">Bluetooth Speakers</div>
+          <div class="item-description">Portable Bluetooth speakers with rich sound and waterproof design.</div>
+          <div class="quantity-control">
+            <button onclick="updateQty(this, -1)">−</button>
+            <span class="qty">1</span>
+            <button onclick="updateQty(this, 1)">+</button>
+            <button class="remove-btn" onclick="removeItem(this)">Remove</button>
+            <button class="buy-now-btn" onclick="buyNow(this)">Buy Now</button>
+          </div>
+        </div>
+        <div class="total-price">₹<span class="item-total">4972.00</span></div>
       </div>
     </div>
 
-    <!-- RIGHT SUMMARY BOX -->
     <div class="summary-box">
       <h2>Order Summary</h2>
-      <div class="total">Total: $<span id="cart-total">165.88</span></div>
+      <div class="total">Total: ₹<span id="cart-total">0.00</span></div>
       <button class="checkout-btn">Proceed to Checkout</button>
       <button class="buy-all-btn" onclick="buyAllItems()">Buy All Items</button>
     </div>
@@ -239,11 +321,27 @@
       document.getElementById("cart-total").textContent = total.toFixed(2);
     }
 
-    function buyAllItems() {
-      alert("All items have been purchased successfully!");
+    function removeItem(button) {
+      const item = button.closest(".cart-item");
+      item.remove();
+      updateCartTotal();
     }
 
-    // Initialize total on page load
+    function buyNow(button) {
+      const item = button.closest(".cart-item");
+      const title = item.querySelector(".item-title").textContent;
+      const qty = parseInt(item.querySelector(".qty").textContent);
+      const total = item.querySelector(".item-total").textContent;
+      alert(`Purchased ${qty} x ${title} for ₹${total}`);
+
+      document.getElementById("cart-total").textContent = parseFloat(total).toFixed(2);
+    }
+
+    function buyAllItems() {
+      alert("All items have been purchased successfully!");
+      updateCartTotal();
+    }
+
     updateCartTotal();
   </script>
 </body>
