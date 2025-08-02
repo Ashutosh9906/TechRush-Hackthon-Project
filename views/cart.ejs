@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Shopping Cart</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: linear-gradient(to right, #dbeafe, #e0f2fe);
+      padding: 40px 20px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .main {
+      display: flex;
+      flex-direction: row;
+      gap: 30px;
+      max-width: 1200px;
+      width: 100%;
+    }
+
+    .cart-container {
+      flex: 2;
+      background-color: #fff;
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 0 20px rgba(30, 58, 138, 0.1);
+    }
+
+    .summary-box {
+      flex: 1;
+      position: sticky;
+      top: 40px;
+      background-color: #f8fafc;
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
+      height: fit-content;
+    }
+
+    h1 {
+      font-size: 32px;
+      font-weight: 600;
+      color: #1e3a8a;
+      margin-bottom: 25px;
+      text-align: center;
+    }
+
+    .cart-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #e2e8f0;
+      padding: 16px 0;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .cart-item img {
+      width: 80px;
+      height: 80px;
+      border-radius: 12px;
+      object-fit: cover;
+      margin-right: 10px;
+      flex-shrink: 0;
+    }
+
+    .item-details {
+      flex: 1;
+    }
+
+    .item-title {
+      font-size: 18px;
+      font-weight: 500;
+      margin-bottom: 8px;
+      color: #1e293b;
+    }
+
+    .quantity-control {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .quantity-control button {
+      background-color: #3b82f6;
+      color: white;
+      border: none;
+      padding: 6px 10px;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .quantity-control span {
+      font-size: 16px;
+      min-width: 20px;
+      text-align: center;
+    }
+
+    .total-price {
+      font-size: 18px;
+      font-weight: 600;
+      color: #0f172a;
+    }
+
+    .summary-box h2 {
+      font-size: 24px;
+      margin-bottom: 20px;
+      color: #1e3a8a;
+    }
+
+    .summary-box .total {
+      font-size: 20px;
+      margin-bottom: 20px;
+    }
+
+    .checkout-btn {
+      background-color: #3b82f6;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    .buy-all-btn {
+      margin-top: 10px;
+      background-color: #1e3a8a;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    @media (max-width: 900px) {
+      .main {
+        flex-direction: column;
+      }
+
+      .summary-box {
+        position: static;
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="main">
+    <!-- LEFT CART SECTION -->
+    <div class="cart-container">
+      <h1>Your Shopping Cart</h1>
+
+      <div class="cart-item" data-price="49.99">
+        <img src="https://via.placeholder.com/80/3b82f6/ffffff?text=Headphones" />
+        <div class="item-details">
+          <div class="item-title">Blue Headphones</div>
+          <div class="quantity-control">
+            <button onclick="updateQty(this, -1)">−</button>
+            <span class="qty">1</span>
+            <button onclick="updateQty(this, 1)">+</button>
+          </div>
+        </div>
+        <div class="total-price">$<span class="item-total">49.99</span></div>
+      </div>
+
+      <div class="cart-item" data-price="25.99">
+        <img src="https://via.placeholder.com/80/1e3a8a/ffffff?text=Mouse" />
+        <div class="item-details">
+          <div class="item-title">Wireless Mouse</div>
+          <div class="quantity-control">
+            <button onclick="updateQty(this, -1)">−</button>
+            <span class="qty">1</span>
+            <button onclick="updateQty(this, 1)">+</button>
+          </div>
+        </div>
+        <div class="total-price">$<span class="item-total">25.99</span></div>
+      </div>
+
+      <div class="cart-item" data-price="89.90">
+        <img src="https://via.placeholder.com/80/0c4a6e/ffffff?text=Watch" />
+        <div class="item-details">
+          <div class="item-title">Smartwatch</div>
+          <div class="quantity-control">
+            <button onclick="updateQty(this, -1)">−</button>
+            <span class="qty">1</span>
+            <button onclick="updateQty(this, 1)">+</button>
+          </div>
+        </div>
+        <div class="total-price">$<span class="item-total">89.90</span></div>
+      </div>
+    </div>
+
+    <!-- RIGHT SUMMARY BOX -->
+    <div class="summary-box">
+      <h2>Order Summary</h2>
+      <div class="total">Total: $<span id="cart-total">165.88</span></div>
+      <button class="checkout-btn">Proceed to Checkout</button>
+      <button class="buy-all-btn" onclick="buyAllItems()">Buy All Items</button>
+    </div>
+  </div>
+
+  <script>
+    function updateQty(button, change) {
+      const qtySpan = button.parentElement.querySelector(".qty");
+      let qty = parseInt(qtySpan.textContent);
+      qty = Math.max(1, qty + change);
+      qtySpan.textContent = qty;
+
+      const item = button.closest(".cart-item");
+      const price = parseFloat(item.getAttribute("data-price"));
+      const itemTotal = item.querySelector(".item-total");
+      itemTotal.textContent = (qty * price).toFixed(2);
+
+      updateCartTotal();
+    }
+
+    function updateCartTotal() {
+      const items = document.querySelectorAll(".cart-item");
+      let total = 0;
+      items.forEach(item => {
+        const qty = parseInt(item.querySelector(".qty").textContent);
+        const price = parseFloat(item.getAttribute("data-price"));
+        total += qty * price;
+      });
+      document.getElementById("cart-total").textContent = total.toFixed(2);
+    }
+
+    function buyAllItems() {
+      alert("All items have been purchased successfully!");
+    }
+
+    // Initialize total on page load
+    updateCartTotal();
+  </script>
+</body>
+</html>
