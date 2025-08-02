@@ -1,10 +1,12 @@
 const { Router, application } = require("express");
-const { handleAddToCart, handleQuantityCount } = require("../controller/cart");
+const { handleAddToCart, handleQuantityCount, handleItemsOfCart, handleDeleteItem } = require("../controller/cart");
 const { verifyToken } = require("../middlewares/validateEmail");
 
 const router = Router();
 
-router.post("/", verifyToken, handleAddToCart);
+router.get("/", handleItemsOfCart)
+router.post("/", handleAddToCart);
 router.patch("/", handleQuantityCount)
+router.delete("/", handleDeleteItem)
 
 module.exports = router;

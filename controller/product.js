@@ -1,23 +1,98 @@
 const Product = require("../models/product")
-async function handleProductInfo(req, res) {
+
+async function handleItemAll(req, res) {
     try {
-        const { productName, discription, price, stock } = req.body;
-        const product = await Product.create({
-            productName,
-            discription,
-            price,
-            stock,
-        })
-        return res.status(200).json({ msg: "stock added successfully" })
+        const products = await Product.find();
+        return res.status(200).json(products);
     }
-
-
     catch (error) {
         console.log("Error : ", error);
-        return res.status(401).json({ success: false });
+        return res.status(401).json({ msg: "Internal Server Error" });
+    }
+}
+async function handleAddProduct(req, res) {
+    try {
+        const { productName, description, category, price, stock, image } = req.body;
+        const isProduct = await Product.findOne({ productName });
+        if (isProduct) {
+            return res.status(400).json({ msg: "The product already exist in Stock" })
+        }
+        await Product.create({
+            productName,
+            description,
+            category,
+            price,
+            stock,
+            image
+        })
+        return res.status(200).json({ msg: "Product Added Successfully" });
+    } catch (error) {
+        console.log("Error : ", error);
+        return res.status(401).json({ msg: "Internal Server Error" });
+    }
+}
+async function handleItemCatgories(req, res) {
+    try {
+        const category = req.query.category;
+        const categoryItems = await Product.find({ category });
+        if (!categoryItems) {
+            return res.status(200).json({ msg: "No Such Catogory" })
+        }
+        return res.status(200).json(categoryItems);
+    } catch (error) {
+        console.log("Error : ", error);
+        return res.status(401).json({ msg: "Internal Server Error" });
+    }
+}
+async function handleProductStock(req, res){
+    try {
+        const { productId, newStock } = req.body;
+        const product = await Product.findById(productId);
+        // console.log(product);
+        if (!product) {
+            return res.status(400).json({ msg: "No Such Product" })
+        }
+        const items = await Product.findOneAndUpdate({ _id : productId }, { stock: newStock }, { new: true })
+        res.status(200).json(items);
+    } catch (error) {
+        console.log(error);
+        res.status(400).json({ msg: "Internal Server Error" })
+    }
+}
+async function handleRemoveitem(req, res) {
+    try {
+        const { productId } = req.body;
+        const item = await Product.findById(productId);
+        // console.log(item);
+        if (!item) {
+            return res.status(400).json({ mas: "No Such Product" })
+        }
+        await Product.deleteOne({_id : productId});
+        return res.status(200).json({ msg: "Item deleted Successfully" })
+    } catch (error) {
+        console.log("Error : ", error);
+        return res.status(401).json({ msg: "Internal Server Error" });
+    }
+}
+async function handleProductDetail(req, res){
+    try {
+        const productId = req.params.id;
+        const product = await Product.findById(productId);
+        if(!product){
+            return res.status(400).json({ msg: "No Such Product" })
+        }
+        return res.status(200).json(product)
+    } catch (error) {
+        console.log("Error : ", error);
+        return res.status(401).json({ msg: "Internal Server Error" });
     }
 }
 
 module.exports = {
-    handleProductInfo
+    handleItemAll,
+    handleAddProduct,
+    handleItemCatgories,
+    handleProductStock,
+    handleRemoveitem,
+    handleProductDetail
 }
