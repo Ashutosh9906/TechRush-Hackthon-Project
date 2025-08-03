@@ -113,25 +113,40 @@ async function sendOtp(OTP, recipientEmail) {
 //     }
 // }
 
-async function sendOrderdetail(order, user, product) {
-    try {
-        const mailOptions = {
-            from: process.env.USER_EMAIL,
-            to: user.email,
-            subject: 'Order Details',
-            html: `
-            <!DOCTYPE html>
+async function sendOrderdetail(populatedOrder) {
+  try {
+    const productDetailsHTML = populatedOrder.products.map(item => {
+      return `
+        <div style="
+          padding: 1rem;
+          border: 1px solid #d0e6ff;
+          border-radius: 8px;
+          background-color: #f0f8ff;
+          margin-bottom: 1rem;
+        ">
+          <p><strong>Product Name:</strong> ${item.productId.productName}</p>
+          <p><strong>Quantity:</strong> ${item.quantity}</p>
+          <p><strong>Price:</strong> ₹${item.productId.price}</p>
+        </div>
+      `;
+    }).join('');
+
+    const mailOptions = {
+      from: process.env.USER_EMAIL,
+      to: populatedOrder.userId.email,
+      subject: 'Order Details',
+      html: `
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Burst - Order Confirmation</title>
   <style>
     body {
-      margin: 0;
-      padding: 0;
       font-family: 'Segoe UI', sans-serif;
       background-color: #f4f8fc;
+      margin: 0;
+      padding: 0;
     }
     .email-container {
       max-width: 600px;
@@ -147,32 +162,14 @@ async function sendOrderdetail(order, user, product) {
       text-align: center;
       padding: 1.5rem;
     }
-    .header h1 {
-      margin: 0;
-      font-size: 1.8rem;
-      letter-spacing: 1px;
-    }
     .content {
-      padding: 1.5rem;
+      padding: 2rem;
       color: #333;
-    }
-    .content h2 {
-      color: #007BFF;
-      margin-top: 0;
-    }
-    .order-details {
-      margin-top: 1rem;
-      background-color: #f0f8ff;
-      padding: 1rem;
-      border-radius: 8px;
-    }
-    .order-details p {
-      margin: 0.5rem 0;
     }
     .footer {
       text-align: center;
-      font-size: 0.9rem;
       padding: 1rem;
+      font-size: 0.9rem;
       background-color: #f4f8fc;
       color: #888;
     }
@@ -184,16 +181,12 @@ async function sendOrderdetail(order, user, product) {
       <h1>Burst - Your Order Summary</h1>
     </div>
     <div class="content">
-      <h2>Hello, ${user.firstName}!</h2>
-      <p>Thank you for shopping with <strong>Burst</strong>. Here are the details of your recent purchase:</p>
-      <p><strong>Shipping Address:</strong><br>
-        ${order.shippingAddress}</p><br>
+      <h2>Hello, ${populatedOrder.userId.firstName}!</h2>
+      <p><strong>Shipping Address:</strong><br>${populatedOrder.shippingAddress}</p>
       
-      <div class="order-details">
-        <p><strong>Product Name:</strong> ${product.productName}</p>
-        <p><strong>Quantity:</strong> ${order.products[0].quantity}</p>
-        <p><strong>Price:</strong> ₹${order.totalAmount}</p>
-      </div>
+      ${productDetailsHTML}
+
+      <p><strong>Grand Total:</strong> ₹${populatedOrder.totalAmount}</p>
 
       <p>If you have any questions, feel free to reach out to our support team.</p>
     </div>
@@ -202,14 +195,17 @@ async function sendOrderdetail(order, user, product) {
     </div>
   </div>
 </body>
-</html>        `
-        }
-        const info = await transporter.sendMail(mailOptions);
-        console.log('✅ Email Sent:', info.response);
-    } catch (error) {
-        console.error('❌ Email Send Error:', error);
-    }
+</html>
+      `
+    };
+
+    const info = await transporter.sendMail(mailOptions);
+    console.log('✅ Email Sent:', info.response);
+  } catch (error) {
+    console.error('❌ Email Send Error:', error);
+  }
 }
+
 
 module.exports = {
     sendOtp,
