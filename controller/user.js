@@ -35,7 +35,7 @@ async function handleUserInfo(req, res) {
             password: hashPassword,
         })
 
-        const token = createTokenForUser(user._id, "USER");
+        const token = createTokenForUser(user._id, user.role);
         res.cookie("token", token, {
             httpOnly: true,
             secure: false,
@@ -67,7 +67,7 @@ async function handleVerifyPassword(req, res) {
         return res.status(400).json({ err: "Error" })
     }
 
-    const token = createTokenForUser(user._id, "USER");
+    const token = createTokenForUser(user._id, user.role);
     res.cookie("token", token, {
         httpOnly: true,
         secure: false,
