@@ -1,6 +1,6 @@
 const User = require("../models/user")
 const crpto = require("crypto");
-const { sendOtp } = require("../utilities/otpUtilty");
+const { sendOtp } = require("../utilities/mailUtility");
 const { hash, compare } = require("bcryptjs");
 const { createTokenForUser } = require("../utilities/authentication")
 
