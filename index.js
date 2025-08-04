@@ -35,6 +35,9 @@ app.use(express.urlencoded({ extended:false }))
 app.use(cookieParser());
 
 //defining the base route
+app.get("/home", (req, res) => {
+    return res.render("homepage")
+})
 app.use("/buyNow", buyRoute)
 app.use("/user", staticRoute)
 app.use("/product", productRoute)
