@@ -6,7 +6,14 @@ async function handleItemsOfCart(req, res) {
     try {
         userId = req.user.id;
         const items = await Cart.find({ userId })
-        return res.status(200).json(items);
+        // return res.status(200).json(items);
+        const populateItems = await Cart.find({ userId }).populate({
+            path: "productId",
+            select: "productName description category price stock"
+        });
+        return res.render("cart", {
+            populateItems
+        })
     } catch (error) {
         console.log(error);
         return res.status(400).json({ msg: "Internal server error" })
