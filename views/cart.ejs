@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Shopping Cart</title>
   <style>
     * {
@@ -11,71 +12,76 @@
       margin: 0;
       padding: 0;
     }
-    :root{
-    --color_I: #f2e6ee;
-    --color_II: #977dff;
-    --color_V: #977dff;
-    --color_VI: #ffccf2;
-    --color_III: #0033ff;
-    --color_IV: #0600ab;
-    --color_VII: #00003d;
-    --secsolor_I: #ffa930;
+
+    :root {
+      --color_I: #f2e6ee;
+      --color_II: #977dff;
+      --color_V: #977dff;
+      --color_VI: #ffccf2;
+      --color_III: #0033ff;
+      --color_IV: #0600ab;
+      --color_VII: #00003d;
+      --secsolor_I: #ffa930;
     }
 
     body {
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    background: linear-gradient(120deg,var(--color_II),var(--color_IV));
-    color: black;
-    min-height: 100vh;
-    line-height: 1.5;
-    background: linear-gradient(120deg, var(--color_III), var(--color_VI), var(--color_VI));
-    background-size: 200% 200%; /* Make the background larger than the viewport */
-    animation: gradientDrift 15s ease infinite; /* Apply the animation */
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      background: linear-gradient(120deg, var(--color_II), var(--color_IV));
+      color: black;
+      min-height: 100vh;
+      line-height: 1.5;
+      background: linear-gradient(120deg, var(--color_III), var(--color_VI), var(--color_VI));
+      background-size: 200% 200%;
+      /* Make the background larger than the viewport */
+      animation: gradientDrift 15s ease infinite;
+      /* Apply the animation */
       padding: 40px 20px;
       display: flex;
       justify-content: center;
     }
+
     .navbar {
-  position: fixed;
-  top: 0;
-  width: 100%;
-   background: linear-gradient(90deg, var(--color_VI), var(--color_IV), var(--color_III));
-  color: white;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 14px 30px;
-  z-index: 999;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: linear-gradient(90deg, var(--color_VI), var(--color_IV), var(--color_III));
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 30px;
+      z-index: 999;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
 
-.navbar .logo {
-  font-size: 24px;
-  font-weight: bold;
-}
+    .navbar .logo {
+      font-size: 24px;
+      font-weight: bold;
+    }
 
-.nav-links {
-  list-style: none;
-  display: flex;
-  gap: 20px;
-}
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+    }
 
-.nav-links li a {
-  color: white;
-  text-decoration: none;
-  font-size: 16px;
-  transition: color 0.2s;
-}
+    .nav-links li a {
+      color: white;
+      text-decoration: none;
+      font-size: 16px;
+      transition: color 0.2s;
+    }
 
-.nav-links li a:hover {
-  color: var(--color_VI);
-}
+    .nav-links li a:hover {
+      color: var(--color_VI);
+    }
 
-body {
-  padding-top: 80px; /* Add spacing to prevent overlap with navbar */
-}
+    body {
+      padding-top: 80px;
+      /* Add spacing to prevent overlap with navbar */
+    }
 
-    
+
 
     .main {
       display: flex;
@@ -247,117 +253,122 @@ body {
     }
   </style>
 </head>
+
 <body>
   <nav class="navbar">
-  <div class="logo">ShopEase</div>
-  <ul class="nav-links">
-    <li><a href="#">Home</a></li>
-    <li><a href="#">Cart</a></li>
-    <li><a href="#">Orders</a></li>
-    <li><a href="#">Profile</a></li>
-  </ul>
-</nav>
+    <div class="logo">ShopEase</div>
+    <ul class="nav-links">
+      <li><a href="#">Home</a></li>
+      <li><a href="#">Cart</a></li>
+      <li><a href="#">Orders</a></li>
+      <li><a href="#">Profile</a></li>
+    </ul>
+  </nav>
 
   <div class="main">
     <div class="cart-container">
       <h1>Your Shopping Cart</h1>
 
-      <div class="cart-item" data-price="4149">
-        <img src="../public/cartimg_1.png" alt="Headphone" />
-        <div class="item-details">
-          <div class="item-title">Apple AirPods Pro</div>
-          <div class="item-description">Premium wireless earbuds with active noise cancellation and spatial audio.</div>
-          <div class="quantity-control">
-            <button onclick="updateQty(this, -1)">−</button>
-            <span class="qty">1</span>
-            <button onclick="updateQty(this, 1)">+</button>
-            <button class="remove-btn" onclick="removeItem(this)">Remove</button>
-            <button class="buy-now-btn" onclick="buyNow(this)">Buy Now</button>
+      <% populateItems.forEach(item=> { %>
+        <div class="cart-item" data-price="4149">
+          <img src="../public/cartimg_1.png" alt="Headphone" />
+          <div class="item-details">
+            <div class="item-title"><%= item.productId.productName %></div>
+            <div class="item-description"><%= item.productId.description %>
+            </div>
+            <div class="quantity-control">
+              <button onclick="updateQty(this, -1)">−</button>
+              <span class="qty"><%= item.quantity %></span>
+              <button onclick="updateQty(this, 1)">+</button>
+              <button class="remove-btn" onclick="removeItem(this)">Remove</button>
+              <button class="buy-now-btn" onclick="buyNow(this)">Buy Now</button>
+            </div>
           </div>
+          <div class="total-price">₹<span class="item-total"><%= item.productId.price %></span></div>
         </div>
-        <div class="total-price">₹<span class="item-total">4149.00</span></div>
-      </div>
+        <% }) %>
 
-      <div class="cart-item" data-price="2157">
-        <img src="../public/cartimg_2.png" alt="Headphone" />
-        <div class="item-details">
-          <div class="item-title">Zebronics Wired Earphones</div>
-          <div class="item-description">Lightweight in-ear wired earphones with tangle-free cable and stereo sound.</div>
-          <div class="quantity-control">
-            <button onclick="updateQty(this, -1)">−</button>
-            <span class="qty">1</span>
-            <button onclick="updateQty(this, 1)">+</button>
-            <button class="remove-btn" onclick="removeItem(this)">Remove</button>
-            <button class="buy-now-btn" onclick="buyNow(this)">Buy Now</button>
+          <!-- <div class="cart-item" data-price="2157">
+            <img src="../public/cartimg_2.png" alt="Headphone" />
+            <div class="item-details">
+              <div class="item-description">Lightweight in-ear wired earphones with tangle-free cable and stereo sound.
+              </div>
+              <div class="quantity-control">
+                <button onclick="updateQty(this, -1)">−</button>
+                <span class="qty">1</span>
+                <button onclick="updateQty(this, 1)">+</button>
+                <button class="remove-btn" onclick="removeItem(this)">Remove</button>
+                <button class="buy-now-btn" onclick="buyNow(this)">Buy Now</button>
+              </div>
+            </div>
+            <div class="total-price">₹<span class="item-total">2157.00</span></div>
           </div>
-        </div>
-        <div class="total-price">₹<span class="item-total">2157.00</span></div>
-      </div>
 
-      <div class="cart-item" data-price="7462">
-        <img src="../public/cartimg_3.png" alt="Headphone" />
-        <div class="item-details">
-          <div class="item-title">Noise Wireless Headphones</div>
-          <div class="item-description">Over-ear Bluetooth headphones with deep bass and long battery life.</div>
-          <div class="quantity-control">
-            <button onclick="updateQty(this, -1)">−</button>
-            <span class="qty">1</span>
-            <button onclick="updateQty(this, 1)">+</button>
-            <button class="remove-btn" onclick="removeItem(this)">Remove</button>
-            <button class="buy-now-btn" onclick="buyNow(this)">Buy Now</button>
+          <div class="cart-item" data-price="7462">
+            <img src="../public/cartimg_3.png" alt="Headphone" />
+            <div class="item-details">
+              <div class="item-title">Noise Wireless Headphones</div>
+              <div class="item-description">Over-ear Bluetooth headphones with deep bass and long battery life.</div>
+              <div class="quantity-control">
+                <button onclick="updateQty(this, -1)">−</button>
+                <span class="qty">1</span>
+                <button onclick="updateQty(this, 1)">+</button>
+                <button class="remove-btn" onclick="removeItem(this)">Remove</button>
+                <button class="buy-now-btn" onclick="buyNow(this)">Buy Now</button>
+              </div>
+            </div>
+            <div class="total-price">₹<span class="item-total">7462.00</span></div>
           </div>
-        </div>
-        <div class="total-price">₹<span class="item-total">7462.00</span></div>
-      </div>
 
-      <div class="cart-item" data-price="2905">
-        <img src="../public/cartimg_4.png" alt="Headphone" />
-        <div class="item-details">
-          <div class="item-title">Mechanical KeyboardBoat Rockerz 255 Neckband</div>
-          <div class="item-description">Wireless Bluetooth neckband with deep bass and fast charging.</div>
-          <div class="quantity-control">
-            <button onclick="updateQty(this, -1)">−</button>
-            <span class="qty">1</span>
-            <button onclick="updateQty(this, 1)">+</button>
-            <button class="remove-btn" onclick="removeItem(this)">Remove</button>
-            <button class="buy-now-btn" onclick="buyNow(this)">Buy Now</button>
+          <div class="cart-item" data-price="2905">
+            <img src="../public/cartimg_4.png" alt="Headphone" />
+            <div class="item-details">
+              <div class="item-title">Mechanical KeyboardBoat Rockerz 255 Neckband</div>
+              <div class="item-description">Wireless Bluetooth neckband with deep bass and fast charging.</div>
+              <div class="quantity-control">
+                <button onclick="updateQty(this, -1)">−</button>
+                <span class="qty">1</span>
+                <button onclick="updateQty(this, 1)">+</button>
+                <button class="remove-btn" onclick="removeItem(this)">Remove</button>
+                <button class="buy-now-btn" onclick="buyNow(this)">Buy Now</button>
+              </div>
+            </div>
+            <div class="total-price">₹<span class="item-total">2905.00</span></div>
           </div>
-        </div>
-        <div class="total-price">₹<span class="item-total">2905.00</span></div>
-      </div>
 
-      <div class="cart-item" data-price="1619">
-        <img src="../public/cartimg_5.png" alt="Headphone" />
-        <div class="item-details">
-          <div class="item-title">JBL Bluetooth Speaker</div>
-          <div class="item-description">Portable wireless speaker with deep bass and waterproof design.</div>
-          <div class="quantity-control">
-            <button onclick="updateQty(this, -1)">−</button>
-            <span class="qty">1</span>
-            <button onclick="updateQty(this, 1)">+</button>
-            <button class="remove-btn" onclick="removeItem(this)">Remove</button>
-            <button class="buy-now-btn" onclick="buyNow(this)">Buy Now</button>
+          <div class="cart-item" data-price="1619">
+            <img src="../public/cartimg_5.png" alt="Headphone" />
+            <div class="item-details">
+              <div class="item-title">JBL Bluetooth Speaker</div>
+              <div class="item-description">Portable wireless speaker with deep bass and waterproof design.</div>
+              <div class="quantity-control">
+                <button onclick="updateQty(this, -1)">−</button>
+                <span class="qty">1</span>
+                <button onclick="updateQty(this, 1)">+</button>
+                <button class="remove-btn" onclick="removeItem(this)">Remove</button>
+                <button class="buy-now-btn" onclick="buyNow(this)">Buy Now</button>
+              </div>
+            </div>
+            <div class="total-price">₹<span class="item-total">1619.00</span></div>
           </div>
-        </div>
-        <div class="total-price">₹<span class="item-total">1619.00</span></div>
-      </div>
 
-      <div class="cart-item" data-price="4972">
-        <img src="../public/cartimg_6.png" alt="Headphone" />
-        <div class="item-details">
-          <div class="item-title">Sony WH-CH520 Wireless Headphones</div>
-          <div class="item-description">Lightweight wireless headphones with 50-hour battery life and clear sound.</div>
-          <div class="quantity-control">
-            <button onclick="updateQty(this, -1)">−</button>
-            <span class="qty">1</span>
-            <button onclick="updateQty(this, 1)">+</button>
-            <button class="remove-btn" onclick="removeItem(this)">Remove</button>
-            <button class="buy-now-btn" onclick="buyNow(this)">Buy Now</button>
+          <div class="cart-item" data-price="4972">
+            <img src="../public/cartimg_6.png" alt="Headphone" />
+            <div class="item-details">
+              <div class="item-title">Sony WH-CH520 Wireless Headphones</div>
+              <div class="item-description">Lightweight wireless headphones with 50-hour battery life and clear sound.
+              </div>
+              <div class="quantity-control">
+                <button onclick="updateQty(this, -1)">−</button>
+                <span class="qty">1</span>
+                <button onclick="updateQty(this, 1)">+</button>
+                <button class="remove-btn" onclick="removeItem(this)">Remove</button>
+                <button class="buy-now-btn" onclick="buyNow(this)">Buy Now</button>
+              </div>
+            </div>
+            <div class="total-price">₹<span class="item-total">4972.00</span></div>
           </div>
-        </div>
-        <div class="total-price">₹<span class="item-total">4972.00</span></div>
-      </div>
-    </div>
+    </div> -->
 
     <div class="summary-box">
       <h2>Order Summary</h2>
@@ -417,4 +428,5 @@ body {
     updateCartTotal();
   </script>
 </body>
+
 </html>
