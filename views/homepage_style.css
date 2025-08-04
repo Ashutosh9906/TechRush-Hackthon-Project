@@ -5,12 +5,12 @@
 }
 :root{
     --color_I: #f2e6ee;
-    --color_II: #977dff;
-    --color_V: #977dff;
+    --color_II: #8f73fb;
+    --color_V: #593ccd;
     --color_VI: #ffccf2;
-    --color_III: #0033ff;
+    --color_III: #0f3ffe;
     --color_IV: #0600ab;
-    --color_VII: #00003d;
+    --color_VII: #000e45;
     --secsolor_I: #ffa930;
 }
 body{
@@ -19,7 +19,7 @@ body{
     color: black;
     min-height: 100vh;
     line-height: 1.5;
-    background: linear-gradient(120deg, var(--color_III), var(--color_II), var(--color_VI));
+    background: linear-gradient(120deg, var(--color_III), var(--color_II), var(--color_I));
     background-size: 200% 200%; /* Make the background larger than the viewport */
     animation: gradientDrift 15s ease infinite; /* Apply the animation */
 }
@@ -38,10 +38,10 @@ body::before {
     height: 100%;
     /* Tiny random dots */
     background-image: 
-        radial-gradient(rgba(0, 0, 0, 0.12) 1px, transparent 0);
+        radial-gradient(rgba(0, 0, 0, 0.2) 1px, transparent 0);
 
     background-size: 3px 3px; /* density of dots */
-    opacity: 0.9; /* how visible the grain is */
+    opacity: 0.8; /* how visible the grain is */
     pointer-events: none; /* lets clicks pass through */
     z-index: -1;
 }
@@ -121,8 +121,10 @@ header{
     justify-content: space-between;
     align-items: center;
     padding: 1rem 5rem;
-    z-index: 999;
-    /* background-color: white; */
+    z-index: 1000;
+    /* Sticky position properties */
+    position: sticky;
+    top: 0;
 }
 header h1{
     margin: 0;
@@ -154,10 +156,7 @@ main{
 }
 .content{
     max-width: 40rem;
-    margin-left:10% ;
-    z-index: 999;
-    max-width: 40rem;
-    margin-left: 10%;
+    margin-left: 14%;
     z-index: 999;
 
     /* --- Glass Effect Properties --- */
@@ -198,17 +197,18 @@ main{
     cursor: pointer;
 }
 .tag-box:hover{
-    transition: transform 0.4s ease-in-out, box-shadow 0.4s ease-in-out;
+    transition: transform 0.4s ease-in-out, box-shadow 0.4s ease-in-out,background-color 0.3s ease 0.2s;
     transform: scale(1.05); /* Makes it pop up */
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Adds depth */
+    background-color: #ffa930;
 }
 .content h1{
     font-size: 2rem;
-    font-weight: 600;
+    font-weight: 700;
     letter-spacing: 0.1rem;
     margin: 0.6rem 0;
     line-height: 1.2;
-    text-shadow: 0 0 10px rgb(114, 114, 114);
+    /* text-shadow: 0 0 10px rgb(114, 114, 114); */
 }
 .content .description{
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
@@ -266,9 +266,9 @@ main{
 }
 #headphone-main-visual {
     position: absolute;
-    scale: 1.08;
-    top: 55%;
-    right: 320px;
+    scale: 1.5;
+    top: 72%;
+    right: 300px;
     transform: translateY(-45%);
     height: 90vh;
     width: auto;
@@ -348,7 +348,7 @@ main{
 /* --- Product Card Styling --- */
 .product-card {
     flex: 0 0 280px;
-    background: linear-gradient(135deg,var(--color_II),var(--color_VII));
+    background: linear-gradient(135deg,var(--color_V),var(--color_VII));
     backdrop-filter: blur(10px);
     border-radius: 12px;
     padding: 1rem;
@@ -435,4 +435,174 @@ main{
     background-color: #ccc;
 }
 
+.featured-items h2{
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 2rem;
+    font-weight: 800;
+    text-shadow: 0 0 10px rgb(84, 84, 84);
+    color: black;
+}
+
+/* FEATURED ITEMS STYLES */
+.featured-items {
+    padding: 4rem 5%; /* Adjust padding to match your site's layout */
+}
+
+.featured-items h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 3rem;
+    color: #000000;
+}
+
+.feature-row {
+    display: flex;
+    align-items: center;
+    gap: 3rem; /* Space between video and text */
+    margin-bottom: 4rem; /* Space between each featured product row */
+}
+
+/* This simple rule reverses the order of the columns */
+.feature-row--reverse {
+    flex-direction: row-reverse;
+}
+
+.feature-media,
+.feature-description {
+    flex: 1; /* This makes both columns take up 50% of the space */
+}
+
+.feature-media video {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.feature-description h3 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: #000;
+}
+
+.feature-description p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #000000;
+    margin-bottom: 1.5rem;
+}
+
+.feature-btn {
+    display: inline-block;
+    background-color: #333;
+    color: #fff;
+    padding: 12px 24px;
+    text-decoration: none;
+    border-radius: 25px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.feature-btn:hover {
+    background-color: #000;
+}
+.product-catagories h2{
+    margin: 1rem;
+    padding: 1rem;
+}
+.slider{
+    width: 100%;
+    /* border: 1px solid red; */
+    height: var(--height);
+    overflow: hidden;
+    mask-image: linear-gradient(
+        to right, 
+        transparent, 
+        black 10% 90%, 
+        transparent
+    );
+}
+.slider .list{
+    display: flex;
+    width: 100%;
+    min-width: calc(var(--width) * var(--quantity));
+    position: relative;
+}
+.slider .list .item{
+    width: var(--width);
+    height: var(--height);
+    position: absolute;
+    left: 100%;
+    animation: autoRun 10s linear infinite;
+    transition: filter 0.5s;
+    animation-delay: calc( (10s/ var(--quantity)) * (var(--position) - 1) )!important;
+}
+.slider .list .item img{
+    width: 100%;
+
+}
+@keyframes autoRun {
+    from{
+        left: 100%;
+    }to{
+        left: calc(var(--width) * -1);
+    }
+}
+.slider:hover .item{
+    animation-play-state: paused!important;
+    filter: grayscale(1);
+}
+.slider .item:hover{
+    filter: grayscale(0);
+}
+.slider[reverse="True"] .item{
+    animation: reverse-autoPlay 10s linear infinite;
+}
+@keyframes reverse-autoPlay {
+    from{
+        left: calc(var(--width) * -1);
+    }to{
+        left: 100%;
+    }
+}
+/* ... (all your existing CSS code above) ... */
+
+@keyframes reverse-autoPlay {
+    from{
+        left: calc(var(--width) * -1);
+    }to{
+        left: 100%;
+    }
+}
+
+
+/* === NEW CSS FOR THE SLIDER PRODUCT CARDS === */
+
+/* This targets the items ONLY within the sliders in the product-categories section */
+.product-catagories .slider .list .item {
+    /* Apply glassmorphic and card styles */
+    background: linear-gradient(135deg, var(--color_V), var(--color_VII));
+    backdrop-filter: blur(10px);
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37);
+    overflow: hidden; /* Important for rounded corners on children */
+
+    /* Use flexbox to structure the card content vertically */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* Ensure the image inside the new card doesn't break out */
+.product-catagories .slider .list .item .product-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
 
