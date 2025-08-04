@@ -173,7 +173,7 @@
     
     <div class="input-group">
       <label for="username">Username</label>
-      <input type="text" id="username" placeholder="Enter your name">
+      <h5><%= data[0].UserName %></h5>
     </div>
     
     <div class="input-group">
@@ -187,18 +187,18 @@
     
     <div class="input-group">
       <label for="email">Email Address</label>
-      <input type="email" id="email" placeholder="Enter your email">
+      <h5><%= data[0].Email %></h5>
     </div>
 
     <div class="product-card">
       <h3>Order Summary</h3>
       <div class="info">
         <span>Quantity:</span>
-        <span>2</span>
+        <span><%= data[0].quantity %></span>
       </div>
       <div class="info">
         <span>Price per item:</span>
-        <span>₹500</span>
+        <span>₹<%= data[0].price %></span>
       </div>
       <div class="info">
         <strong>Total Amount:</strong>
