@@ -1178,13 +1178,20 @@
         }
 
 
-        function addToCart(productId) {
+        async function addToCart(productId) {
             console.log("Add to Cart clicked for product:", productId);
             // You can implement a fetch POST request to /cart here
+            const quantity = 1;
+            const response = await fetch("/cart", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ productId, quantity })
+            });
+            const responseBody =await response.json()
+            console.log(responseBody);
         }
-
-
-
 
     </script>
 </body>
