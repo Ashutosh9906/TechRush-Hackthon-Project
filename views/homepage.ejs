@@ -913,7 +913,7 @@
             </div>
         </div>
     </section>
-    <section class="product-catagories">
+    <section class="product-catagories" id="dynamic-products-section">
         <h2>Our Brand Partners</h2>
         <div class="slider" style="
                     --width: 200px;
@@ -1112,6 +1112,78 @@
             //     window.location.href = responseBody.redirect;
             // }
         }
+
+        const categories = [
+            "True Wireless Earbuds",
+            "Wired Earphones",
+            "Wireless Headphones",
+            "Wired Headphones",
+            "Gaming Headphones",
+            "Neckbands"
+        ];
+
+        window.onload = () => {
+            productsFetchCall()
+            loadProductsByCategory();
+        };
+
+        async function loadProductsByCategory() {
+            const section = document.getElementById("dynamic-products-section");
+
+            for (const category of categories) {
+                try {
+                    const response = await fetch(`/product?category=${encodeURIComponent(category)}`);
+                    const products = await response.json();
+
+                    const heading = document.createElement("h2");
+                    heading.textContent = category;
+                    section.appendChild(heading);
+
+                    const slider = document.createElement("div");
+                    slider.className = "slider";
+                    slider.style.setProperty('--width', '300px');
+                    slider.style.setProperty('--height', '450px');
+                    slider.style.setProperty('--quantity', products.length.toString());
+
+                    const list = document.createElement("div");
+                    list.className = "list";
+
+                    products.forEach((product, index) => {
+                        const item = document.createElement("div");
+                        item.className = "item";
+                        item.style.setProperty('--position', index + 1);
+
+                        item.innerHTML = `
+                  <div class="product-image-container">
+                    <img src="${product.image}" alt="${product.productName}">
+                  </div>
+                  <div class="product-details">
+                    <h3 class="product-name">${product.productName}</h3>
+                    <div class="price-container">
+                      <span class="discounted-price">₹${product.price}</span>
+                    </div>
+                  </div>
+                  <button class="add-to-cart-btn" onclick="addToCart('${product._id}')">Add to Cart</button>
+                `;
+
+                        list.appendChild(item);
+                    });
+
+                    slider.appendChild(list);
+                    section.appendChild(slider);
+                } catch (error) {
+                    console.error(`Error loading category "${category}":`, error);
+                }
+            }
+        }
+
+
+        function addToCart(productId) {
+            console.log("Add to Cart clicked for product:", productId);
+            // You can implement a fetch POST request to /cart here
+        }
+
+
 
 
     </script>

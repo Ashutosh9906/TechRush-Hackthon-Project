@@ -70,11 +70,12 @@ async function handlePlaceOrder(req, res) {
             });
         // console.log(populatedOrder);
 
-        await sendOrderdetail(populatedOrder)
-        // return res.status(200).json({ msg: "Order Placed Successfully" })
-        return res.status(200).json({
+        res.status(200).json({
             redirect: "/home",
         });
+        
+        await sendOrderdetail(populatedOrder)
+        // return res.status(200).json({ msg: "Order Placed Successfully" })
     } catch (error) {
         console.log(error);
         return res.status(400).json({ msg: "Internal server error" })
