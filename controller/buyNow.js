@@ -20,10 +20,17 @@ async function handleBuyDetails(req, res) {
             quantity: req.query.quantity,
             price: product.price * req.query.quantity
         }]
+<<<<<<< HEAD
         return res.status(200).json({
             redirect: "/buyNow",
             data
         });
+=======
+        console.log(data);
+        return res.render("buy_now", {data})
+        //return res.status(200).json(data);
+        //return res.render("buy_now",{order});
+>>>>>>> 1ce992b344a55b01e3bc65987f2a661baabad91c
     } catch (error) {
         console.log(error);
         return res.status(400).json({ msg: "Internal server error" })
