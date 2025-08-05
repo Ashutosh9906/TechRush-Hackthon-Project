@@ -12,6 +12,7 @@ const productRoute = require("./routes/productRoutes")
 const staticRoute = require("./routes/staticRoute")
 const cartRoute = require("./routes/cartRoutes")
 const reviewRoute = require("./routes/reviewRoutes")
+const buyRoute = require("./routes/buyRoutes")
 const { verifyToken } = require("./middlewares/validateEmail")
 
 
@@ -34,6 +35,10 @@ app.use(express.urlencoded({ extended:false }))
 app.use(cookieParser());
 
 //defining the base route
+app.get("/home", (req, res) => {
+    return res.render("homepage")
+})
+app.use("/buyNow", buyRoute)
 app.use("/user", staticRoute)
 app.use("/product", productRoute)
 app.use("/review", reviewRoute)

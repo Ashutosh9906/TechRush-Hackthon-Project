@@ -295,21 +295,19 @@
       </div>
       <div class="right">
         <div>
-          <div class="category">Furniture</div>
-          <div class="title">Modern Blue Chair</div>
+          <div class="category"><%= product.category %></div>
+          <div class="title"><%= product.productName %></div>
           <div class="subtitle">Stylish & Comfortable</div>
           <div class="stars">★★★★★</div>
-          <div class="price" id="price">₹3,499</div>
+          <div class="price" id="price">₹<%= product.price %></div>
 
           <div class="tab-menu">
-            <span class="active" onclick="showTab('desc')">Description</span>
+            <span class="active" onclick="showTab('desc')"><%= product.description %></span>
             <span onclick="showTab('details')">Details</span>
           </div>
 
           <div class="tab-content active" id="desc">
-            **Bold. Wireless. Powerful.**
-Experience rich sound and comfort with these stylish red Sony wireless headphones — perfect for music, calls, and all-day wear.
-
+            <%= product.description %>
             <span class="read-more" onclick="toggleReadMore(this)">Read more</span>
             <span class="more-text" style="display:none"><br> Enjoy immersive audio with deep bass and crystal-clear clarity.<br>Lightweight design with long battery life for uninterrupted listening.</span>
           </div>
