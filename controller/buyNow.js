@@ -36,6 +36,7 @@ async function handleBuyDetails(req, res) {
 async function handlePlaceOrder(req, res) {
     try {
         const { address } = req.body;
+        console.log("address", address);
         let shippingAddress = "";
         const productId = req.params.id;
         const quantity = parseInt(req.query.quantity);

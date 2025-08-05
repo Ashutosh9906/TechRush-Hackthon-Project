@@ -4,12 +4,704 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="homepage_style.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --color_I: #f2e6ee;
+            --color_II: #8f73fb;
+            --color_V: #593ccd;
+            --color_VI: #ffccf2;
+            --color_III: #0f3ffe;
+            --color_IV: #0600ab;
+            --color_VII: #000e45;
+            --secsolor_I: #ffa930;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            background: linear-gradient(120deg, var(--color_III), var(--color_VI));
+            color: black;
+            min-height: 100vh;
+            line-height: 1.5;
+            background: linear-gradient(120deg, var(--color_III), var(--color_II), var(--color_I));
+            background-size: 200% 200%;
+            /* Make the background larger than the viewport */
+            animation: gradientDrift 15s ease infinite;
+            /* Apply the animation */
+        }
+
+        @keyframes gradientDrift {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        /* Noise Overlay */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /* Tiny random dots */
+            background-image:
+                radial-gradient(rgba(0, 0, 0, 0.2) 1px, transparent 0);
+
+            background-size: 3px 3px;
+            /* density of dots */
+            opacity: 0.8;
+            /* how visible the grain is */
+            pointer-events: none;
+            /* lets clicks pass through */
+            z-index: -1;
+        }
+
+        /* glowing effect around the gradient */
+        .layerblur {
+            height: 0;
+            width: 20rem;
+            position: absolute;
+            top: 85%;
+            right: 20%;
+            box-shadow: 0 0 100px 15px black;
+            z-index: -1;
+        }
+
+        /* Main container for the dropdown */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+            /* Keeps elements contained */
+            z-index: 999;
+        }
+
+        /* The dropdown menu - hidden by default */
+        .dropdown-content {
+            /* Hiding properties */
+            visibility: hidden;
+            opacity: 0;
+
+            /* Positioning */
+            position: absolute;
+            top: 100%;
+            /* Position it right below the CATEGORIES link */
+            left: 50%;
+            transform: translateX(-50%);
+            /* Center the dropdown */
+            z-index: 1000;
+
+            /* Styling */
+            background: rgba(255, 255, 255, 0.15);
+            /* Glass effect */
+            backdrop-filter: blur(10px);
+            min-width: 220px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            padding: 0.5rem 0;
+
+            /* Animation */
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        /* Style the links inside the dropdown */
+        .dropdown-content a {
+            color: white;
+            /* Or your desired text color */
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            /* Makes the entire area clickable */
+            text-align: left;
+            transition: background-color 0.2s ease;
+        }
+
+        /* Change color of dropdown links on hover */
+        .dropdown-content a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: black;
+        }
+
+        /* Show the dropdown menu on hover */
+        .dropdown:hover .dropdown-content {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .container {
+            width: 100%;
+            margin: 0 auto;
+            padding: 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5rem;
+            z-index: 1000;
+            /* Sticky position properties */
+            position: sticky;
+            top: 0;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 3rem;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            margin-left: -5%;
+            z-index: 999;
+        }
+
+        .logo {
+            font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+        }
+
+        nav a {
+            font-size: 1rem;
+            letter-spacing: 0.1rem;
+            transition: color 0.2s ease-in-out;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* MAIN */
+        main {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-height: calc(90vh - 6rem);
+        }
+
+        .content {
+            max-width: 40rem;
+            margin-left: 14%;
+            z-index: 999;
+
+            /* --- Glass Effect Properties --- */
+            background: rgba(255, 255, 255, 0.1);
+            /* Semi-transparent background */
+            backdrop-filter: blur(10px);
+            /* Blurs the background */
+            border-radius: 16px;
+            /* Rounded corners */
+            padding: 2rem;
+            /* Spacing for the content */
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            /* Drop shadow for depth */
+
+        }
+
+        .tag-box {
+            position: relative;
+            width: 8rem;
+            height: 2.5rem;
+            border-radius: 50px;
+            /* background: linear-gradient(var(--color_VII), var(--color_IV)); */
+            background: rgba(255, 255, 255, 0.406);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(8px);
+            background-size: 200%;
+            animation: anigradient 2.5s linear infinite;
+        }
+
+        @keyframes anigradient {
+            to {
+                background-position: 200%;
+            }
+        }
+
+        .tag {
+            position: absolute;
+            inset: 3px 3px 3px 3px;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.5 ease-in-out;
+            cursor: pointer;
+        }
+
+        .tag-box:hover {
+            transition: transform 0.4s ease-in-out, box-shadow 0.4s ease-in-out, background-color 0.3s ease 0.2s;
+            transform: scale(1.05);
+            /* Makes it pop up */
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            /* Adds depth */
+            background-color: #ffa930;
+        }
+
+        .content h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: 0.1rem;
+            margin: 0.6rem 0;
+            line-height: 1.2;
+            /* text-shadow: 0 0 10px rgb(114, 114, 114); */
+        }
+
+        .content .description {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .learn-more {
+            text-decoration: none;
+            color: var(--color_VII);
+            /* border: 1px solid rgb(84, 84, 84); */
+            padding: 0.4rem 1.2rem;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            transition: background-color 0.2s ease;
+        }
+
+        .learn-more:hover {
+            background-color: transparent;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+
+        }
+
+        /* text behind image and border in front effect */
+        .title-over-headphones h1 {
+            position: relative;
+            top: -50px;
+            font-size: 4rem;
+            text-align: center;
+            font-weight: 800;
+            letter-spacing: 0.12rem;
+            margin: 0.4rem 0;
+            line-height: 1.2;
+            color: var(--color_VII);
+        }
+
+        .title-over-headphones h1::after {
+            position: absolute;
+            inset: 0 0 0 0;
+            /*aligns the solid text and border perfectly*/
+            content: attr(data-content);
+            -webkit-text-stroke: 2px var(--color_VII);
+            /*border color*/
+            z-index: 3;
+            /*z index higher than image and text to keep it in the front*/
+            color: transparent;
+            /*makes the text transparent and alone border is visible*/
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        #headphone-main-visual {
+            position: absolute;
+            scale: 1.5;
+            top: 72%;
+            right: 300px;
+            transform: translateY(-45%);
+            height: 90vh;
+            width: auto;
+            z-index: 2;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out 0.3s forwards;
+        }
+
+        .product-showcase {
+            padding: 4rem 0;
+            width: 100%;
+        }
+
+        .product-showcase h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            font-weight: 800;
+            text-shadow: 0 0 10px rgb(84, 84, 84);
+            color: black;
+        }
+
+        .slider-wrapper {
+            position: relative;
+            /* Acts as a positioning container for the buttons */
+            width: 100%;
+        }
+
+        .product-scroll-container {
+            display: flex;
+            overflow-x: auto;
+            gap: 1.5rem;
+            padding: 1rem 5%;
+            /* This makes the JavaScript scrolling smooth */
+            scroll-behavior: smooth;
+            /* Hide the actual scrollbar */
+            scrollbar-width: none;
+            /* Firefox */
+            -ms-overflow-style: none;
+            /* IE and Edge */
+        }
+
+        .product-scroll-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Styling for both scroll buttons */
+        .scroll-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 10;
+
+            background-color: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(5px);
+            border: none;
+            border-radius: 50%;
+            width: 44px;
+            height: 44px;
+            cursor: pointer;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.2s ease;
+        }
+
+        .scroll-btn:hover {
+            background-color: rgba(255, 255, 255, 0.4);
+        }
+
+        .scroll-btn svg {
+            stroke: white;
+        }
+
+        /* Position the left and right buttons */
+        #scroll-left-btn {
+            left: 1rem;
+        }
+
+        #scroll-right-btn {
+            right: 1rem;
+        }
+
+        /* --- Product Card Styling --- */
+        .product-card {
+            flex: 0 0 280px;
+            background: linear-gradient(135deg, var(--color_V), var(--color_VII));
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 1rem;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            /* Added flex display to help structure content vertically */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        /* MODIFIED: Increased height to give image more space */
+        .product-image-container {
+            width: 100%;
+            height: 220px;
+            /* Increased height */
+            overflow: hidden;
+            border-radius: 8px;
+            /* Slightly adjusted radius */
+            margin-bottom: 1rem;
+        }
+
+        /* MODIFIED: Changed object-fit to 'cover' */
+        .product-image-container img {
+            width: 100%;
+            height: 100%;
+            /* Make image fill the container's height */
+            object-fit: cover;
+            /* This is the key change to make the image fill the space */
+            display: block;
+        }
+
+        .product-name {
+            font-family: impact;
+            font-size: 1.6rem;
+            letter-spacing: 0.08rem;
+            font-weight: 200;
+            margin: 0.5rem 0;
+            color: var(--color_I);
+        }
+
+        /* REMOVED original .product-price class */
+
+        /* NEW: Container for both prices */
+        .price-container {
+            display: flex;
+            justify-content: center;
+            align-items: baseline;
+            gap: 0.75rem;
+            /* Space between the two prices */
+            margin-bottom: 1rem;
+        }
+
+        /* NEW: Style for the original, struck-through price */
+        .original-price {
+            font-size: 1.2rem;
+            font-weight: 400;
+            color: rgb(127, 127, 127);
+            text-decoration: line-through;
+            /* This adds the cancel line */
+        }
+
+        /* NEW: Style for the current, discounted price */
+        .discounted-price {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+
+        .add-to-cart-btn {
+            background-color: #fff;
+            color: #333;
+            border: none;
+            border-radius: 20px;
+            padding: 10px 20px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 80%;
+            align-self: center;
+            /* Center button within the flex container */
+            transition: background-color 0.3s ease;
+        }
+
+        .add-to-cart-btn:hover {
+            background-color: #ccc;
+        }
+
+        .featured-items h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            font-weight: 800;
+            text-shadow: 0 0 10px rgb(84, 84, 84);
+            color: black;
+        }
+
+        /* FEATURED ITEMS STYLES */
+        .featured-items {
+            padding: 4rem 5%;
+            /* Adjust padding to match your site's layout */
+        }
+
+        .featured-items h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 3rem;
+            color: #000000;
+        }
+
+        .feature-row {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+            /* Space between video and text */
+            margin-bottom: 4rem;
+            /* Space between each featured product row */
+        }
+
+        /* This simple rule reverses the order of the columns */
+        .feature-row--reverse {
+            flex-direction: row-reverse;
+        }
+
+        .feature-media,
+        .feature-description {
+            flex: 1;
+            /* This makes both columns take up 50% of the space */
+        }
+
+        .feature-media video {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-description h3 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #000;
+        }
+
+        .feature-description p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #000000;
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-btn {
+            display: inline-block;
+            background-color: #333;
+            color: #fff;
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .feature-btn:hover {
+            background-color: #000;
+        }
+
+        .product-catagories h2 {
+            margin: 1rem;
+            padding: 1rem;
+        }
+
+        .slider {
+            margin: 2rem;
+            width: 100%;
+            /* border: 1px solid red; */
+            height: var(--height);
+            overflow: hidden;
+            mask-image: linear-gradient(to right,
+                    transparent,
+                    black 10% 90%,
+                    transparent);
+        }
+
+        .slider .list {
+            display: flex;
+            width: 100%;
+            min-width: calc(var(--width) * var(--quantity));
+            position: relative;
+        }
+
+        .slider .list .item {
+            width: var(--width);
+            height: var(--height);
+            position: absolute;
+            left: 100%;
+            animation: autoRun 10s linear infinite;
+            transition: filter 0.5s;
+            animation-delay: calc((10s/ var(--quantity)) * (var(--position) - 1)) !important;
+        }
+
+        .slider .list .item img {
+            width: 100%;
+
+        }
+
+        @keyframes autoRun {
+            from {
+                left: 100%;
+            }
+
+            to {
+                left: calc(var(--width) * -1);
+            }
+        }
+
+        .slider:hover .item {
+            animation-play-state: paused !important;
+            filter: grayscale(1);
+        }
+
+        .slider .item:hover {
+            filter: grayscale(0);
+        }
+
+        .slider[reverse="True"] .item {
+            animation: reverse-autoPlay 10s linear infinite;
+        }
+
+        @keyframes reverse-autoPlay {
+            from {
+                left: calc(var(--width) * -1);
+            }
+
+            to {
+                left: 100%;
+            }
+        }
+
+        /* ... (all your existing CSS code above) ... */
+
+        @keyframes reverse-autoPlay {
+            from {
+                left: calc(var(--width) * -1);
+            }
+
+            to {
+                left: 100%;
+            }
+        }
+
+
+        /* === NEW CSS FOR THE SLIDER PRODUCT CARDS === */
+
+        /* This targets the items ONLY within the sliders in the product-categories section */
+        .product-catagories .slider .list .item {
+            /* Use flexbox to structure the card content vertically */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        /* Ensure the image inside the new card doesn't break out */
+        .product-catagories .slider .list .item .product-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+    </style>
     <title>BURST</title>
 </head>
 
 <body>
-    
+
     <div class="layerblur"></div>
 
     <div class="container">
@@ -31,131 +723,140 @@
                         <a href="#">LIMITED EDITION</a>
                     </div>
                 </div>
-                <a href="#"><img src="../public/user.svg" alt="Profile"></a>
-                <a href="#"><img src="../public/shopping-bag.svg" alt="Cart"></a>
+                <a href="#"><img src="/user.svg" alt="Profile"></a>
+                <a href="/cart"><img src="/shopping-bag.svg" alt="Cart"></a>
 
             </nav>
         </header>
 
         <main>
             <div class="title-over-headphones">
-                <h1 data-content="THUNDERSTRIKE">THUNDERSTRIKE</h1>
+                <h1 data-content="THUNDERSTRIKE" id="productName">THUNDERSTRIKE</h1>
             </div>
             <div class="content">
                 <div class="tag-box">
-                    <div class="tag">BUY NOW</div>
+                    <div class="tag" id="buyNowButton">BUY NOW</div>
                 </div>
-                <h1>THE<br>THUNDERSTRIKE</h1>
+                <h1 id="cardHeading">THE<br>THUNDERSTRIKE</h1>
                 <p class="description">
                     Wireless Headphone with 80 Hours Playback,
-                    <br> Cenematic sound with DOLBY audio, Active noise cancellation.
-                    supports High-Resolution Audio and High-Resolution Audio Wireless, thanks to LDAC™, our industry-adopted audio coding technology. LDAC transmits approximately three times more data than conventional Bluetooth®.
+                    <br id="description">
+                    <!-- Cenematic sound with DOLBY audio, Active noise cancellation.
+                    supports High-Resolution Audio and High-Resolution Audio Wireless, thanks to LDAC™, our
+                    industry-adopted audio coding technology. LDAC transmits approximately three times more data than
+                    conventional Bluetooth®. -->
                 </p>
                 <div class="buttons">
                     <a href="#" class="learn-more">learn more</a>
                 </div>
             </div>
             <div class="visual">
-                <img id="headphone-main-visual" src="../public/new-cyberpunk-headphones.png" alt="headphones">
+                <img id="headphone-main-visual" src="/new-cyberpunk-headphones.png" alt="headphones">
             </div>
         </main>
     </div>
     <section class="product-showcase">
-    <h2>Explore Our Collection</h2>
-    <div class="slider-wrapper">
-        <div class="product-scroll-container">
-            <div class="product-card">
-                <div class="product-image-container">
-                    <img src="../public/AirPods-max.jpg" alt="Aura Wireless Headphones">
-                </div>
-                <div class="product-details">
-                    <h3 class="product-name">Aura Wireless</h3>
-                    <div class="price-container">
-                        <span class="original-price">₹10,999</span>
-                        <span class="discounted-price">₹8,999</span>
+        <h2>Explore Our Collection</h2>
+        <div class="slider-wrapper">
+            <div class="product-scroll-container">
+                <div class="product-card">
+                    <div class="product-image-container">
+                        <img src="/AirPods-max.jpg" alt="Aura Wireless Headphones">
                     </div>
-                </div>
-                <button class="add-to-cart-btn">Add to Cart</button>
-            </div>
-
-            <div class="product-card">
-                <div class="product-image-container">
-                    <img src="../public/gaming-ps5.jpg" alt="Stealth Gaming Headset">
-                </div>
-                <div class="product-details">
-                    <h3 class="product-name">Stealth Gamer</h3>
-                    <div class="price-container">
-                        <span class="original-price">₹14,999</span>
-                        <span class="discounted-price">₹12,499</span>
+                    <div class="product-details">
+                        <h3 class="product-name">Aura Wireless</h3>
+                        <div class="price-container">
+                            <span class="original-price">₹10,999</span>
+                            <span class="discounted-price">₹8,999</span>
+                        </div>
                     </div>
+                    <button class="add-to-cart-btn">Add to Cart</button>
                 </div>
-                <button class="add-to-cart-btn">Add to Cart</button>
-            </div>
 
-            <div class="product-card">
-                <div class="product-image-container">
-                    <img src="../public/KZ-wired-earphones.jpg" alt="Echo Buds Pro">
-                </div>
-                <div class="product-details">
-                    <h3 class="product-name">Echo Buds Pro</h3>
-                    <div class="price-container">
-                        <span class="original-price">₹9,999</span>
-                        <span class="discounted-price">₹7,999</span>
+                <div class="product-card">
+                    <div class="product-image-container">
+                        <img src="/gaming-ps5.jpg" alt="Stealth Gaming Headset">
                     </div>
-                </div>
-                <button class="add-to-cart-btn">Add to Cart</button>
-            </div>
-
-            <div class="product-card">
-                <div class="product-image-container">
-                    <img src="../public/Nothing-headphones.jpg" alt="Classic Wired Earphones">
-                </div>
-                <div class="product-details">
-                    <h3 class="product-name">Classic Wired</h3>
-                    <div class="price-container">
-                        <span class="original-price">₹1,999</span>
-                        <span class="discounted-price">₹1,499</span>
+                    <div class="product-details">
+                        <h3 class="product-name">Stealth Gamer</h3>
+                        <div class="price-container">
+                            <span class="original-price">₹14,999</span>
+                            <span class="discounted-price">₹12,499</span>
+                        </div>
                     </div>
+                    <button class="add-to-cart-btn">Add to Cart</button>
                 </div>
-                <button class="add-to-cart-btn">Add to Cart</button>
-            </div>
 
-            <div class="product-card">
-                <div class="product-image-container">
-                    <img src="../public/neckband.jpg" alt="Flex Neckband">
-                </div>
-                <div class="product-details">
-                    <h3 class="product-name">Flex Neckband</h3>
-                    <div class="price-container">
-                        <span class="original-price">₹4,999</span>
-                        <span class="discounted-price">₹3,999</span>
+                <div class="product-card">
+                    <div class="product-image-container">
+                        <img src="/KZ-wired-earphones.jpg" alt="Echo Buds Pro">
                     </div>
-                </div>
-                <button class="add-to-cart-btn">Add to Cart</button>
-            </div>
-
-            <div class="product-card">
-                <div class="product-image-container">
-                    <img src="../public/earbuds.jpg" alt="Phantom Limited Edition">
-                </div>
-                <div class="product-details">
-                    <h3 class="product-name">Phantom LTD</h3>
-                    <div class="price-container">
-                        <span class="original-price">₹24,999</span>
-                        <span class="discounted-price">₹19,999</span>
+                    <div class="product-details">
+                        <h3 class="product-name">Echo Buds Pro</h3>
+                        <div class="price-container">
+                            <span class="original-price">₹9,999</span>
+                            <span class="discounted-price">₹7,999</span>
+                        </div>
                     </div>
+                    <button class="add-to-cart-btn">Add to Cart</button>
                 </div>
-                <button class="add-to-cart-btn">Add to Cart</button>
-            </div>
 
+                <div class="product-card">
+                    <div class="product-image-container">
+                        <img src="/Nothing-headphones.jpg" alt="Classic Wired Earphones">
+                    </div>
+                    <div class="product-details">
+                        <h3 class="product-name">Classic Wired</h3>
+                        <div class="price-container">
+                            <span class="original-price">₹1,999</span>
+                            <span class="discounted-price">₹1,499</span>
+                        </div>
+                    </div>
+                    <button class="add-to-cart-btn">Add to Cart</button>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image-container">
+                        <img src="/neckband.jpg" alt="Flex Neckband">
+                    </div>
+                    <div class="product-details">
+                        <h3 class="product-name">Flex Neckband</h3>
+                        <div class="price-container">
+                            <span class="original-price">₹4,999</span>
+                            <span class="discounted-price">₹3,999</span>
+                        </div>
+                    </div>
+                    <button class="add-to-cart-btn">Add to Cart</button>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image-container">
+                        <img src="/earbuds.jpg" alt="Phantom Limited Edition">
+                    </div>
+                    <div class="product-details">
+                        <h3 class="product-name">Phantom LTD</h3>
+                        <div class="price-container">
+                            <span class="original-price">₹24,999</span>
+                            <span class="discounted-price">₹19,999</span>
+                        </div>
+                    </div>
+                    <button class="add-to-cart-btn">Add to Cart</button>
+                </div>
+
+            </div>
+            <button id="scroll-left-btn" class="scroll-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
+            </button>
+            <button id="scroll-right-btn" class="scroll-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+            </button>
         </div>
-        <button id="scroll-left-btn" class="scroll-btn">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
-        </button>
-        <button id="scroll-right-btn" class="scroll-btn">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-        </button>
-    </div>
     </section>
     <section class="featured-items">
         <h2>Our Featured Creations</h2>
@@ -163,14 +864,20 @@
         <div class="feature-row">
             <div class="feature-media">
                 <video autoplay loop muted playsinline poster="path/to/product1-poster.jpg">
-                    <source src="../public/Nothing ear (1).mp4" type="video/mp4">
+                    <source src="/Nothing ear (1).mp4" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
             </div>
             <div class="feature-description">
                 <h3>Nothing ear (1)</h3>
                 <p>
-                    The purity of sound is achieved through an 11.6mm dynamic driver. In addition, Bluetooth 5.2 allows high quality connectivity so you never miss a note.Active noise reduction works with three high-definition microphones to let you enjoy your music, movies and podcasts in peace. When you want to get back to reality, he just has to activate the “Transparency. Weighing just 4.7g, each earbud offers unparalleled comfort with vents to reduce pressure inside your ear. The ergonomic design of the earbuds (1) molds to the shape of your ear and the three silicone tips of different sizes allow you to adjust them perfectly.
+                    The purity of sound is achieved through an 11.6mm dynamic driver. In addition, Bluetooth 5.2 allows
+                    high quality connectivity so you never miss a note.Active noise reduction works with three
+                    high-definition microphones to let you enjoy your music, movies and podcasts in peace. When you want
+                    to get back to reality, he just has to activate the “Transparency. Weighing just 4.7g, each earbud
+                    offers unparalleled comfort with vents to reduce pressure inside your ear. The ergonomic design of
+                    the earbuds (1) molds to the shape of your ear and the three silicone tips of different sizes allow
+                    you to adjust them perfectly.
                 </p>
                 <a href="#" class="feature-btn">Explore Now</a>
             </div>
@@ -179,14 +886,20 @@
         <div class="feature-row feature-row--reverse">
             <div class="feature-media">
                 <video autoplay loop muted playsinline poster="path/to/product2-poster.jpg">
-                    <source src="../public/Sony-Noise-Cancelation.mp4" type="video/mp4">
+                    <source src="/Sony-Noise-cancelation.mp4" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
             </div>
             <div class="feature-description">
                 <h3>SONY WH-1000HM6</h3>
                 <p>
-                    Dual noise sensor technology, featuring two microphones on each earcup, captures ambient noise and passes the data to the HD Noise Cancelling Processor QN1.A built-in analogue amplifier integrated in the HD Noise Cancelling Processor QN1 realises unmatched signal-to-noise ratio for low distortion and exceptional sound quality for portable devices. Powerful 40-mm drivers, with Liquid Crystal Polymer (LCP) diaphragms, make the headphones perfect for handling heavy beats and can reproduce a full range of frequencies up to 40 kHz.Using Edge-AI (Artificial Intelligence), DSEE Extreme™ (Digital Sound Enhancement Engine) upscales compressed digital music files in real time.
+                    Dual noise sensor technology, featuring two microphones on each earcup, captures ambient noise and
+                    passes the data to the HD Noise Cancelling Processor QN1.A built-in analogue amplifier integrated in
+                    the HD Noise Cancelling Processor QN1 realises unmatched signal-to-noise ratio for low distortion
+                    and exceptional sound quality for portable devices. Powerful 40-mm drivers, with Liquid Crystal
+                    Polymer (LCP) diaphragms, make the headphones perfect for handling heavy beats and can reproduce a
+                    full range of frequencies up to 40 kHz.Using Edge-AI (Artificial Intelligence), DSEE Extreme™
+                    (Digital Sound Enhancement Engine) upscales compressed digital music files in real time.
                 </p>
                 <a href="#" class="feature-btn">Discover Gaming</a>
             </div>
@@ -200,7 +913,7 @@
                     --quantity: 10;
                 ">
             <div class="list">
-                <div class="item" style="--position: 1"><img src="image/slider1_1.png" alt="Boat"></div> 
+                <div class="item" style="--position: 1"><img src="image/slider1_1.png" alt="Boat"></div>
                 <div class="item" style="--position: 2"><img src="image/slider1_2.png" alt="Noise"></div>
                 <div class="item" style="--position: 3"><img src="image/slider1_3.png" alt="sony"></div>
                 <div class="item" style="--position: 4"><img src="image/slider1_4.png" alt="skullcandy"></div>
@@ -214,7 +927,7 @@
         </div>
 
         <h2>Limited Edition</h2>
-        
+
     </section>
     <!-- Notification Popup -->
     <!-- Green Success Notification Popup -->
@@ -278,35 +991,46 @@
             }
         });
 
+        window.onload = () => {
+            console.log("Window loaded, calling productsFetchCall...");
+            productsFetchCall();
+            loadProductsByCategory();
+        };
+
+
         async function productsFetchCall() {
-            const response = await fetch("/product/6890df0dff96f2f9a3e45228", {
-                method: "get",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(),
-            });
-            if (!response.ok) {
-                console.error("Failed to fetch product:", response.status);
-                return;
+            try {
+                const response = await fetch("/product/6890df0dff96f2f9a3e45228?json=true", {
+                    method: "GET", // or just omit it (default is GET)
+                    headers: {
+                        "Content-Type": "application/json",
+                    }
+                });
+
+                if (!response.ok) {
+                    console.error("Failed to fetch product:", response.status);
+                    return;
+                }
+
+                const product = await response.json();
+                console.log("Fetched product:", product);
+
+                // Update product name in both places
+                document.getElementById("productName").innerText = product.productName;
+                document.getElementById("productName").setAttribute("data-content", product.productName);
+
+                document.getElementById("cardHeading").innerHTML = `THE<br>${product.productName}`;
+
+                // Update description
+                document.getElementById("description").innerText = product.description;
+
+                document.getElementById("buyNowButton").onclick = () => buyNowProduct(product._id);
+
+                // Optional: Update image
+                // document.getElementById("headphone-main-visual").src = product.image;
+            } catch (error) {
+                console.error("Error in productsFetchCall:", error);
             }
-
-            const product = await response.json();
-            console.log("Fetched product:", product);
-
-            // Update product name in both places
-            document.getElementById("productName").innerText = product.productName;
-            document.getElementById("productName").setAttribute("data-content", product.productName);
-
-            document.getElementById("cardHeading").innerHTML = `THE<br>${product.productName}`;
-
-            // Update description
-            document.getElementById("description").innerText = product.description;
-
-            document.getElementById("buyNowButton").onclick = () => buyNowProduct(product._id);
-
-            // // Update image
-            // document.getElementById("headphone-main-visual").src = product.image;
         }
 
         async function buyNowProduct(id) {
@@ -336,11 +1060,6 @@
             "Neckbands"
         ];
 
-        window.onload = () => {
-            productsFetchCall()
-            loadProductsByCategory();
-        };
-
         async function loadProductsByCategory() {
             const section = document.getElementById("dynamic-products-section");
 
@@ -368,17 +1087,18 @@
                         item.style.setProperty('--position', index + 1);
 
                         item.innerHTML = `
-                  <div class="product-image-container">
-                    <img src="${product.image}" alt="${product.productName}">
-                  </div>
-                  <div class="product-details">
-                    <h3 class="product-name">${product.productName}</h3>
-                    <div class="price-container">
-                      <span class="discounted-price">₹${product.price}</span>
-                    </div>
-                  </div>
-                  <button class="add-to-cart-btn" onclick="addToCart('${product._id}')">Add to Cart</button>
-                `;
+  <div class="product-image-container" class="product-scroll-container" onclick="goToProduct('${product._id}')">
+    <img src="${product.image2}" alt="${product.productName}">
+  </div>
+  <div class="product-details" onclick="goToProduct('${product._id}')">
+    <h3 class="product-name">${product.productName}</h3>
+    <div class="price-container">
+      <span class="discounted-price">₹${product.price}</span>
+    </div>
+  </div>
+  <button class="add-to-cart-btn" onclick="addToCart('${product._id}')">Add to Cart</button>
+`;
+
 
                         list.appendChild(item);
                     });
@@ -390,7 +1110,6 @@
                 }
             }
         }
-
 
         async function addToCart(productId) {
             console.log("Add to Cart clicked for product:", productId);
@@ -426,6 +1145,15 @@
                 }, 400);
             }, duration);
         }
+
+        function goToProduct(productId) {
+            if (!productId) {
+                console.error("No product ID provided");
+                return;
+            }
+            window.location.href = `/product/${productId}?json=false`;
+        }
+
 
     </script>
 </body>

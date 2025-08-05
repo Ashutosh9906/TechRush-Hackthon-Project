@@ -12,7 +12,7 @@ async function handleItemAll(req, res) {
 }
 async function handleAddProduct(req, res) {
     try {
-        const { productName, description, category, price, stock, image } = req.body;
+        const { productName, description, category, price, stock, image1, image2, image3 } = req.body;
         const isProduct = await Product.findOne({ productName });
         if (isProduct) {
             return res.status(400).json({ msg: "The product already exist in Stock" })
@@ -23,7 +23,9 @@ async function handleAddProduct(req, res) {
             category,
             price,
             stock,
-            image
+            image1,
+            image2,
+            image3
         })
         return res.status(200).json({ msg: "Product Added Successfully" });
     } catch (error) {
@@ -77,14 +79,20 @@ async function handleRemoveitem(req, res) {
 async function handleProductDetail(req, res){
     try {
         const productId = req.params.id;
+        const json = req.query.json;
         const product = await Product.findById(productId);
         if(!product){
             return res.status(400).json({ msg: "No Such Product" })
         }
-        return res.status(200).json(product)
+        if(json == "true"){
+            res.status(200).json(product)
+        }
+        else{
+            return res.render("product", { product })
+
+        }        
         // return res.render("homepage", {product})
         // return res.status(200).json(product)\
-        return res.render("product", { product })
     } catch (error) {
         console.log("Error : ", error);
         return res.status(401).json({ msg: "Internal Server Error" });
