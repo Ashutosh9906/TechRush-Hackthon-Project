@@ -1102,19 +1102,15 @@
                 return;
             }
 
-            const response = await fetch(`/buyNow/${id}?quantity=1`, {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                }
-            });
+            window.location.href = `/buyNow/${id}?quantity=1`;
 
-            const responseBody = await response.json();
-            if (responseBody.redirect) {
-                //console.log("response", responseBody); // Success response
-                console.log("Redirect to : ", responseBody.redirect);
-                window.location.href = responseBody.redirect;
-            }
+
+            // const responseBody = await response.json();
+            // if (responseBody.redirect) {
+            //     //console.log("response", responseBody); // Success response
+            //     console.log("Redirect to : ", responseBody.redirect);
+            //     window.location.href = responseBody.redirect;
+            // }
         }
 
 
