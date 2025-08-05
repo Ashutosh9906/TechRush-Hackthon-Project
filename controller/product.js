@@ -82,6 +82,7 @@ async function handleProductDetail(req, res){
             return res.status(400).json({ msg: "No Such Product" })
         }
         return res.status(200).json(product)
+        // return res.render("homepage", {product})
     } catch (error) {
         console.log("Error : ", error);
         return res.status(401).json({ msg: "Internal Server Error" });
