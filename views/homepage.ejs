@@ -1022,6 +1022,26 @@
             </div>
         </div>
     </section>
+    <!-- Notification Popup -->
+    <!-- Green Success Notification Popup -->
+    <div id="top-popup" style="
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #28a745; /* ✅ Green color */
+  color: white;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 500;
+  z-index: 9999;
+  display: none;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  transition: all 0.5s ease;
+"></div>
+
+
     <script>
         // Get the necessary elements from the DOM
         const scrollContainer = document.querySelector(".product-scroll-container");
@@ -1189,8 +1209,28 @@
                 },
                 body: JSON.stringify({ productId, quantity })
             });
-            const responseBody =await response.json()
-            console.log(responseBody);
+            const responseBody = await response.json()
+            // console.log(responseBody.msg)
+            showPopup(responseBody.msg)
+        }
+
+        function showPopup(message, duration = 3000) {
+            const popup = document.getElementById('top-popup');
+            if (!popup) return;
+
+            console.log("Popup element:", popup);
+            console.log("Message to show:", message);
+            popup.textContent = message;
+            popup.style.display = 'block';
+            popup.style.opacity = '1';
+
+            clearTimeout(popup.hideTimeout);
+            popup.hideTimeout = setTimeout(() => {
+                popup.style.opacity = '0';
+                setTimeout(() => {
+                    popup.style.display = 'none';
+                }, 400);
+            }, duration);
         }
 
     </script>
