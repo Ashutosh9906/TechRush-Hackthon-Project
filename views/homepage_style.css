@@ -515,6 +515,7 @@ main{
     padding: 1rem;
 }
 .slider{
+    margin: 2rem;
     width: 100%;
     /* border: 1px solid red; */
     height: var(--height);
@@ -584,14 +585,6 @@ main{
 
 /* This targets the items ONLY within the sliders in the product-categories section */
 .product-catagories .slider .list .item {
-    /* Apply glassmorphic and card styles */
-    background: linear-gradient(135deg, var(--color_V), var(--color_VII));
-    backdrop-filter: blur(10px);
-    border-radius: 12px;
-    padding: 1.5rem;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37);
-    overflow: hidden; /* Important for rounded corners on children */
-
     /* Use flexbox to structure the card content vertically */
     display: flex;
     flex-direction: column;
