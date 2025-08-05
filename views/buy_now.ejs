@@ -94,6 +94,16 @@
       transition: border 0.3s;
     }
 
+    .input-value {
+  flex: 1;
+  padding: 12px 14px;
+  font-size: 14px;
+  border-radius: 10px;
+  background: #f9fbff;
+  border: 1px solid #cbd9f2;
+}
+
+
     .input-group input:focus,
     .input-group textarea:focus {
       border-color: #5a9bff;
@@ -182,7 +192,7 @@
 
     <div class="input-group">
       <label for="username">Username</label>
-      <h5>
+      <h5 class="input-value">
         <%= data[0].UserName %>
       </h5>
     </div>
@@ -198,7 +208,7 @@
 
     <div class="input-group">
       <label for="email">Email Address</label>
-      <h5>
+      <h5 class="input-value">
         <%= data[0].Email %>
       </h5>
     </div>
