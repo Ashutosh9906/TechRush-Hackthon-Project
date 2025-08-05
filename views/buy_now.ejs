@@ -42,12 +42,35 @@
       padding: 20px;
     }
 
+   /* @keyframes gradientDrift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}*/
+/* Noise Overlay */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Tiny random dots */
+    background-image: 
+        radial-gradient(rgba(0, 0, 0, 0.2) 1px, transparent 0);
+
+    background-size: 3px 3px; /* density of dots */
+    opacity: 0.8; /* how visible the grain is */
+    pointer-events: none; /* lets clicks pass through */
+    z-index: -1;
+}
+
     .main-card {
 
       backdrop-filter: blur(12px);
       border: 1px solid rgba(255, 255, 255, 0.3);
       padding: 35px 30px;
-      width: 460px;
+      width: 550px;
       border-radius: 20px;
       box-shadow: 0 12px 35px rgba(0, 0, 0, 0.12);
       transition: transform 0.3s ease;
@@ -69,11 +92,16 @@
 
     .input-group {
       margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
     }
 
     .input-group label {
       display: block;
-      margin-bottom: 8px;
+      margin-bottom: 0;
+      margin-right: 12px;
+      width: 130px;
       color: #2e3e5c;
       font-weight: 500;
     }
@@ -88,6 +116,16 @@
       background: #f9fbff;
       transition: border 0.3s;
     }
+
+    .input-value {
+  flex: 1;
+  padding: 12px 14px;
+  font-size: 14px;
+  border-radius: 10px;
+  background: #f9fbff;
+  border: 1px solid #cbd9f2;
+}
+
 
     .input-group input:focus,
     .input-group textarea:focus {
@@ -177,7 +215,7 @@
 
     <div class="input-group">
       <label for="username">Username</label>
-      <h5>
+      <h5 class="input-value">
         <%= data[0].UserName %>
       </h5>
     </div>
@@ -193,13 +231,18 @@
 
     <div class="input-group">
       <label for="email">Email Address</label>
-      <h5>
+      <h5 class="input-value">
         <%= data[0].Email %>
       </h5>
     </div>
 
     <div class="product-card">
       <h3>Order Summary</h3>
+      <div class="info">
+        <span>Product Name:</span>
+         <span>Wireless Bluetooth Headphones</span>
+      </div>
+
       <div class="info">
         <span>Quantity:</span>
         <span>

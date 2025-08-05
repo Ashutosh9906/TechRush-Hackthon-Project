@@ -192,7 +192,7 @@
             </div>
         </div>
     </section>
-    <section class="product-catagories">
+    <section class="product-catagories" id="dynamic-products-section">
         <h2>Our Brand Partners</h2>
         <div class="slider" style="
                     --width: 200px;
@@ -257,6 +257,136 @@
                 });
             }
         });
+
+        async function productsFetchCall() {
+            const response = await fetch("/product/6890df0dff96f2f9a3e45228", {
+                method: "get",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(),
+            });
+            if (!response.ok) {
+                console.error("Failed to fetch product:", response.status);
+                return;
+            }
+
+            const product = await response.json();
+            console.log("Fetched product:", product);
+
+            // Update product name in both places
+            document.getElementById("productName").innerText = product.productName;
+            document.getElementById("productName").setAttribute("data-content", product.productName);
+
+            document.getElementById("cardHeading").innerHTML = `THE<br>${product.productName}`;
+
+            // Update description
+            document.getElementById("description").innerText = product.description;
+
+            document.getElementById("buyNowButton").onclick = () => buyNowProduct(product._id);
+
+            // // Update image
+            // document.getElementById("headphone-main-visual").src = product.image;
+        }
+
+        async function buyNowProduct(id) {
+
+            if (!id || id === "undefined") {
+                console.error("Invalid product ID passed to fetch!");
+                return;
+            }
+
+            window.location.href = `/buyNow/${id}?quantity=1`;
+
+
+            // const responseBody = await response.json();
+            // if (responseBody.redirect) {
+            //     //console.log("response", responseBody); // Success response
+            //     console.log("Redirect to : ", responseBody.redirect);
+            //     window.location.href = responseBody.redirect;
+            // }
+        }
+
+        const categories = [
+            "True Wireless Earbuds",
+            "Wired Earphones",
+            "Wireless Headphones",
+            "Wired Headphones",
+            "Gaming Headphones",
+            "Neckbands"
+        ];
+
+        window.onload = () => {
+            productsFetchCall()
+            loadProductsByCategory();
+        };
+
+        async function loadProductsByCategory() {
+            const section = document.getElementById("dynamic-products-section");
+
+            for (const category of categories) {
+                try {
+                    const response = await fetch(`/product?category=${encodeURIComponent(category)}`);
+                    const products = await response.json();
+
+                    const heading = document.createElement("h2");
+                    heading.textContent = category;
+                    section.appendChild(heading);
+
+                    const slider = document.createElement("div");
+                    slider.className = "slider";
+                    slider.style.setProperty('--width', '300px');
+                    slider.style.setProperty('--height', '450px');
+                    slider.style.setProperty('--quantity', products.length.toString());
+
+                    const list = document.createElement("div");
+                    list.className = "list";
+
+                    products.forEach((product, index) => {
+                        const item = document.createElement("div");
+                        item.className = "item";
+                        item.style.setProperty('--position', index + 1);
+
+                        item.innerHTML = `
+                  <div class="product-image-container">
+                    <img src="${product.image}" alt="${product.productName}">
+                  </div>
+                  <div class="product-details">
+                    <h3 class="product-name">${product.productName}</h3>
+                    <div class="price-container">
+                      <span class="discounted-price">₹${product.price}</span>
+                    </div>
+                  </div>
+                  <button class="add-to-cart-btn" onclick="addToCart('${product._id}')">Add to Cart</button>
+                `;
+
+                        list.appendChild(item);
+                    });
+
+                    slider.appendChild(list);
+                    section.appendChild(slider);
+                } catch (error) {
+                    console.error(`Error loading category "${category}":`, error);
+                }
+            }
+        }
+
+
+        async function addToCart(productId) {
+            console.log("Add to Cart clicked for product:", productId);
+            // You can implement a fetch POST request to /cart here
+            const quantity = 1;
+            const response = await fetch("/cart", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ productId, quantity })
+            });
+            const responseBody =await response.json()
+            console.log(responseBody);
+        }
+
     </script>
 </body>
 
