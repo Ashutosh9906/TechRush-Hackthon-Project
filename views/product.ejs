@@ -34,6 +34,29 @@
       animation: gradientDrift 15s ease infinite; /* Apply the animation */
     }
 
+    /*@keyframes gradientDrift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}*/
+/* Noise Overlay */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Tiny random dots */
+    background-image: 
+        radial-gradient(rgba(0, 0, 0, 0.2) 1px, transparent 0);
+
+    background-size: 3px 3px; /* density of dots */
+    opacity: 0.8; /* how visible the grain is */
+    pointer-events: none; /* lets clicks pass through */
+    z-index: -1;
+}
+
     .container {
       max-width: 1000px;
       margin: auto;
@@ -44,7 +67,7 @@
       border-radius: 20px;
       transition: 0.3s ease-in-out;
       /* Styling */
-    background: rgba(255, 255, 255, 0.15); /* Glass effect */
+    background: linear-gradient(to right, #ede9fe, #ddd6fe);
     backdrop-filter: blur(10px);
     min-width: 220px;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
@@ -279,6 +302,107 @@
         transform: translateY(0);
       }
     }
+
+    .button-group {
+  display: flex;
+  flex-direction: column; 
+  gap: 12px;
+  margin-top: 20px;
+  
+}
+
+.wishlist-btn,
+.add-cart-btn {
+  padding: 15px;             /* Make buttons bigger */
+  font-size: 18px;           /* Bigger text */
+  border-radius: 8px;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.2s;
+  width: 100%;               /* Stretch full width of container */
+  max-width: 450px;          /* Optional: limit button width */
+  margin: 0 auto;            /* Center the buttons */
+}
+
+.review-section {
+  max-width: 800px;
+  margin: 50px auto 20px;
+  background:linear-gradient(to right, #ede9fe, #ddd6fe);
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.review-section h2, .review-section h3 {
+  color: #1e40af;
+  margin-bottom: 10px;
+}
+
+.review {
+  border-bottom: 1px solid #ddd;
+  padding: 10px 0;
+  font-size: 15px;
+}
+
+.review strong {
+  color: #2563eb;
+}
+
+#reviewForm {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+#reviewForm input,
+#reviewForm textarea {
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+#reviewForm button {
+  background-color: #2563eb;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+#reviewForm button:hover {
+  background-color: #1d4ed8;
+}
+
+.star-rating {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-start;
+  margin-top: 10px;
+}
+
+.star-rating input[type="radio"] {
+  display: none;
+}
+
+.star-rating label {
+  font-size: 24px;
+  color: #ccc;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.star-rating input[type="radio"]:checked ~ label,
+.star-rating label:hover,
+.star-rating label:hover ~ label {
+  color: #f5b301;
+}
+
+
+
   </style>
 </head>
 <body>
@@ -303,7 +427,7 @@
 
           <div class="tab-menu">
             <span class="active" onclick="showTab('desc')"><%= product.description %></span>
-            <span onclick="showTab('details')">Details</span>
+            
           </div>
 
           <div class="tab-content active" id="desc">
@@ -312,9 +436,7 @@
             <span class="more-text" style="display:none"><br> Enjoy immersive audio with deep bass and crystal-clear clarity.<br>Lightweight design with long battery life for uninterrupted listening.</span>
           </div>
 
-          <div class="tab-content" id="details">
-            Material: Premium Plastic & Foam | Color: Red | Weight: 250g | Battery Life: Up to 30 hrs | Warranty: 1 year
-          </div>
+          
         </div>
 
         <div class="options">
@@ -325,13 +447,51 @@
             <button onclick="updateQty(1)">+</button>
           </div>
         </div>
-
+        
         <div class="total-price" id="total">Total: ₹3,499</div>
+        <div class="button-group">
         <div class="wishlist-btn">♡ Add to Wishlist</div>
         <div class="add-cart-btn">🛒 Add to Cart</div>
+        </div>
       </div>
     </div>
   </div>
+  <div class="review-section">
+  <h2>Customer Reviews</h2>
+
+  <!-- Sample reviews -->
+  <div class="review">
+    <strong>Riya S.</strong>
+    <p>Amazing sound quality and battery life!</p>
+  </div>
+  <div class="review">
+    <strong>Aman K.</strong>
+    <p>Stylish and very comfortable to wear. Worth the price!</p>
+  </div>
+
+  <!-- Review submission form -->
+  <h3>Leave a Review</h3>
+  <!-- Star Rating Input -->
+<div class="star-rating">
+  <input type="radio" id="star5" name="rating" value="5" /><label for="star5">★</label>
+  <input type="radio" id="star4" name="rating" value="4" /><label for="star4">★</label>
+  <input type="radio" id="star3" name="rating" value="3" /><label for="star3">★</label>
+  <input type="radio" id="star2" name="rating" value="2" /><label for="star2">★</label>
+  <input type="radio" id="star1" name="rating" value="1" /><label for="star1">★</label>
+</div>
+
+  <form id="reviewForm">
+    <input type="text" id="reviewerName" placeholder="Your Name" required />
+    <textarea id="reviewText" placeholder="Write your review..." required></textarea>
+    <button type="submit">Submit Review</button>
+  </form>
+
+  <!-- New reviews will be added here -->
+  <div id="newReviews"></div>
+
+  
+</div>
+
 
   <script>
     const basePrice = 3499;
@@ -370,6 +530,31 @@
     function changeImage(thumb) {
       document.getElementById("main-image").src = thumb.src;
     }
+
+document.getElementById('reviewForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+
+  const name = document.getElementById('reviewerName').value.trim();
+  const text = document.getElementById('reviewText').value.trim();
+  const rating = document.querySelector('input[name="rating"]:checked');
+
+  if (name && text && rating) {
+    const stars = '★'.repeat(rating.value) + '☆'.repeat(5 - rating.value);
+
+    const newReview = document.createElement('div');
+    newReview.classList.add('review');
+    newReview.innerHTML = `<strong>${name}</strong><div>${stars}</div><p>${text}</p>`;
+
+    document.getElementById('newReviews').prepend(newReview);
+
+    // Clear form
+    document.getElementById('reviewForm').reset();
+  } else {
+    alert("Please fill out all fields and select a rating.");
+  }
+});
+
+
   </script>
 </body>
 </html>
