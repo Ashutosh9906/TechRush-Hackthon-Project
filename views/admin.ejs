@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin-page</title>
+</head>
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    :root{
+        --color_I: #f2e6ee;
+        --color_II: #8f73fb;
+        --color_V: #593ccd;
+        --color_VI: #ffccf2;
+        --color_III: #0f3ffe;
+        --color_IV: #0600ab;
+        --color_VII: #000e45;
+        --secsolor_I: #ffa930;
+    }
+    body{
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        background: linear-gradient(120deg,var(--color_III),var(--color_VI));
+        color: black;
+        min-height: 100vh;
+        line-height: 1.5;
+        background: linear-gradient(120deg, var(--color_III), var(--color_II), var(--color_I));
+        background-size: 200% 200%; /* Make the background larger than the viewport */
+        animation: gradientDrift 15s ease infinite; /* Apply the animation */
+    }
+    @keyframes gradientDrift {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+    /* Noise Overlay */
+    body::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        /* Tiny random dots */
+        background-image: 
+            radial-gradient(rgba(0, 0, 0, 0.2) 1px, transparent 0);
+
+        background-size: 3px 3px; /* density of dots */
+        opacity: 0.8; /* how visible the grain is */
+        pointer-events: none; /* lets clicks pass through */
+        z-index: -1;
+    }
+    /* Main layout for the dealer page */
+    .dealer-main {
+        padding: 2rem 5%;
+    }
+
+    .dealer-header {
+        text-align: center;
+        margin-bottom: 3rem;
+    }
+
+    .dealer-header h1 {
+        font-size: 2.8rem;
+        font-weight: 800;
+        color: var(--color_I);
+        text-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .dealer-header p {
+        font-size: 1.1rem;
+        color: var(--color_VI);
+        opacity: 0.9;
+    }
+
+    /* Glassmorphic container for the stock list */
+    .stock-list-container {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(12px);
+        border-radius: 16px;
+        padding: 1.5rem;
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+    }
+
+    /* Styling for each row in the list */
+    .stock-item {
+        display: grid;
+        grid-template-columns: 2fr 1.5fr 1fr 1fr;
+        align-items: center;
+        padding: 1rem;
+        color: var(--color_I);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .stock-item:last-child {
+        border-bottom: none;
+    }
+
+    /* Table header row */
+    .stock-header {
+        font-size: 1rem;
+        font-weight: bold;
+        color: var(--color_I);
+        opacity: 0.8;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+    }
+
+    .product-info {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+        font-weight: bold;
+    }
+
+    .product-info img {
+        width: 60px;
+        height: 60px;
+        object-fit: contain;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+        padding: 5px;
+    }
+
+    .product-category, .product-stock, .product-action {
+        text-align: left;
+    }
+
+    .btn-edit {
+        background-color: var(--color_I);
+        color: var(--color_IV);
+        border: none;
+        padding: 10px 20px;
+        border-radius: 20px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .btn-edit:hover {
+        background-color: var(--color_VI);
+        transform: scale(1.05);
+    }
+
+    /* Modal Styling */
+    .modal-overlay {
+        display: none; /* Hidden by default */
+        position: fixed;
+        z-index: 2000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.6);
+        /* Flexbox for centering */
+        align-items: center;
+        justify-content: center;
+    }
+
+    .modal-content {
+        /* Glassmorphic modal card */
+        background: rgba(30, 30, 60, 0.7);
+        backdrop-filter: blur(20px);
+        border-radius: 16px;
+        padding: 2.5rem;
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        
+        width: 90%;
+        max-width: 500px;
+        position: relative;
+        color: var(--color_I);
+        animation: fadeIn 0.4s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: scale(0.9); }
+        to { opacity: 1; transform: scale(1); }
+    }
+
+    .modal-close {
+        position: absolute;
+        top: 15px;
+        right: 20px;
+        background: none;
+        border: none;
+        font-size: 2rem;
+        color: var(--color_I);
+        cursor: pointer;
+        opacity: 0.7;
+        transition: opacity 0.2s;
+    }
+
+    .modal-close:hover {
+        opacity: 1;
+    }
+
+    .modal-content h2 {
+        margin-bottom: 2rem;
+        text-align: center;
+    }
+
+    /* Form Styling */
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: bold;
+        opacity: 0.8;
+    }
+
+    .form-group input,
+    .form-group select {
+        width: 100%;
+        padding: 12px;
+        border-radius: 8px;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        background-color: rgba(0, 0, 0, 0.2);
+        color: var(--color_I);
+        font-size: 1rem;
+    }
+
+    .form-group select option {
+        background-color: var(--color_IV);
+        color: var(--color_I);
+    }
+
+    .form-actions {
+        display: flex;
+        gap: 1rem;
+        margin-top: 2rem;
+    }
+
+    .form-actions .btn {
+        flex-grow: 1;
+        text-decoration: none;
+        padding: 12px 20px;
+        border-radius: 50px;
+        font-weight: bold;
+        text-align: center;
+        transition: all 0.3s ease;
+        border: none;
+    }
+    .form-actions .btn-danger {
+        background-color: #E53935; /* Red for destructive action */
+        color: white;
+    }
+    .form-actions .btn-danger:hover {
+        background-color: #C62828;
+    }
+</style>
+<body>
+    <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="homepage_style.css">
+    <link rel="stylesheet" href="dealer_style.css">
+    <title>Dealer Dashboard - BURST</title>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1 class="logo">Burst</h1>
+            <nav>
+                <a href="#">DASHBOARD</a>
+                <a class="home" href="#">LOG OUT</a>
+                <a href="#"><img src="../public/user.svg" alt="Profile"></a>
+            </nav>
+        </header>
+
+        <main class="dealer-main">
+            <div class="dealer-header">
+                <h1>Dealer Stock Management</h1>
+                <p>Add, remove, or update product inventory.</p>
+            </div>
+
+            <div class="stock-list-container">
+                <div class="stock-item stock-header">
+                    <div class="product-info">Product</div>
+                    <div class="product-category">Category</div>
+                    <div class="product-stock">Current Stock</div>
+                    <div class="product-action">Action</div>
+                </div>
+
+                <div class="stock-item">
+                    <div class="product-info">
+                        <img src="../public/new-cyberpunk-headphones.png" alt="THUNDERSTRIKE">
+                        <span>THUNDERSTRIKE</span>
+                    </div>
+                    <div class="product-category">Wireless Headphones</div>
+                    <div class="product-stock">150 Units</div>
+                    <div class="product-action">
+                        <button class="btn-edit" onclick="openModal()">Edit Stock</button>
+                    </div>
+                </div>
+
+                <div class="stock-item">
+                    <div class="product-info">
+                        <img src="../public/gaming-ps5.jpg" alt="Stealth Gamer">
+                        <span>Stealth Gamer</span>
+                    </div>
+                    <div class="product-category">Gaming Headphones</div>
+                    <div class="product-stock">85 Units</div>
+                    <div class="product-action">
+                        <button class="btn-edit" onclick="openModal()">Edit Stock</button>
+                    </div>
+                </div>
+
+                <div class="stock-item">
+                    <div class="product-info">
+                        <img src="../public/earbuds.jpg" alt="Phantom LTD">
+                        <span>Phantom LTD</span>
+                    </div>
+                    <div class="product-category">LIMITED EDITION</div>
+                    <div class="product-stock">45 Units</div>
+                    <div class="product-action">
+                        <button class="btn-edit" onclick="openModal()">Edit Stock</button>
+                    </div>
+                </div>
+                
+                <div class="stock-item">
+                    <div class="product-info">
+                        <img src="../public/Nothing-headphones.jpg" alt="Classic Wired">
+                        <span>Classic Wired</span>
+                    </div>
+                    <div class="product-category">Wired Headphones</div>
+                    <div class="product-stock">210 Units</div>
+                    <div class="product-action">
+                        <button class="btn-edit" onclick="openModal()">Edit Stock</button>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <div class="modal-overlay" id="editStockModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">×</button>
+            <h2>Edit Stock: THUNDERSTRIKE</h2>
+            <form class="edit-form">
+                <div class="form-group">
+                    <label for="productName">Product Name</label>
+                    <input type="text" id="productName" value="THUNDERSTRIKE">
+                </div>
+                <div class="form-group">
+                    <label for="productCategory">Category</label>
+                    <select id="productCategory">
+                        <option>True Wireless Earbuds</option>
+                        <option>Wired Earphones</option>
+                        <option selected>Wireless Headphones</option>
+                        <option>Wired Headphones</option>
+                        <option>Gaming Headphones</option>
+                        <option>Neckbands</option>
+                        <option>LIMITED EDITION</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="currentStock">Current Stock</label>
+                    <input type="number" id="currentStock" value="150">
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-primary">Update Stock</button>
+                    <button type="button" class="btn btn-danger">Remove Product</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Simple JavaScript to control the modal visibility
+        const modal = document.getElementById('editStockModal');
+
+        function openModal() {
+            // In a real app, you would pass product data here to populate the form
+            modal.style.display = 'flex';
+        }
+
+        function closeModal() {
+            modal.style.display = 'none';
+        }
+
+        // Close modal if user clicks on the overlay
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+    </script>
+</body>
+</html>
