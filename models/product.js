@@ -8,6 +8,10 @@ const productSchema = new mongoose.Schema({
         type: String,
         require: true,
     },
+    detail: {
+        type: String,
+        require: true,
+    },
     category: {
         type: String,
         require: true,
