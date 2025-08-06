@@ -471,8 +471,8 @@ body::before {
         
         <div class="total-price" id="total">Total: ₹3,499</div>
         <div class="button-group">
-        <div class="wishlist-btn">♡ Add to Wishlist</div>
-        <div class="add-cart-btn">🛒 Add to Cart</div>
+          <div class="wishlist-btn" onclick="buyNow('<%= product._id %>')">Buy Now</div>
+          <div class="add-cart-btn" onclick="addToCart('<%= product._id %>')">🛒 Add to Cart</div>
         </div>
       </div>
     </div>
@@ -523,7 +523,40 @@ body::before {
 
 
   <script>
-    const basePrice = 3499;
+    const priceElement = document.getElementById("price");
+    const priceText = priceElement.textContent.trim(); // "₹2999"
+    const numericPrice = parseFloat(priceText.replace(/[^\d.]/g, '')); // 2999
+    console.log(numericPrice);
+
+    async function addToCart(productId) {
+      const quantity = parseInt(document.getElementById('qty').value);
+      console.log("Add to Cart clicked for product:", productId);
+      // You can implement a fetch POST request to /cart here
+      const response = await fetch("/cart?json=true", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ productId, quantity })
+      });
+      const responseBody = await response.json()
+      if (responseBody.redirect) {
+        window.location.href = responseBody.redirect;
+      }
+      // console.log(responseBody.msg)
+      // showPopup(responseBody.msg)
+    }
+
+    async function buyNow(productId) {
+      const quantity = parseInt(document.getElementById('qty').value);
+      console.log("quantity", quantity)
+      if (!productId || productId === "undefined") {
+        console.error("Invalid product ID passed to fetch!");
+        return;
+      }
+
+      window.location.href = `/buyNow/${productId}?quantity=${quantity}`;
+    }
 
     function updateQty(val) {
       let qtyInput = document.getElementById('qty');

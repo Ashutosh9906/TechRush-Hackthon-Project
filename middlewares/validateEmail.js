@@ -49,11 +49,18 @@ async function CheckEmail(req, res, next) {
 async function verifyToken(req, res, next) {
     try {
         const token = req.cookies?.token;
+        const json = req.query.json;
         if (!token) {
+            if(json == "true"){
+                return res.status(404).json({ redirect: "/user/login" })
+            }
             return res.redirect("/user/login")
         }
         const user = verifyTokenUser(token);
         if (!user) {
+            if(json == "true"){
+                return res.status(404).json({ redirect: "/user/login" })
+            }
             return res.redirect("/user/login")
         }
         req.user = user;
