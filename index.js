@@ -38,6 +38,9 @@ app.use(cookieParser());
 app.get("/home", (req, res) => {
     return res.render("homepage")
 })
+app.get("/profile", (req, res)=> {
+    return res.render("profile");
+})
 app.use("/buyNow", buyRoute)
 app.use("/user", staticRoute)
 app.use("/product", productRoute)

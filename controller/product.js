@@ -12,7 +12,7 @@ async function handleItemAll(req, res) {
 }
 async function handleAddProduct(req, res) {
     try {
-        const { productName, description, category, price, stock, image1, image2, image3 } = req.body;
+        const { productName, description, detail, category, price, stock, image1, image2, image3 } = req.body;
         const isProduct = await Product.findOne({ productName });
         if (isProduct) {
             return res.status(400).json({ msg: "The product already exist in Stock" })
@@ -20,6 +20,7 @@ async function handleAddProduct(req, res) {
         await Product.create({
             productName,
             description,
+            detail,
             category,
             price,
             stock,
