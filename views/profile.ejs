@@ -9,319 +9,342 @@
     <title>My Profile - BURST</title>
 </head>
 <style>
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-:root{
-    --color_I: #f2e6ee;
-    --color_II: #8f73fb;
-    --color_V: #593ccd;
-    --color_VI: #ffccf2;
-    --color_III: #0f3ffe;
-    --color_IV: #0600ab;
-    --color_VII: #000e45;
-    --secsolor_I: #ffa930;
-}
-body{
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    background: linear-gradient(120deg,var(--color_III),var(--color_VI));
-    color: black;
-    min-height: 100vh;
-    line-height: 1.5;
-    background: linear-gradient(120deg, var(--color_III), var(--color_II), var(--color_V));
-    background-size: 200% 200%; /* Make the background larger than the viewport */
-    animation: gradientDrift 15s ease infinite; /* Apply the animation */
-}
-@keyframes gradientDrift {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
-/* Noise Overlay */
-body::before {
-    content: "";
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    /* Tiny random dots */
-    background-image: 
-        radial-gradient(rgba(0, 0, 0, 0.2) 1px, transparent 0);
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
 
-    background-size: 3px 3px; /* density of dots */
-    opacity: 0.8; /* how visible the grain is */
-    pointer-events: none; /* lets clicks pass through */
-    z-index: -1;
-}
-header{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 5rem;
-    z-index: 1000;
-    /* Sticky position properties */
-    position: sticky;
-    top: 0;
-}
-header h1{
-    margin: 0;
-    font-size: 3rem;
-}
-nav{
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-    margin-left: -5%;
-    z-index: 999;
-}
-.logo{
-    font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-}
-nav a{
-    font-size: 1rem;
-    letter-spacing: 0.1rem;
-    transition: color 0.2s ease-in-out;
-    text-decoration: none;
-    color: inherit;
-}
+    :root {
+        --color_I: #f2e6ee;
+        --color_II: #8f73fb;
+        --color_V: #593ccd;
+        --color_VI: #ffccf2;
+        --color_III: #0f3ffe;
+        --color_IV: #0600ab;
+        --color_VII: #000e45;
+        --secsolor_I: #ffa930;
+    }
+
+    body {
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        background: linear-gradient(120deg, var(--color_III), var(--color_VI));
+        color: black;
+        min-height: 100vh;
+        line-height: 1.5;
+        background: linear-gradient(120deg, var(--color_III), var(--color_II), var(--color_V));
+        background-size: 200% 200%;
+        /* Make the background larger than the viewport */
+        animation: gradientDrift 15s ease infinite;
+        /* Apply the animation */
+    }
+
+    @keyframes gradientDrift {
+        0% {
+            background-position: 0% 50%;
+        }
+
+        50% {
+            background-position: 100% 50%;
+        }
+
+        100% {
+            background-position: 0% 50%;
+        }
+    }
+
+    /* Noise Overlay */
+    body::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        /* Tiny random dots */
+        background-image:
+            radial-gradient(rgba(0, 0, 0, 0.2) 1px, transparent 0);
+
+        background-size: 3px 3px;
+        /* density of dots */
+        opacity: 0.8;
+        /* how visible the grain is */
+        pointer-events: none;
+        /* lets clicks pass through */
+        z-index: -1;
+    }
+
+    header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 5rem;
+        z-index: 1000;
+        /* Sticky position properties */
+        position: sticky;
+        top: 0;
+    }
+
+    header h1 {
+        margin: 0;
+        font-size: 3rem;
+    }
+
+    nav {
+        display: flex;
+        align-items: center;
+        gap: 2rem;
+        margin-left: -5%;
+        z-index: 999;
+    }
+
+    .logo {
+        font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    }
+
+    nav a {
+        font-size: 1rem;
+        letter-spacing: 0.1rem;
+        transition: color 0.2s ease-in-out;
+        text-decoration: none;
+        color: inherit;
+    }
+
     /* Main layout for the profile page */
-.profile-main {
-    padding: 2rem 5%;
-}
+    .profile-main {
+        padding: 2rem 5%;
+    }
 
-        .profile-header h1 {
-            text-align: center;
-            font-size: 2.8rem;
-            font-weight: 800;
-            margin-bottom: 2.5rem;
-            color: black;
-            /* Using theme color */
-            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-        }
+    .profile-header h1 {
+        text-align: center;
+        font-size: 2.8rem;
+        font-weight: 800;
+        margin-bottom: 2.5rem;
+        color: black;
+        /* Using theme color */
+        text-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
 
+    .profile-content {
+        display: flex;
+        gap: 2.5rem;
+        align-items: flex-start;
+    }
+
+    /* Sidebar for user details (Left Column) */
+    .profile-sidebar {
+        flex: 1;
+        max-width: 350px;
+    }
+
+    /* User details card with glassmorphic effect */
+    .user-details-card {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(12px);
+        border-radius: 16px;
+        padding: 2rem;
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        text-align: center;
+        color: var(--color_I);
+        /* Light text color from theme */
+    }
+
+    .profile-picture {
+        width: 120px;
+        height: 120px;
+        margin: 0 auto 1rem;
+        border-radius: 50%;
+        background-color: var(--color_V);
+        /* Theme color */
+        border: 3px solid var(--color_I);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+    }
+
+    .profile-picture img {
+        width: 60%;
+        filter: invert(1);
+    }
+
+    .user-name {
+        font-size: 1.8rem;
+        margin-bottom: 0.25rem;
+        font-weight: 700;
+    }
+
+    .user-email {
+        font-size: 1rem;
+        margin-bottom: 1.5rem;
+        opacity: 0.8;
+    }
+
+    .user-address {
+        background: rgba(0, 0, 0, 0.15);
+        border-radius: 8px;
+        padding: 1rem;
+        margin-bottom: 2rem;
+        text-align: left;
+        font-size: 0.95rem;
+        line-height: 1.6;
+    }
+
+    .user-address strong {
+        display: block;
+        margin-bottom: 0.5rem;
+        color: var(--color_VI);
+        /* Light pink accent from theme */
+    }
+
+    .action-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    /* Button Styling */
+    .btn {
+        text-decoration: none;
+        padding: 12px 20px;
+        border-radius: 50px;
+        font-weight: bold;
+        text-align: center;
+        transition: all 0.3s ease;
+    }
+
+    .btn-primary {
+        background-color: var(--color_I);
+        color: var(--color_IV);
+    }
+
+    .btn-primary:hover {
+        background-color: var(--color_VI);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .btn-secondary {
+        background: transparent;
+        color: var(--color_I);
+        border: 2px solid var(--color_I);
+    }
+
+    .btn-secondary:hover {
+        background-color: var(--color_I);
+        color: var(--color_IV);
+    }
+
+    .edit-profile-link {
+        color: var(--color_I);
+        opacity: 0.8;
+        text-decoration: none;
+        font-size: 0.9rem;
+    }
+
+    .edit-profile-link:hover {
+        text-decoration: underline;
+        opacity: 1;
+    }
+
+    /* Order History (Right Column) */
+    .order-history {
+        flex: 2;
+    }
+
+    .order-history h2 {
+        font-size: 2.2rem;
+        color: var(--color_I);
+        margin-bottom: 1.5rem;
+        padding-left: 1rem;
+    }
+
+    .order-history-container {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    /* Order card with glassmorphic effect */
+    .order-card {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(12px);
+        border-radius: 16px;
+        padding: 1.5rem;
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .order-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.4);
+    }
+
+    .order-product-image {
+        flex-shrink: 0;
+        width: 100px;
+        height: 100px;
+        background-color: rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .order-product-image img {
+        max-width: 90%;
+        max-height: 90%;
+    }
+
+    .order-details {
+        flex-grow: 1;
+        color: var(--color_I);
+    }
+
+    .order-product-name {
+        font-size: 1.4rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .order-meta {
+        font-size: 0.9rem;
+        opacity: 0.7;
+        line-height: 1.4;
+    }
+
+    .order-price {
+        text-align: right;
+        color: var(--color_I);
+    }
+
+    .order-price span {
+        font-size: 0.9rem;
+        opacity: 0.7;
+    }
+
+    .order-price p {
+        font-size: 1.5rem;
+        font-weight: 700;
+    }
+
+    /* Responsive Design for smaller screens */
+    @media (max-width: 992px) {
         .profile-content {
-            display: flex;
-            gap: 2.5rem;
-            align-items: flex-start;
+            flex-direction: column;
         }
 
-        /* Sidebar for user details (Left Column) */
         .profile-sidebar {
-            flex: 1;
-            max-width: 350px;
+            max-width: 100%;
+            width: 100%;
         }
-
-        /* User details card with glassmorphic effect */
-        .user-details-card {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(12px);
-            border-radius: 16px;
-            padding: 2rem;
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-            border: 1px solid rgba(255, 255, 255, 0.18);
-            text-align: center;
-            color: var(--color_I);
-            /* Light text color from theme */
-        }
-
-        .profile-picture {
-            width: 120px;
-            height: 120px;
-            margin: 0 auto 1rem;
-            border-radius: 50%;
-            background-color: var(--color_V);
-            /* Theme color */
-            border: 3px solid var(--color_I);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-        }
-
-        .profile-picture img {
-            width: 60%;
-            filter: invert(1);
-        }
-
-        .user-name {
-            font-size: 1.8rem;
-            margin-bottom: 0.25rem;
-            font-weight: 700;
-        }
-
-        .user-email {
-            font-size: 1rem;
-            margin-bottom: 1.5rem;
-            opacity: 0.8;
-        }
-
-        .user-address {
-            background: rgba(0, 0, 0, 0.15);
-            border-radius: 8px;
-            padding: 1rem;
-            margin-bottom: 2rem;
-            text-align: left;
-            font-size: 0.95rem;
-            line-height: 1.6;
-        }
-
-        .user-address strong {
-            display: block;
-            margin-bottom: 0.5rem;
-            color: var(--color_VI);
-            /* Light pink accent from theme */
-        }
-
-        .action-buttons {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-        }
-
-        /* Button Styling */
-        .btn {
-            text-decoration: none;
-            padding: 12px 20px;
-            border-radius: 50px;
-            font-weight: bold;
-            text-align: center;
-            transition: all 0.3s ease;
-        }
-
-        .btn-primary {
-            background-color: var(--color_I);
-            color: var(--color_IV);
-        }
-
-        .btn-primary:hover {
-            background-color: var(--color_VI);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-        }
-
-        .btn-secondary {
-            background: transparent;
-            color: var(--color_I);
-            border: 2px solid var(--color_I);
-        }
-
-        .btn-secondary:hover {
-            background-color: var(--color_I);
-            color: var(--color_IV);
-        }
-
-        .edit-profile-link {
-            color: var(--color_I);
-            opacity: 0.8;
-            text-decoration: none;
-            font-size: 0.9rem;
-        }
-
-        .edit-profile-link:hover {
-            text-decoration: underline;
-            opacity: 1;
-        }
-
-        /* Order History (Right Column) */
-        .order-history {
-            flex: 2;
-        }
-
-        .order-history h2 {
-            font-size: 2.2rem;
-            color: var(--color_I);
-            margin-bottom: 1.5rem;
-            padding-left: 1rem;
-        }
-
-        .order-history-container {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
-
-        /* Order card with glassmorphic effect */
-        .order-card {
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(12px);
-            border-radius: 16px;
-            padding: 1.5rem;
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-            border: 1px solid rgba(255, 255, 255, 0.18);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .order-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.4);
-        }
-
-        .order-product-image {
-            flex-shrink: 0;
-            width: 100px;
-            height: 100px;
-            background-color: rgba(255, 255, 255, 0.1);
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .order-product-image img {
-            max-width: 90%;
-            max-height: 90%;
-        }
-
-        .order-details {
-            flex-grow: 1;
-            color: var(--color_I);
-        }
-
-        .order-product-name {
-            font-size: 1.4rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .order-meta {
-            font-size: 0.9rem;
-            opacity: 0.7;
-            line-height: 1.4;
-        }
-
-        .order-price {
-            text-align: right;
-            color: var(--color_I);
-        }
-
-        .order-price span {
-            font-size: 0.9rem;
-            opacity: 0.7;
-        }
-
-        .order-price p {
-            font-size: 1.5rem;
-            font-weight: 700;
-        }
-
-        /* Responsive Design for smaller screens */
-        @media (max-width: 992px) {
-            .profile-content {
-                flex-direction: column;
-            }
-
-            .profile-sidebar {
-                max-width: 100%;
-                width: 100%;
-            }
-        }
-    </style>
+    }
+</style>
 </head>
 
 <body>
@@ -346,18 +369,24 @@ nav a{
                         <div class="profile-picture">
                             <img src="../public/user.svg" alt="User Avatar">
                         </div>
-                        <h2 class="user-name">Alex Rider</h2>
-                        <p class="user-email">alex.rider@example.com</p>
+                        <h2 class="user-name">
+                            <%= user.firstName %>
+                                <%= user.lastName %>
+                        </h2>
+                        <p class="user-email">
+                            <%= user.email %>
+                        </p>
                         <div class="user-address">
                             <strong>Shipping Address:</strong>
                             <p>
-                                123 Tech Avenue, Silicon Valley,<br>
+                                <%= user.address %>
+                                    <!-- 123 Tech Avenue, Silicon Valley,<br>
                                 San Francisco, CA 94105,<br>
-                                United States
+                                United States -->
                             </p>
                         </div>
                         <div class="action-buttons">
-                            <a href="#" class="btn btn-primary">Go to Cart</a>
+                            <a onclick="addToCart(`<%= user.address %>`)" class="btn btn-primary">Go to Cart</a>
                             <a href="#" class="btn btn-secondary">Log Out</a>
                         </div>
                         <a href="#" class="edit-profile-link">Edit Profile</a>
@@ -418,6 +447,27 @@ nav a{
             </div>
         </main>
     </div>
+    <script>
+        async function addToCart(productId) {
+            // console.log("Add to Cart clicked for product:", productId);
+            // You can implement a fetch POST request to /cart here
+            const quantity = 1;
+            const response = await fetch("/cart?json=true", {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                // body: JSON.stringify({ })
+            });
+            const responseBody = await response.json()
+            console.log(responseBody);
+            if (responseBody.redirect) {
+                window.location.href = responseBody.redirect;
+            }
+            // console.log(responseBody.msg)
+            // showPopup(responseBody.msg)
+        }
+    </script>
 </body>
 
 </html>
