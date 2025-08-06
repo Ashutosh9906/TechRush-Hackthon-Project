@@ -1112,20 +1112,22 @@
         right: 1rem;
     }
 
-    /* --- Product Card Styling --- */
-    .product-card {
-        flex: 0 0 280px;
-        background: linear-gradient(135deg, var(--color_V), var(--color_VII));
-        backdrop-filter: blur(10px);
-        border-radius: 12px;
-        padding: 1rem;
-        text-align: center;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        /* Added flex display to help structure content vertically */
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-    }
+/* --- Product Card Styling --- */
+.product-card {
+    flex: 0 0 300px;
+    background: linear-gradient(135deg,var(--color_V),var(--color_VII));
+    backdrop-filter: blur(10px);
+    border-radius: 0px;
+    padding: 1rem;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    /* Added flex display to help structure content vertically */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    clip-path: inset(0 0 0 round 20px 0);
+    clip-path: polygon();
+}
 
     .product-card:hover {
         transform: translateY(-10px);
@@ -1326,52 +1328,19 @@
     .slider .list .item img {
         width: 100%;
 
-    }
+}
 
-    @keyframes autoRun {
-        from {
-            left: 100%;
-        }
-
-        to {
-            left: calc(var(--width) * -1);
-        }
-    }
-
-    .slider:hover .item {
-        animation-play-state: paused !important;
-        filter: grayscale(1);
-    }
-
-    .slider .item:hover {
-        filter: grayscale(0);
-    }
-
-    .slider[reverse="True"] .item {
-        animation: reverse-autoPlay 10s linear infinite;
-    }
-
-    @keyframes reverse-autoPlay {
-        from {
-            left: calc(var(--width) * -1);
-        }
-
-        to {
-            left: 100%;
-        }
-    }
-
-    /* ... (all your existing CSS code above) ... */
-
-    @keyframes reverse-autoPlay {
-        from {
-            left: calc(var(--width) * -1);
-        }
-
-        to {
-            left: 100%;
-        }
-    }
+.slider:hover .item{
+    animation-play-state: paused!important;
+    filter: grayscale(1);
+}
+.slider .item:hover{
+    filter: grayscale(0);
+}
+.slider[reverse="True"] .item{
+    animation: reverse-autoPlay 10s linear infinite;
+}
+/* ... (all your existing CSS code above) ... */
 
 
     /* === NEW CSS FOR THE SLIDER PRODUCT CARDS === */
@@ -1453,7 +1422,7 @@
         <div class="slider-wrapper">
             <div class="product-scroll-container">
                 <div class="product-card">
-                    <div class="product-image-container">
+                    <!-- <div class="product-image-container">
                         <img src="/AirPods-max.jpg" alt="Aura Wireless Headphones">
                     </div>
                     <div class="product-details">
@@ -1463,7 +1432,7 @@
                             <span class="discounted-price">₹8,999</span>
                         </div>
                     </div>
-                    <button class="add-to-cart-btn">Add to Cart</button>
+                    <button class="add-to-cart-btn">Add to Cart</button> -->
                 </div>
 
                 <div class="product-card">
@@ -1754,55 +1723,66 @@
         ];
 
         async function loadProductsByCategory() {
-            const section = document.getElementById("dynamic-products-section");
+    const section = document.getElementById("dynamic-products-section");
+    // This should be defined somewhere in your script
+    const categories = ["Wireless Headphones", "Gaming Headphones", "LIMITED EDITION"]; // Example categories
 
-            for (const category of categories) {
-                try {
-                    const response = await fetch(`/product?category=${encodeURIComponent(category)}`);
-                    const products = await response.json();
+    for (const category of categories) {
+        try {
+            // In a real app, you would fetch from your backend
+            // const response = await fetch(`/product?category=${encodeURIComponent(category)}`);
+            // const products = await response.json();
 
-                    const heading = document.createElement("h2");
-                    heading.textContent = category;
-                    section.appendChild(heading);
+            // --- Using mock data for demonstration ---
+            const mockProducts = [
+                { _id: '1', productName: 'Aura Wireless', price: '8,999', image2: '../public/AirPods-max.jpg' },
+                { _id: '2', productName: 'Stealth Gamer', price: '12,499', image2: '../public/gaming-ps5.jpg' },
+                { _id: '3', productName: 'Echo Buds Pro', price: '7,999', image2: '../public/KZ-wired-earphones.jpg' },
+                { _id: '4', productName: 'Classic Wired', price: '1,499', image2: '../public/Nothing-headphones.jpg' }
+            ];
+            const products = mockProducts;
+            // --- End of mock data ---
 
-                    const slider = document.createElement("div");
-                    slider.className = "slider";
-                    slider.style.setProperty('--width', '300px');
-                    slider.style.setProperty('--height', '450px');
-                    slider.style.setProperty('--quantity', products.length.toString());
+            const heading = document.createElement("h2");
+            heading.textContent = category;
+            section.appendChild(heading);
 
-                    const list = document.createElement("div");
-                    list.className = "list";
+            // ADDED: A container for our new horizontally scrollable list
+            const productContainer = document.createElement("div");
+            productContainer.className = "product-scroll-container";
 
-                    products.forEach((product, index) => {
-                        const item = document.createElement("div");
-                        item.className = "item";
-                        item.style.setProperty('--position', index + 1);
+            products.forEach((product, index) => {
+                // CHANGED: The item is now a 'product-card' for better semantics
+                const card = document.createElement("div");
+                card.className = "product-card";
 
-                        item.innerHTML = `
-  <div class="product-image-container" class="product-scroll-container" onclick="goToProduct('${product._id}')">
-    <img src="${product.image2}" alt="${product.productName}">
-  </div>
-  <div class="product-details" onclick="goToProduct('${product._id}')">
-    <h3 class="product-name">${product.productName}</h3>
-    <div class="price-container">
-      <span class="discounted-price">₹${product.price}</span>
-    </div>
-  </div>
-  <button class="add-to-cart-btn" onclick="addToCart('${product._id}')">Add to Cart</button>
-`;
+                // REMOVED: No longer need the '--position' property for animations
+                // item.style.setProperty('--position', index + 1);
 
+                card.innerHTML = `
+                    <div class="product-image-container" onclick="goToProduct('${product._id}')">
+                        <img src="${product.image2}" alt="${product.productName}">
+                    </div>
+                    <div class="product-details" onclick="goToProduct('${product._id}')">
+                        <h3 class="product-name">${product.productName}</h3>
+                        <div class="price-container">
+                            <span class="discounted-price">₹${product.price}</span>
+                        </div>
+                    </div>
+                    <button class="add-to-cart-btn" onclick="addToCart('${product._id}')">Add to Cart</button>`;
 
-                        list.appendChild(item);
-                    });
+                productContainer.appendChild(card);
+            });
 
-                    slider.appendChild(list);
-                    section.appendChild(slider);
-                } catch (error) {
-                    console.error(`Error loading category "${category}":`, error);
-                }
-            }
+            section.appendChild(productContainer);
+        } catch (error) {
+            console.error(`Error loading category "${category}":`, error);
         }
+    }
+}
+
+// Don't forget to call the function when the page loads
+document.addEventListener("DOMContentLoaded", loadProductsByCategory);
 
         async function addToCart(productId) {
             console.log("Add to Cart clicked for product:", productId);
