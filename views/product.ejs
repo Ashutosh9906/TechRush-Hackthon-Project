@@ -411,6 +411,12 @@ body::before {
   font-size: 18px;
 }
 
+.review-header-inline {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
   </style>
 </head>
 <body>
@@ -499,16 +505,18 @@ body::before {
   <!-- Review submission form -->
   <h3>Leave a Review</h3>
   <!-- Star Rating Input -->
-<div class="star-rating">
-  <input type="radio" id="star5" name="rating" value="5" /><label for="star5">★</label>
-  <input type="radio" id="star4" name="rating" value="4" /><label for="star4">★</label>
-  <input type="radio" id="star3" name="rating" value="3" /><label for="star3">★</label>
-  <input type="radio" id="star2" name="rating" value="2" /><label for="star2">★</label>
-  <input type="radio" id="star1" name="rating" value="1" /><label for="star1">★</label>
-</div>
-
-  <form id="reviewForm">
+<form id="reviewForm">
+  <div class="review-header-inline">
     <h4><span class="user-icon">👤</span> Add_Name</h4>
+    <div class="star-rating">
+      <input type="radio" id="star5" name="rating" value="5" /><label for="star5">★</label>
+      <input type="radio" id="star4" name="rating" value="4" /><label for="star4">★</label>
+      <input type="radio" id="star3" name="rating" value="3" /><label for="star3">★</label>
+      <input type="radio" id="star2" name="rating" value="2" /><label for="star2">★</label>
+      <input type="radio" id="star1" name="rating" value="1" /><label for="star1">★</label>
+    </div>
+  </div>
+
     <textarea id="reviewText" placeholder="Write your review..." required></textarea>
     <button type="submit">Submit Review</button>
   </form>
