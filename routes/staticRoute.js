@@ -16,7 +16,7 @@ router.get("/login", (req, res) => {
 
 router.get('/logout', (req, res) => {
     res.clearCookie('token'); // Clear the 'token' cookie
-    res.redirect('/user/login'); // Redirect to login page
+    res.redirect('/home'); // Redirect to login page
 });
 router.get("/profile", verifyToken, handleGetProfile)
 

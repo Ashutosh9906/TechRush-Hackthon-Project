@@ -367,7 +367,7 @@
                 <aside class="profile-sidebar">
                     <div class="user-details-card">
                         <div class="profile-picture">
-                            <img src="../public/user.svg" alt="User Avatar">
+                            <img src="/user.svg" alt="User Avatar">
                         </div>
                         <h2 class="user-name">
                             <%= user.firstName %>
@@ -387,59 +387,74 @@
                         </div>
                         <div class="action-buttons">
                             <a onclick="addToCart(`<%= user.address %>`)" class="btn btn-primary">Go to Cart</a>
-                            <a href="#" class="btn btn-secondary">Log Out</a>
+                            <a href="/user/logout" class="btn btn-secondary">Log Out</a>
                         </div>
-                        <a href="#" class="edit-profile-link">Edit Profile</a>
+                        <!-- //<a href="#" class="edit-profile-link">Edit Profile</a> -->
                     </div>
                 </aside>
 
                 <section class="order-history">
                     <h2>Order History</h2>
                     <div class="order-history-container">
-                        <div class="order-card">
-                            <div class="order-product-image">
-                                <img src="../public/new-cyberpunk-headphones.png" alt="THUNDERSTRIKE">
-                            </div>
-                            <div class="order-details">
-                                <h3 class="order-product-name">THUNDERSTRIKE</h3>
-                                <p class="order-meta">Order #BURST-84351</p>
-                                <p class="order-meta">Date: July 15, 2025</p>
-                            </div>
-                            <div class="order-price">
-                                <span>Paid:</span>
-                                <p>₹16,999</p>
-                            </div>
-                        </div>
+                        <% order.forEach(ord=> { %>
+                            <% ord.products.forEach(prod=> { %>
+                                <div class="order-card">
+                                    <div class="order-product-image">
+                                        <img src="./<%= prod.productId.image1 %>" alt="<%= prod.productId.image1 %>">
+                                    </div>
+                                    <div class="order-details">
+                                        <h3 class="order-product-name">
+                                            <%= prod.productId.productName %>
+                                        </h3>
+                                        <!-- <p class="order-meta">Order
+                                            #BURST-79924</p>
+                                        <p class="order-meta">June 02, 2025
+                                        </p> -->
+                                    </div>
+                                    <div class="order-price">
+                                        <span>Paid:</span>
+                                        <p>₹<%= ord.totalAmount %>
+                                        </p>
+                                    </div>
+                                </div>
+                                <% }) %>
+                                    <% }) %>
 
-                        <div class="order-card">
-                            <div class="order-product-image">
-                                <img src="../public/earbuds.jpg" alt="Phantom LTD">
-                            </div>
-                            <div class="order-details">
-                                <h3 class="order-product-name">Phantom LTD</h3>
-                                <p class="order-meta">Order #BURST-79924</p>
-                                <p class="order-meta">June 02, 2025</p>
-                            </div>
-                            <div class="order-price">
-                                <span>Paid:</span>
-                                <p>₹19,999</p>
-                            </div>
-                        </div>
+                                        <!-- <div class="order-card">
+                                            <div class="order-product-image">
+                                                <img src="../public/earbuds.jpg" alt="Phantom LTD">
+                                            </div>
+                                            <div class="order-details">
+                                                <h3 class="order-product-name">
+                                                    Phantom LTD</h3>
+                                                <p class="order-meta">Order
+                                                    #BURST-79924</p>
+                                                <p class="order-meta">June 02, 2025
+                                                </p>
+                                            </div>
+                                            <div class="order-price">
+                                                <span>Paid:</span>
+                                                <p>₹19,999</p>
+                                            </div>
+                                        </div>
 
-                        <div class="order-card">
-                            <div class="order-product-image">
-                                <img src="../public/gaming-ps5.jpg" alt="Stealth Gamer">
-                            </div>
-                            <div class="order-details">
-                                <h3 class="order-product-name">Stealth Gamer</h3>
-                                <p class="order-meta">Order #BURST-60157</p>
-                                <p class="order-meta">April 21, 2025</p>
-                            </div>
-                            <div class="order-price">
-                                <span>Paid:</span>
-                                <p>₹12,499</p>
-                            </div>
-                        </div>
+                                        <div class="order-card">
+                                            <div class="order-product-image">
+                                                <img src="../public/gaming-ps5.jpg" alt="Stealth Gamer">
+                                            </div>
+                                            <div class="order-details">
+                                                <h3 class="order-product-name">
+                                                    Stealth Gamer</h3>
+                                                <p class="order-meta">Order
+                                                    #BURST-60157</p>
+                                                <p class="order-meta">April 21, 2025
+                                                </p>
+                                            </div>
+                                            <div class="order-price">
+                                                <span>Paid:</span>
+                                                <p>₹12,499</p>
+                                            </div>
+                                        </div> -->
 
                     </div>
                 </section>
@@ -457,12 +472,14 @@
                 headers: {
                     "Content-Type": "application/json"
                 },
+                cache: "no-store"
                 // body: JSON.stringify({ })
             });
             const responseBody = await response.json()
             console.log(responseBody);
             if (responseBody.redirect) {
                 window.location.href = responseBody.redirect;
+                console.log("done");
             }
             // console.log(responseBody.msg)
             // showPopup(responseBody.msg)

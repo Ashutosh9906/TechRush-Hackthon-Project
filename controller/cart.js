@@ -18,7 +18,12 @@ async function handleItemsOfCart(req, res) {
                 redirect: "/cart",
             });
         }
-        else {
+        if(json == "false") {
+            return res.render("cart", {
+                populateItems
+            })
+        }
+        if(json == undefined){
             return res.render("cart", {
                 populateItems
             })

@@ -270,25 +270,40 @@
       <h1>Your Shopping Cart</h1>
 
       <% populateItems.forEach(item=> { %>
-        <div class="cart-item" data-price="4149">
-          <img src="../public/cartimg_1.png" alt="Headphone" />
-          <div class="item-details">
-            <div class="item-title"><%= item.productId.productName %></div>
-            <div class="item-description"><%= item.productId.description %>
+        <% if (item.productId) { %>
+          <div class="cart-item" data-price="<%= item.productId.price %>">
+            <img src="../public/cartimg_1.png" alt="Headphone" />
+            <div class="item-details">
+              <div class="item-title">
+                <%= item.productId.productName %>
+              </div>
+              <div class="item-description">
+                <%= item.productId.description %>
+              </div>
+              <div class="quantity-control">
+                <button onclick="updateQty(this, -1)">−</button>
+                <span class="qty">
+                  <%= item.quantity %>
+                </span>
+                <button onclick="updateQty(this, 1)">+</button>
+                <button class="remove-btn" onclick="removeItem(this, `<%= item._id %>`)">Remove</button>
+                <button class="buy-now-btn" onclick="buyNow(this, `<%= item.productId._id %>`)">Buy Now</button>
+              </div>
             </div>
-            <div class="quantity-control">
-              <button onclick="updateQty(this, -1)">−</button>
-              <span class="qty"><%= item.quantity %></span>
-              <button onclick="updateQty(this, 1)">+</button>
-              <button class="remove-btn" onclick="removeItem(this)">Remove</button>
-              <button class="buy-now-btn" onclick="buyNow(this)">Buy Now</button>
-            </div>
+            <div class="total-price">₹<span class="item-total">
+                <%= item.productId.price %>
+              </span></div>
           </div>
-          <div class="total-price">₹<span class="item-total"><%= item.productId.price %></span></div>
-        </div>
-        <% }) %>
+          <% } else { %>
+            <div class="cart-item missing-product">
+              <div class="item-title">⚠️ Product no longer available</div>
+              <button class="remove-btn" onclick="removeItem(this)">Remove</button>
+            </div>
+            <% } %>
+              <% }) %>
 
-          <!-- <div class="cart-item" data-price="2157">
+
+                <!-- <div class="cart-item" data-price="2157">
             <img src="../public/cartimg_2.png" alt="Headphone" />
             <div class="item-details">
               <div class="item-description">Lightweight in-ear wired earphones with tangle-free cable and stereo sound.
@@ -370,63 +385,112 @@
           </div>
     </div> -->
 
-    <div class="summary-box">
-      <h2>Order Summary</h2>
-      <div class="total">Total: ₹<span id="cart-total">0.00</span></div>
-      <button class="checkout-btn">Proceed to Checkout</button>
-      <button class="buy-all-btn" onclick="buyAllItems()">Buy All Items</button>
+                <div class="summary-box">
+                  <h2>Order Summary</h2>
+                  <div class="total">Total: ₹<span id="cart-total">0.00</span></div>
+                  <!-- <button class="checkout-btn">Proceed to Checkout</button> -->
+                  <button class="buy-all-btn" onclick="buyAllItems()">Buy All Items</button>
+                </div>
     </div>
-  </div>
 
-  <script>
-    function updateQty(button, change) {
-      const qtySpan = button.parentElement.querySelector(".qty");
-      let qty = parseInt(qtySpan.textContent);
-      qty = Math.max(1, qty + change);
-      qtySpan.textContent = qty;
+    <script>
+      function updateQty(button, change) {
+        const qtySpan = button.parentElement.querySelector(".qty");
+        let qty = parseInt(qtySpan.textContent);
+        qty = Math.max(1, qty + change);
+        qtySpan.textContent = qty;
 
-      const item = button.closest(".cart-item");
-      const price = parseFloat(item.getAttribute("data-price"));
-      const itemTotal = item.querySelector(".item-total");
-      itemTotal.textContent = (qty * price).toFixed(2);
-
-      updateCartTotal();
-    }
-
-    function updateCartTotal() {
-      const items = document.querySelectorAll(".cart-item");
-      let total = 0;
-      items.forEach(item => {
-        const qty = parseInt(item.querySelector(".qty").textContent);
+        const item = button.closest(".cart-item");
         const price = parseFloat(item.getAttribute("data-price"));
-        total += qty * price;
-      });
-      document.getElementById("cart-total").textContent = total.toFixed(2);
-    }
+        const itemTotal = item.querySelector(".item-total");
+        itemTotal.textContent = (qty * price).toFixed(2);
 
-    function removeItem(button) {
-      const item = button.closest(".cart-item");
-      item.remove();
+        updateCartTotal();
+      }
+
+      function updateCartTotal() {
+        const items = document.querySelectorAll(".cart-item");
+        let total = 0;
+        items.forEach(item => {
+          const qty = parseInt(item.querySelector(".qty").textContent);
+          const price = parseFloat(item.getAttribute("data-price"));
+          total += qty * price;
+        });
+        document.getElementById("cart-total").textContent = total.toFixed(2);
+      }
+
+      async function removeItem(button, cartId) {
+        const response = await fetch("/cart", {
+          method: "delete",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ cartId })
+        });
+        console.log(cartId);
+        console.log("Done");
+        updateCartTotal();
+        const item = button.closest(".cart-item");
+        item.remove();
+        updateCartTotal();
+      }
+
+      function buyNow(button, productId) {
+        const item = button.closest(".cart-item");
+        const title = item.querySelector(".item-title").textContent;
+        const quantity = parseInt(item.querySelector(".qty").textContent);
+        const total = item.querySelector(".item-total").textContent;
+        //alert(`Purchased ${qty} x ${title} for ₹${total}`);
+
+        //const quantity = parseInt(document.getElementById('qty').value);
+        console.log("quantity", quantity)
+        if (!productId || productId === "undefined") {
+          console.error("Invalid product ID passed to fetch!");
+          return;
+        }
+
+        window.location.href = `/buyNow/${productId}?quantity=${quantity}`;
+        console.log("done");
+
+        document.getElementById("cart-total").textContent = parseFloat(total).toFixed(2);
+      }
+
+      async function buyAllItems() {
+        //alert("All items have been purchased successfully!");
+        try {
+          // Collect address from user (or auto-use saved address)
+          //const address = prompt("Enter your shipping address (Leave empty to use your default address):");
+          const address = "";
+          const bodyData = {
+            address// or some string
+          };
+
+          const response = await fetch("/buyNow/cartCheckout", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ address })
+          });
+
+          const result = await response.json();
+
+          if (response.ok) {
+            //alert(result.msg || "Order placed successfully!");
+            window.location.href = "/home";
+          } else {
+            alert(result.msg || "Something went wrong.");
+          }
+        } catch (err) {
+          console.error("Buy all items failed:", err);
+          alert("Failed to place the order. Try again later.");
+        }
+
+        updateCartTotal();
+      }
+
       updateCartTotal();
-    }
-
-    function buyNow(button) {
-      const item = button.closest(".cart-item");
-      const title = item.querySelector(".item-title").textContent;
-      const qty = parseInt(item.querySelector(".qty").textContent);
-      const total = item.querySelector(".item-total").textContent;
-      alert(`Purchased ${qty} x ${title} for ₹${total}`);
-
-      document.getElementById("cart-total").textContent = parseFloat(total).toFixed(2);
-    }
-
-    function buyAllItems() {
-      alert("All items have been purchased successfully!");
-      updateCartTotal();
-    }
-
-    updateCartTotal();
-  </script>
+    </script>
 </body>
 
 </html>

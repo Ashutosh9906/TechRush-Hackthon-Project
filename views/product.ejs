@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -9,15 +10,16 @@
       box-sizing: border-box;
       font-family: 'Segoe UI', sans-serif;
     }
-    :root{
-    --color_I: #f2e6ee;
-    --color_II: #977dff;
-    --color_V: #977dff;
-    --color_VI: #ffccf2;
-    --color_III: #0033ff;
-    --color_IV: #0600ab;
-    --color_VII: #00003d;
-    --secsolor_I: #ffa930;
+
+    :root {
+      --color_I: #f2e6ee;
+      --color_II: #977dff;
+      --color_V: #977dff;
+      --color_VI: #ffccf2;
+      --color_III: #0033ff;
+      --color_IV: #0600ab;
+      --color_VII: #00003d;
+      --secsolor_I: #ffa930;
     }
 
     body {
@@ -25,13 +27,15 @@
       padding: 20px;
       background-attachment: fixed;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-      background: linear-gradient(120deg,var(--color_II),var(--color_VI));
+      background: linear-gradient(120deg, var(--color_II), var(--color_VI));
       color: black;
       min-height: 100vh;
       line-height: 1.5;
       background: linear-gradient(120deg, var(--color_III), var(--color_VI), var(--color_VI));
-      background-size: 200% 200%; /* Make the background larger than the viewport */
-      animation: gradientDrift 15s ease infinite; /* Apply the animation */
+      background-size: 200% 200%;
+      /* Make the background larger than the viewport */
+      animation: gradientDrift 15s ease infinite;
+      /* Apply the animation */
     }
 
     /*@keyframes gradientDrift {
@@ -39,23 +43,26 @@
     50% { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
 }*/
-/* Noise Overlay */
-body::before {
-    content: "";
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    /* Tiny random dots */
-    background-image: 
+    /* Noise Overlay */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      /* Tiny random dots */
+      background-image:
         radial-gradient(rgba(0, 0, 0, 0.2) 1px, transparent 0);
 
-    background-size: 3px 3px; /* density of dots */
-    opacity: 0.8; /* how visible the grain is */
-    pointer-events: none; /* lets clicks pass through */
-    z-index: -1;
-}
+      background-size: 3px 3px;
+      /* density of dots */
+      opacity: 0.8;
+      /* how visible the grain is */
+      pointer-events: none;
+      /* lets clicks pass through */
+      z-index: -1;
+    }
 
 
 
@@ -69,15 +76,15 @@ body::before {
       border-radius: 20px;
       transition: 0.3s ease-in-out;
       /* Styling */
-    background: linear-gradient(to right, #ede9fe, #ddd6fe);
-    backdrop-filter: blur(10px);
-    min-width: 220px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-    border-radius: 8px;
-    padding: 0.2rem 0;
-    
-    /* Animation */
-    transition: opacity 0.3s ease, visibility 0.3s ease;
+      background: linear-gradient(to right, #ede9fe, #ddd6fe);
+      backdrop-filter: blur(10px);
+      min-width: 220px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+      border-radius: 8px;
+      padding: 0.2rem 0;
+
+      /* Animation */
+      transition: opacity 0.3s ease, visibility 0.3s ease;
     }
 
     .image-slider {
@@ -284,6 +291,7 @@ body::before {
         opacity: 0;
         transform: translateY(20px);
       }
+
       100% {
         opacity: 1;
         transform: translateY(0);
@@ -291,176 +299,191 @@ body::before {
     }
 
     .button-group {
-  display: flex;
-  flex-direction: column; 
-  gap: 12px;
-  margin-top: 20px;
-  
-}
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 20px;
 
-.wishlist-btn,
-.add-cart-btn {
-  padding: 15px;             /* Make buttons bigger */
-  font-size: 18px;           /* Bigger text */
-  border-radius: 8px;
-  text-align: center;
-  cursor: pointer;
-  transition: transform 0.2s;
-  width: 100%;               /* Stretch full width of container */
-  max-width: 450px;          /* Optional: limit button width */
-  margin: 0 auto;            /* Center the buttons */
-}
+    }
 
-.review-section {
-  max-width: 800px;
-  margin: 50px auto 20px;
-  background:linear-gradient(to right, #ede9fe, #ddd6fe);
-  padding: 30px;
-  border-radius: 12px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-}
+    .wishlist-btn,
+    .add-cart-btn {
+      padding: 15px;
+      /* Make buttons bigger */
+      font-size: 18px;
+      /* Bigger text */
+      border-radius: 8px;
+      text-align: center;
+      cursor: pointer;
+      transition: transform 0.2s;
+      width: 100%;
+      /* Stretch full width of container */
+      max-width: 450px;
+      /* Optional: limit button width */
+      margin: 0 auto;
+      /* Center the buttons */
+    }
 
-.review-section h2, .review-section h3 {
-  color: #1e40af;
-  margin-bottom: 10px;
-}
+    .review-section {
+      max-width: 800px;
+      margin: 50px auto 20px;
+      background: linear-gradient(to right, #ede9fe, #ddd6fe);
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
 
-.review {
-  border-bottom: 1px solid #ddd;
-  padding: 10px 0;
-  font-size: 15px;
-}
+    .review-section h2,
+    .review-section h3 {
+      color: #1e40af;
+      margin-bottom: 10px;
+    }
 
-.review strong {
-  color: #2563eb;
-}
+    .review {
+      border-bottom: 1px solid #ddd;
+      padding: 10px 0;
+      font-size: 15px;
+    }
 
-#reviewForm {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-top: 15px;
-}
+    .review strong {
+      color: #2563eb;
+    }
 
-#reviewForm input,
-#reviewForm textarea {
-  padding: 10px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  font-size: 14px;
-}
+    #reviewForm {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 15px;
+    }
 
-#reviewForm button {
-  background-color: #2563eb;
-  color: white;
-  padding: 10px;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 15px;
-}
+    #reviewForm input,
+    #reviewForm textarea {
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+    }
 
-#reviewForm button:hover {
-  background-color: #1d4ed8;
-}
+    #reviewForm button {
+      background-color: #2563eb;
+      color: white;
+      padding: 10px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 15px;
+    }
 
-.star-rating {
-  display: flex;
-  flex-direction: row-reverse;
-  justify-content: flex-start;
-  margin-top: 10px;
-}
+    #reviewForm button:hover {
+      background-color: #1d4ed8;
+    }
 
-.star-rating input[type="radio"] {
-  display: none;
-}
+    .star-rating {
+      display: flex;
+      flex-direction: row-reverse;
+      justify-content: flex-start;
+      margin-top: 10px;
+    }
 
-.star-rating label {
-  font-size: 24px;
-  color: #ccc;
-  cursor: pointer;
-  transition: color 0.2s;
-}
+    .star-rating input[type="radio"] {
+      display: none;
+    }
 
-.star-rating input[type="radio"]:checked ~ label,
-.star-rating label:hover,
-.star-rating label:hover ~ label {
-  color: #f5b301;
-}
+    .star-rating label {
+      font-size: 24px;
+      color: #ccc;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
 
-#details ul {
-  padding-left: 20px;
-  list-style: disc;
-}
+    .star-rating input[type="radio"]:checked~label,
+    .star-rating label:hover,
+    .star-rating label:hover~label {
+      color: #f5b301;
+    }
 
-.review > div {
-  font-size: 18px;
-  color: #f5b301; /* gold color for stars */
-  margin: 4px 0;
-}
+    #details ul {
+      padding-left: 20px;
+      list-style: disc;
+    }
 
-.review-header {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 16px;
-}
+    .review>div {
+      font-size: 18px;
+      color: #f5b301;
+      /* gold color for stars */
+      margin: 4px 0;
+    }
 
-.inline-stars {
-  color: #f5b301;
-  font-size: 18px;
-}
+    .review-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 16px;
+    }
 
-.review-header-inline {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-}
+    .inline-stars {
+      color: #f5b301;
+      font-size: 18px;
+    }
 
-.stock-left {
-  color: #dc2626; /* red tone */
-  font-size: 16px;
-  font-weight: bold;
-  margin-top: -10px;
-  margin-bottom: 15px;
-}
+    .review-header-inline {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
 
+    .stock-left {
+      color: #dc2626;
+      /* red tone */
+      font-size: 16px;
+      font-weight: bold;
+      margin-top: -10px;
+      margin-bottom: 15px;
+    }
   </style>
 </head>
+
 <body>
   <div class="container">
     <div class="image-slider">
-      <img src="../public/Nothing-Ear-(2).jpg" alt="Headphone" onclick="changeImage(this)">
-      <img src="../public/Nothing-Ear-(3).jpg" alt="Headphone" onclick="changeImage(this)">
-      <img src="../public/Nothing-Ear-(4).jpg" alt="Headphone" onclick="changeImage(this)">
+      <img src="<%= product.image1 %>" alt="Headphone" onclick="changeImage(this)">
+      <img src="<%= product.image2 %>" alt="Headphone" onclick="changeImage(this)">
+      <img src="<%= product.image3 %>" alt="Headphone" onclick="changeImage(this)">
     </div>
 
     <div class="product-section">
       <div class="left">
-        <img src="../public/Nothing-Ear.jpg" alt="Main Headphone" id="main-image">
+        <img src="<%= product.image1 %>" alt="Main Headphone" id="main-image">
       </div>
       <div class="right">
         <div>
-          <div class="category"><%= product.category %></div>
-          <div class="title"><%= product.productName %></div>
+          <div class="category">
+            <%= product.category %>
+          </div>
+          <div class="title">
+            <%= product.productName %>
+          </div>
           <div class="subtitle">Stylish & Comfortable</div>
-          <div class="price" id="price">₹<%= product.price %></div>
+          <div class="price" id="price">₹<%= product.price %>
+          </div>
           <div class="stock-left" id="stock">Only <%= product.stock %> left in stock!</div>
 
 
           <div class="tab-menu">
-  <span class="active" onclick="showTab('desc')">Description</span>
-  <span onclick="showTab('details')">Details</span>
-</div>
+            <span class="active" onclick="showTab('desc')">Description</span>
+            <span onclick="showTab('details')">Details</span>
+          </div>
 
 
           <div class="tab-content active" id="desc">
             <%= product.description %>
-            <span class="read-more" onclick="toggleReadMore(this)">Read more</span>
-            <span class="more-text" style="display:none"><br> Enjoy immersive audio with deep bass and crystal-clear clarity.<br>Lightweight design with long battery life for uninterrupted listening.</span>
+              <span class="read-more" onclick="toggleReadMore(this)">Read more</span>
+              <span class="more-text" style="display:none"><br> Enjoy immersive audio with deep bass and crystal-clear
+                clarity.<br>Lightweight design with long battery life for uninterrupted listening.</span>
           </div>
           <div class="tab-content" id="details">
-  <ul>
+            <%= product.detail %>
+              <!-- <ul>
     <li>Brand: Nothing</li>
     <li>Model: Ear (1)</li>
   </ul>
@@ -472,20 +495,21 @@ body::before {
       <li>Noise Cancellation: Active</li>
       <li>Weight: 4.7g (each earbud)</li>
     </ul>
-  </span>
-</div>
-     
+  </span> -->
+          </div>
+
         </div>
 
         <div class="options">
           <div class="quantity-control">
             <button onclick="updateQty(-1)">−</button>
-            <input type="number" class="quantity-number" id="qty" value="1" min="1" onchange="calcPrice()">
+            <input type="number" class="quantity-number" id="qty" value="1" min="1">
             <button onclick="updateQty(1)">+</button>
           </div>
         </div>
-        
-        <div class="total-price" id="total">Total: ₹3,499</div>
+
+        <div class="total-price" id="total">Total: ₹<%= product.price %>
+        </div>
         <div class="button-group">
           <div class="wishlist-btn" onclick="buyNow('<%= product._id %>')">Buy Now</div>
           <div class="add-cart-btn" onclick="addToCart('<%= product._id %>')">🛒 Add to Cart</div>
@@ -494,50 +518,67 @@ body::before {
     </div>
 
     <div class="review-section">
-  <h2>Customer Reviews</h2>
+      <h2>Customer Reviews</h2>
 
-  <!-- Sample reviews -->
-<div class="review">
-  <div class="review-header">
-    <strong><span class="user-icon">👤</span> Riya S.</strong>
-    <span class="inline-stars">★★★★☆</span>
-  </div>
-  <p>Amazing sound quality and battery life!</p>
-</div>
-<div class="review">
-  <div class="review-header">
-    <strong><span class="user-icon">👤</span> Aman K.</strong>
-    <span class="inline-stars">★★★★★</span>
-  </div>
-  <p>Stylish and very comfortable to wear. Worth the price!</p>
-</div>
+      <!-- Sample reviews -->
+      <div class="review">
+        <div class="review-header">
+          <strong><span class="user-icon">👤</span> Riya S.</strong>
+          <span class="inline-stars">★★★★☆</span>
+        </div>
+        <p>Amazing sound quality and battery life!</p>
+      </div>
+      <div class="review">
+        <div class="review-header">
+          <strong><span class="user-icon">👤</span> Aman K.</strong>
+          <span class="inline-stars">★★★★★</span>
+        </div>
+        <p>Stylish and very comfortable to wear. Worth the price!</p>
+      </div>
 
-  <!-- Review submission form -->
-  <h3>Leave a Review</h3>
-  <!-- Star Rating Input -->
-<form id="reviewForm">
-  <div class="review-header-inline">
-    <h4><span class="user-icon">👤</span> Add_Name</h4>
-    <div class="star-rating">
-      <input type="radio" id="star5" name="rating" value="5" /><label for="star5">★</label>
-      <input type="radio" id="star4" name="rating" value="4" /><label for="star4">★</label>
-      <input type="radio" id="star3" name="rating" value="3" /><label for="star3">★</label>
-      <input type="radio" id="star2" name="rating" value="2" /><label for="star2">★</label>
-      <input type="radio" id="star1" name="rating" value="1" /><label for="star1">★</label>
+      <!-- Review submission form -->
+      <h3>Leave a Review</h3>
+      <!-- Star Rating Input -->
+      <form id="reviewForm">
+        <div class="review-header-inline">
+          <h4><span class="user-icon">👤</span> Add_Name</h4>
+          <div class="star-rating">
+            <input type="radio" id="star5" name="rating" value="5" /><label for="star5">★</label>
+            <input type="radio" id="star4" name="rating" value="4" /><label for="star4">★</label>
+            <input type="radio" id="star3" name="rating" value="3" /><label for="star3">★</label>
+            <input type="radio" id="star2" name="rating" value="2" /><label for="star2">★</label>
+            <input type="radio" id="star1" name="rating" value="1" /><label for="star1">★</label>
+          </div>
+        </div>
+
+        <textarea id="reviewText" placeholder="Write your review..." required></textarea>
+        <button type="submit">Submit Review</button>
+      </form>
+
+      <!-- New reviews will be added here -->
+      <div id="newReviews"></div>
+
+      <div id="top-popup" style="
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #28a745; /* ✅ Green color */
+  color: white;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 500;
+  z-index: 9999;
+  display: none;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  transition: all 0.5s ease;
+"></div>
+
+
     </div>
   </div>
 
-    <textarea id="reviewText" placeholder="Write your review..." required></textarea>
-    <button type="submit">Submit Review</button>
-  </form>
-
-  <!-- New reviews will be added here -->
-  <div id="newReviews"></div>
-
-  
-</div>
-  </div>
-  
 
 
   <script>
@@ -558,11 +599,31 @@ body::before {
         body: JSON.stringify({ productId, quantity })
       });
       const responseBody = await response.json()
+      showPopup(responseBody.msg)
       if (responseBody.redirect) {
         window.location.href = responseBody.redirect;
       }
       // console.log(responseBody.msg)
       // showPopup(responseBody.msg)
+    }
+
+    function showPopup(message, duration = 3000) {
+      const popup = document.getElementById('top-popup');
+      if (!popup) return;
+
+      console.log("Popup element:", popup);
+      console.log("Message to show:", message);
+      popup.textContent = message;
+      popup.style.display = 'block';
+      popup.style.opacity = '1';
+
+      clearTimeout(popup.hideTimeout);
+      popup.hideTimeout = setTimeout(() => {
+        popup.style.opacity = '0';
+        setTimeout(() => {
+          popup.style.display = 'none';
+        }, 400);
+      }, duration);
     }
 
     async function buyNow(productId) {
@@ -586,7 +647,7 @@ body::before {
 
     function calcPrice() {
       const qty = parseInt(document.getElementById('qty').value);
-      document.getElementById('total').innerText = "Total: ₹" + (qty * basePrice).toLocaleString();
+      document.getElementById('total').innerText = "Total: ₹" + (qty * numericPrice).toLocaleString();
     }
 
     function showTab(tabId) {
@@ -611,19 +672,19 @@ body::before {
       document.getElementById("main-image").src = thumb.src;
     }
 
-document.getElementById('reviewForm').addEventListener('submit', function(e) {
-  e.preventDefault();
+    document.getElementById('reviewForm').addEventListener('submit', function (e) {
+      e.preventDefault();
 
-  const name = "Guest User";
-  const text = document.getElementById('reviewText').value.trim();
-  const rating = document.querySelector('input[name="rating"]:checked');
+      const name = "Guest User";
+      const text = document.getElementById('reviewText').value.trim();
+      const rating = document.querySelector('input[name="rating"]:checked');
 
-  if (name && text && rating) {
-    const stars = '★'.repeat(rating.value) + '☆'.repeat(5 - rating.value);
+      if (name && text && rating) {
+        const stars = '★'.repeat(rating.value) + '☆'.repeat(5 - rating.value);
 
-    const newReview = document.createElement('div');
-    newReview.classList.add('review');
-    newReview.innerHTML = `
+        const newReview = document.createElement('div');
+        newReview.classList.add('review');
+        newReview.innerHTML = `
   <div class="review-header">
     <strong><span class="user-icon">👤</span> ${name}</strong>
     <span class="inline-stars">${stars}</span>
@@ -631,19 +692,20 @@ document.getElementById('reviewForm').addEventListener('submit', function(e) {
   <p>${text}</p>`;
 
 
-    document.getElementById('newReviews').prepend(newReview);
+        document.getElementById('newReviews').prepend(newReview);
 
-    // Clear form
-    document.getElementById('reviewForm').reset();
-  } else {
-    alert("Please fill out all fields and select a rating.");
-  }
-});
+        // Clear form
+        document.getElementById('reviewForm').reset();
+      } else {
+        alert("Please fill out all fields and select a rating.");
+      }
+    });
 
-document.getElementById('stock').innerText = `Only ${product.stock} left in stock!`;
+    document.getElementById('stock').innerText = `Only ${product.stock} left in stock!`;
 
 
 
   </script>
 </body>
+
 </html>

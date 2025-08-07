@@ -86,11 +86,15 @@ async function handleVerifyPassword(req, res) {
     });
 }
 
-async function handleGetProfile(req, res){
+async function handleGetProfile(req, res) {
     const userId = req.user.id;
     const user = await User.findById(userId)
     // console.log(orders);
-    const order = await Order.find({ userId })
+    const order = await Order.find({ userId }).populate({
+        path: "products.productId",
+        select: "productName price description category stock image"
+    });
+    console.log(order);
     return res.render("profile", {
         user,
         order

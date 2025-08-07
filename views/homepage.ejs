@@ -1421,11 +1421,11 @@
         </main>
     </div>
     <section class="product-showcase">
-        <h2>Explore Our Collection</h2>
+        <!-- <h2>Explore Our Collection</h2> -->
         <div class="slider-wrapper">
             <div class="product-scroll-container">
-                <div class="product-card">
-                    <!-- <div class="product-image-container">
+                <!-- <div class="product-card">
+                    <div class="product-image-container">
                         <img src="/AirPods-max.jpg" alt="Aura Wireless Headphones">
                     </div>
                     <div class="product-details">
@@ -1435,10 +1435,10 @@
                             <span class="discounted-price">₹8,999</span>
                         </div>
                     </div>
-                    <button class="add-to-cart-btn">Add to Cart</button> -->
-                </div>
+                    <button class="add-to-cart-btn">Add to Cart</button>
+                </div> -->
 
-                <div class="product-card">
+                <!-- <div class="product-card">
                     <div class="product-image-container">
                         <img src="/gaming-ps5.jpg" alt="Stealth Gaming Headset">
                     </div>
@@ -1450,9 +1450,9 @@
                         </div>
                     </div>
                     <button class="add-to-cart-btn">Add to Cart</button>
-                </div>
+                </div> -->
 
-                <div class="product-card">
+                <!-- <div class="product-card">
                     <div class="product-image-container">
                         <img src="/KZ-wired-earphones.jpg" alt="Echo Buds Pro">
                     </div>
@@ -1464,9 +1464,9 @@
                         </div>
                     </div>
                     <button class="add-to-cart-btn">Add to Cart</button>
-                </div>
+                </div> -->
 
-                <div class="product-card">
+                <!-- <div class="product-card">
                     <div class="product-image-container">
                         <img src="/Nothing-headphones.jpg" alt="Classic Wired Earphones">
                     </div>
@@ -1478,9 +1478,9 @@
                         </div>
                     </div>
                     <button class="add-to-cart-btn">Add to Cart</button>
-                </div>
+                </div> -->
 
-                <div class="product-card">
+                <!-- <div class="product-card">
                     <div class="product-image-container">
                         <img src="/neckband.jpg" alt="Flex Neckband">
                     </div>
@@ -1492,9 +1492,9 @@
                         </div>
                     </div>
                     <button class="add-to-cart-btn">Add to Cart</button>
-                </div>
+                </div> -->
 
-                <div class="product-card">
+                <!-- <div class="product-card">
                     <div class="product-image-container">
                         <img src="/earbuds.jpg" alt="Phantom Limited Edition">
                     </div>
@@ -1506,7 +1506,7 @@
                         </div>
                     </div>
                     <button class="add-to-cart-btn">Add to Cart</button>
-                </div>
+                </div> -->
 
             </div>
             <button id="scroll-left-btn" class="scroll-btn">
@@ -1544,7 +1544,7 @@
                     the earbuds (1) molds to the shape of your ear and the three silicone tips of different sizes allow
                     you to adjust them perfectly.
                 </p>
-                <a href="#" class="feature-btn">Explore Now</a>
+                <a href="/product/6894d0658adc203455740832" class="feature-btn">Explore Now</a>
             </div>
         </div>
 
@@ -1566,7 +1566,7 @@
                     full range of frequencies up to 40 kHz.Using Edge-AI (Artificial Intelligence), DSEE Extreme™
                     (Digital Sound Enhancement Engine) upscales compressed digital music files in real time.
                 </p>
-                <a href="#" class="feature-btn">Discover Gaming</a>
+                <a href="/product/6894d0078adc20345574082f" class="feature-btn">Discover Gaming</a>
             </div>
         </div>
     </section>
@@ -1658,6 +1658,7 @@
             console.log("Window loaded, calling productsFetchCall...");
             productsFetchCall();
             loadProductsByCategory();
+            loadLimitedEdition()
         };
 
 
@@ -1716,11 +1717,11 @@
 
         const categories = [
             "True Wireless Earbuds",
-            "Wired Earphones",
+            "Wired Headphone",
             "Wireless Headphones",
-            "Wired Headphones",
+            "Wired Earphone",
             "Gaming Headphones",
-            "Neckbands"
+            "Neakbands"
         ];
 
 
@@ -1831,6 +1832,45 @@
             }
             window.location.href = `/product/${productId}?json=false`;
         }
+
+        async function loadLimitedEdition() {
+            const container = document.querySelector(".slider-wrapper");
+
+            try {
+                const response = await fetch(`/product?category=${encodeURIComponent("Limited Edition")}`);
+                const products = await response.json();
+
+                const heading = document.createElement("h2");
+                heading.textContent = "Limited Edition";
+                container.appendChild(heading);
+
+                const scrollContainer = document.createElement("div");
+                scrollContainer.className = "product-scroll-container";
+
+                products.forEach(product => {
+                    const card = document.createElement("div");
+                    card.className = "product-card";
+                    card.innerHTML = `
+                <div class="product-image-container" onclick="goToProduct('${product._id}')">
+                    <img src="${product.image2}" alt="${product.productName}">
+                </div>
+                <div class="product-details" onclick="goToProduct('${product._id}')">
+                    <h3 class="product-name">${product.productName}</h3>
+                    <div class="price-container">
+                        <span class="discounted-price">₹${product.price}</span>
+                    </div>
+                </div>
+                <button class="add-to-cart-btn" onclick="addToCart('${product._id}')">Add to Cart</button>
+            `;
+                    scrollContainer.appendChild(card);
+                });
+
+                container.appendChild(scrollContainer);
+            } catch (err) {
+                console.error("Error loading LIMITED EDITION products:", err);
+            }
+        }
+
 
 
     </script>
