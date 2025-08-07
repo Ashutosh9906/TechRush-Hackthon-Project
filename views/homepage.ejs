@@ -4,699 +4,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --color_I: #f2e6ee;
-            --color_II: #8f73fb;
-            --color_V: #593ccd;
-            --color_VI: #ffccf2;
-            --color_III: #0f3ffe;
-            --color_IV: #0600ab;
-            --color_VII: #000e45;
-            --secsolor_I: #ffa930;
-        }
-
-        body {
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-            background: linear-gradient(120deg, var(--color_III), var(--color_VI));
-            color: black;
-            min-height: 100vh;
-            line-height: 1.5;
-            background: linear-gradient(120deg, var(--color_III), var(--color_II), var(--color_I));
-            background-size: 200% 200%;
-            /* Make the background larger than the viewport */
-            animation: gradientDrift 15s ease infinite;
-            /* Apply the animation */
-        }
-
-        @keyframes gradientDrift {
-            0% {
-                background-position: 0% 50%;
-            }
-
-            50% {
-                background-position: 100% 50%;
-            }
-
-            100% {
-                background-position: 0% 50%;
-            }
-        }
-
-        /* Noise Overlay */
-        body::before {
-            content: "";
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            /* Tiny random dots */
-            background-image:
-                radial-gradient(rgba(0, 0, 0, 0.2) 1px, transparent 0);
-
-            background-size: 3px 3px;
-            /* density of dots */
-            opacity: 0.8;
-            /* how visible the grain is */
-            pointer-events: none;
-            /* lets clicks pass through */
-            z-index: -1;
-        }
-
-        /* glowing effect around the gradient */
-        .layerblur {
-            height: 0;
-            width: 20rem;
-            position: absolute;
-            top: 85%;
-            right: 20%;
-            box-shadow: 0 0 100px 15px black;
-            z-index: -1;
-        }
-
-        /* Main container for the dropdown */
-        .dropdown {
-            position: relative;
-            display: inline-block;
-            /* Keeps elements contained */
-            z-index: 999;
-        }
-
-        /* The dropdown menu - hidden by default */
-        .dropdown-content {
-            /* Hiding properties */
-            visibility: hidden;
-            opacity: 0;
-
-            /* Positioning */
-            position: absolute;
-            top: 100%;
-            /* Position it right below the CATEGORIES link */
-            left: 50%;
-            transform: translateX(-50%);
-            /* Center the dropdown */
-            z-index: 1000;
-
-            /* Styling */
-            background: rgba(255, 255, 255, 0.15);
-            /* Glass effect */
-            backdrop-filter: blur(10px);
-            min-width: 220px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-            border-radius: 8px;
-            padding: 0.5rem 0;
-
-            /* Animation */
-            transition: opacity 0.3s ease, visibility 0.3s ease;
-        }
-
-        /* Style the links inside the dropdown */
-        .dropdown-content a {
-            color: white;
-            /* Or your desired text color */
-            padding: 12px 16px;
-            text-decoration: none;
-            display: block;
-            /* Makes the entire area clickable */
-            text-align: left;
-            transition: background-color 0.2s ease;
-        }
-
-        /* Change color of dropdown links on hover */
-        .dropdown-content a:hover {
-            background-color: rgba(255, 255, 255, 0.2);
-            color: black;
-        }
-
-        /* Show the dropdown menu on hover */
-        .dropdown:hover .dropdown-content {
-            visibility: visible;
-            opacity: 1;
-        }
-
-        .container {
-            width: 100%;
-            margin: 0 auto;
-            padding: 0;
-            position: relative;
-            overflow: hidden;
-        }
-
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 5rem;
-            z-index: 1000;
-            /* Sticky position properties */
-            position: sticky;
-            top: 0;
-        }
-
-        header h1 {
-            margin: 0;
-            font-size: 3rem;
-        }
-
-        nav {
-            display: flex;
-            align-items: center;
-            gap: 2rem;
-            margin-left: -5%;
-            z-index: 999;
-        }
-
-        .logo {
-            font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-        }
-
-        nav a {
-            font-size: 1rem;
-            letter-spacing: 0.1rem;
-            transition: color 0.2s ease-in-out;
-            text-decoration: none;
-            color: inherit;
-        }
-
-        /* MAIN */
-        main {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            min-height: calc(90vh - 6rem);
-        }
-
-        .content {
-            max-width: 40rem;
-            margin-left: 14%;
-            z-index: 999;
-
-            /* --- Glass Effect Properties --- */
-            background: rgba(255, 255, 255, 0.1);
-            /* Semi-transparent background */
-            backdrop-filter: blur(10px);
-            /* Blurs the background */
-            border-radius: 16px;
-            /* Rounded corners */
-            padding: 2rem;
-            /* Spacing for the content */
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-            /* Drop shadow for depth */
-
-        }
-
-        .tag-box {
-            position: relative;
-            width: 8rem;
-            height: 2.5rem;
-            border-radius: 50px;
-            /* background: linear-gradient(var(--color_VII), var(--color_IV)); */
-            background: rgba(255, 255, 255, 0.406);
-            backdrop-filter: blur(10px);
-            border-radius: 30px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-            backdrop-filter: blur(8px);
-            background-size: 200%;
-            animation: anigradient 2.5s linear infinite;
-        }
-
-        @keyframes anigradient {
-            to {
-                background-position: 200%;
-            }
-        }
-
-        .tag {
-            position: absolute;
-            inset: 3px 3px 3px 3px;
-            border-radius: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: 0.5 ease-in-out;
-            cursor: pointer;
-        }
-
-        .tag-box:hover {
-            transition: transform 0.4s ease-in-out, box-shadow 0.4s ease-in-out, background-color 0.3s ease 0.2s;
-            transform: scale(1.05);
-            /* Makes it pop up */
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-            /* Adds depth */
-            background-color: #ffa930;
-        }
-
-        .content h1 {
-            font-size: 2rem;
-            font-weight: 700;
-            letter-spacing: 0.1rem;
-            margin: 0.6rem 0;
-            line-height: 1.2;
-            /* text-shadow: 0 0 10px rgb(114, 114, 114); */
-        }
-
-        .content .description {
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-        }
-
-        .buttons {
-            display: flex;
-            gap: 1rem;
-            margin-top: 1.5rem;
-        }
-
-        .learn-more {
-            text-decoration: none;
-            color: var(--color_VII);
-            /* border: 1px solid rgb(84, 84, 84); */
-            padding: 0.4rem 1.2rem;
-            border-radius: 50px;
-            font-size: 1.2rem;
-            font-weight: 600;
-            letter-spacing: 0.02em;
-            transition: background-color 0.2s ease;
-        }
-
-        .learn-more:hover {
-            background-color: transparent;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-            transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-
-        }
-
-        /* text behind image and border in front effect */
-        .title-over-headphones h1 {
-            position: relative;
-            top: -50px;
-            font-size: 4rem;
-            text-align: center;
-            font-weight: 800;
-            letter-spacing: 0.12rem;
-            margin: 0.4rem 0;
-            line-height: 1.2;
-            color: var(--color_VII);
-        }
-
-        .title-over-headphones h1::after {
-            position: absolute;
-            inset: 0 0 0 0;
-            /*aligns the solid text and border perfectly*/
-            content: attr(data-content);
-            -webkit-text-stroke: 2px var(--color_VII);
-            /*border color*/
-            z-index: 3;
-            /*z index higher than image and text to keep it in the front*/
-            color: transparent;
-            /*makes the text transparent and alone border is visible*/
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-
-            to {
-                opacity: 1;
-            }
-        }
-
-        #headphone-main-visual {
-            position: absolute;
-            scale: 1.5;
-            top: 72%;
-            right: 300px;
-            transform: translateY(-45%);
-            height: 90vh;
-            width: auto;
-            z-index: 2;
-            opacity: 0;
-            animation: fadeInUp 0.8s ease-out 0.3s forwards;
-        }
-
-        .product-showcase {
-            padding: 4rem 0;
-            width: 100%;
-        }
-
-        .product-showcase h2 {
-            font-size: 2.5rem;
-            text-align: center;
-            margin-bottom: 2rem;
-            font-weight: 800;
-            text-shadow: 0 0 10px rgb(84, 84, 84);
-            color: black;
-        }
-
-        .slider-wrapper {
-            position: relative;
-            /* Acts as a positioning container for the buttons */
-            width: 100%;
-        }
-
-        .product-scroll-container {
-            display: flex;
-            overflow-x: auto;
-            gap: 1.5rem;
-            padding: 1rem 5%;
-            /* This makes the JavaScript scrolling smooth */
-            scroll-behavior: smooth;
-            /* Hide the actual scrollbar */
-            scrollbar-width: none;
-            /* Firefox */
-            -ms-overflow-style: none;
-            /* IE and Edge */
-        }
-
-        .product-scroll-container::-webkit-scrollbar {
-            display: none;
-        }
-
-        /* Styling for both scroll buttons */
-        .scroll-btn {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            z-index: 10;
-
-            background-color: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(5px);
-            border: none;
-            border-radius: 50%;
-            width: 44px;
-            height: 44px;
-            cursor: pointer;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: background-color 0.2s ease;
-        }
-
-        .scroll-btn:hover {
-            background-color: rgba(255, 255, 255, 0.4);
-        }
-
-        .scroll-btn svg {
-            stroke: white;
-        }
-
-        /* Position the left and right buttons */
-        #scroll-left-btn {
-            left: 1rem;
-        }
-
-        #scroll-right-btn {
-            right: 1rem;
-        }
-
-        /* --- Product Card Styling --- */
-        .product-card {
-            flex: 0 0 280px;
-            background: linear-gradient(135deg, var(--color_V), var(--color_VII));
-            backdrop-filter: blur(10px);
-            border-radius: 12px;
-            padding: 1rem;
-            text-align: center;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            /* Added flex display to help structure content vertically */
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .product-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
-        }
-
-        /* MODIFIED: Increased height to give image more space */
-        .product-image-container {
-            width: 100%;
-            height: 220px;
-            /* Increased height */
-            overflow: hidden;
-            border-radius: 8px;
-            /* Slightly adjusted radius */
-            margin-bottom: 1rem;
-        }
-
-        /* MODIFIED: Changed object-fit to 'cover' */
-        .product-image-container img {
-            width: 100%;
-            height: 100%;
-            /* Make image fill the container's height */
-            object-fit: cover;
-            /* This is the key change to make the image fill the space */
-            display: block;
-        }
-
-        .product-name {
-            font-family: impact;
-            font-size: 1.6rem;
-            letter-spacing: 0.08rem;
-            font-weight: 200;
-            margin: 0.5rem 0;
-            color: var(--color_I);
-        }
-
-        /* REMOVED original .product-price class */
-
-        /* NEW: Container for both prices */
-        .price-container {
-            display: flex;
-            justify-content: center;
-            align-items: baseline;
-            gap: 0.75rem;
-            /* Space between the two prices */
-            margin-bottom: 1rem;
-        }
-
-        /* NEW: Style for the original, struck-through price */
-        .original-price {
-            font-size: 1.2rem;
-            font-weight: 400;
-            color: rgb(127, 127, 127);
-            text-decoration: line-through;
-            /* This adds the cancel line */
-        }
-
-        /* NEW: Style for the current, discounted price */
-        .discounted-price {
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: #ffffff;
-        }
-
-
-        .add-to-cart-btn {
-            background-color: #fff;
-            color: #333;
-            border: none;
-            border-radius: 20px;
-            padding: 10px 20px;
-            font-weight: bold;
-            cursor: pointer;
-            width: 80%;
-            align-self: center;
-            /* Center button within the flex container */
-            transition: background-color 0.3s ease;
-        }
-
-        .add-to-cart-btn:hover {
-            background-color: #ccc;
-        }
-
-        .featured-items h2 {
-            font-size: 2.5rem;
-            text-align: center;
-            margin-bottom: 2rem;
-            font-weight: 800;
-            text-shadow: 0 0 10px rgb(84, 84, 84);
-            color: black;
-        }
-
-        /* FEATURED ITEMS STYLES */
-        .featured-items {
-            padding: 4rem 5%;
-            /* Adjust padding to match your site's layout */
-        }
-
-        .featured-items h2 {
-            text-align: center;
-            font-size: 2.5rem;
-            font-weight: 800;
-            margin-bottom: 3rem;
-            color: #000000;
-        }
-
-        .feature-row {
-            display: flex;
-            align-items: center;
-            gap: 3rem;
-            /* Space between video and text */
-            margin-bottom: 4rem;
-            /* Space between each featured product row */
-        }
-
-        /* This simple rule reverses the order of the columns */
-        .feature-row--reverse {
-            flex-direction: row-reverse;
-        }
-
-        .feature-media,
-        .feature-description {
-            flex: 1;
-            /* This makes both columns take up 50% of the space */
-        }
-
-        .feature-media video {
-            width: 100%;
-            height: auto;
-            display: block;
-            border-radius: 12px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-        }
-
-        .feature-description h3 {
-            font-size: 2rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            color: #000;
-        }
-
-        .feature-description p {
-            font-size: 1.1rem;
-            line-height: 1.6;
-            color: #000000;
-            margin-bottom: 1.5rem;
-        }
-
-        .feature-btn {
-            display: inline-block;
-            background-color: #333;
-            color: #fff;
-            padding: 12px 24px;
-            text-decoration: none;
-            border-radius: 25px;
-            font-weight: bold;
-            transition: background-color 0.3s ease;
-        }
-
-        .feature-btn:hover {
-            background-color: #000;
-        }
-
-        .product-catagories h2 {
-            margin: 1rem;
-            padding: 1rem;
-        }
-
-        .slider {
-            margin: 2rem;
-            width: 100%;
-            /* border: 1px solid red; */
-            height: var(--height);
-            overflow: hidden;
-            mask-image: linear-gradient(to right,
-                    transparent,
-                    black 10% 90%,
-                    transparent);
-        }
-
-        .slider .list {
-            display: flex;
-            width: 100%;
-            min-width: calc(var(--width) * var(--quantity));
-            position: relative;
-        }
-
-        .slider .list .item {
-            width: var(--width);
-            height: var(--height);
-            position: absolute;
-            left: 100%;
-            animation: autoRun 10s linear infinite;
-            transition: filter 0.5s;
-            animation-delay: calc((10s/ var(--quantity)) * (var(--position) - 1)) !important;
-        }
-
-        .slider .list .item img {
-            width: 100%;
-
-        }
-
-        @keyframes autoRun {
-            from {
-                left: 100%;
-            }
-
-            to {
-                left: calc(var(--width) * -1);
-            }
-        }
-
-        .slider:hover .item {
-            animation-play-state: paused !important;
-            filter: grayscale(1);
-        }
-
-        .slider .item:hover {
-            filter: grayscale(0);
-        }
-
-        .slider[reverse="True"] .item {
-            animation: reverse-autoPlay 10s linear infinite;
-        }
-
-        @keyframes reverse-autoPlay {
-            from {
-                left: calc(var(--width) * -1);
-            }
-
-            to {
-                left: 100%;
-            }
-        }
-
-        /* ... (all your existing CSS code above) ... */
-
-        @keyframes reverse-autoPlay {
-            from {
-                left: calc(var(--width) * -1);
-            }
-
-            to {
-                left: 100%;
-            }
-        }
-
-
-        /* === NEW CSS FOR THE SLIDER PRODUCT CARDS === */
-
-        /* This targets the items ONLY within the sliders in the product-categories section */
-        .product-catagories .slider .list .item {
-            /* Use flexbox to structure the card content vertically */
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        /* Ensure the image inside the new card doesn't break out */
-        .product-catagories .slider .list .item .product-image-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-        }
-    </style>
     <title>BURST</title>
 </head>
 <style>
@@ -710,7 +17,7 @@
     --color_II: #8f73fb;
     --color_V: #593ccd;
     --color_VI: #ffccf2;
-    --color_III: #0f3ffe;
+    --color_III: #0033ff;
     --color_IV: #0600ab;
     --color_VII: #000e45;
     --secsolor_I: #ffa930;
@@ -721,7 +28,7 @@ body{
     color: black;
     min-height: 100vh;
     line-height: 1.5;
-    background: linear-gradient(120deg, var(--color_III), var(--color_II), var(--color_V));
+    background: linear-gradient(120deg, var(--color_III), var(--color_II), var(--color_VI));
     background-size: 200% 200%; /* Make the background larger than the viewport */
     animation: gradientDrift 15s ease infinite; /* Apply the animation */
 }
@@ -876,7 +183,6 @@ main{
     border-radius: 50px;
     /* background: linear-gradient(var(--color_VII), var(--color_IV)); */
     background: rgba(255, 255, 255, 0.406);
-    backdrop-filter: blur(10px);
     border-radius: 30px;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
     backdrop-filter: blur(8px);
@@ -998,11 +304,9 @@ main{
 .product-scroll-container {
     display: flex;
     overflow-x: auto;
-    gap: 1.5rem;
+    gap: 1rem;
     padding: 1rem 5%;
-    /* This makes the JavaScript scrolling smooth */
     scroll-behavior: smooth;
-    /* Hide the actual scrollbar */
     scrollbar-width: none; /* Firefox */
     -ms-overflow-style: none; /* IE and Edge */
 }
@@ -1050,9 +354,10 @@ main{
 /* --- Product Card Styling --- */
 .product-card {
     flex: 0 0 300px;
-    background: linear-gradient(135deg,var(--color_V),var(--color_VII));
-    backdrop-filter: blur(10px);
-    border-radius: 0px;
+    background: rgba(255, 255, 255, 0.406);
+    border-radius: 30px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(8px);
     padding: 1rem;
     text-align: center;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -1060,8 +365,6 @@ main{
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    clip-path: inset(0 0 0 round 20px 0);
-    clip-path: polygon();
 }
 
 .product-card:hover {
@@ -1094,9 +397,6 @@ main{
     margin: 0.5rem 0;
     color: var(--color_I);
 }
-
-/* REMOVED original .product-price class */
-
 /* NEW: Container for both prices */
 .price-container {
     display: flex;
@@ -1120,7 +420,6 @@ main{
     font-weight: 700;
     color: #ffffff;
 }
-
 
 .add-to-cart-btn {
     background-color: #fff;
@@ -1218,6 +517,8 @@ main{
     margin: 1rem;
     padding: 1rem;
 }
+
+/* brand partners slider */
 .slider{
     margin: 2rem;
     width: 100%;
@@ -1248,7 +549,13 @@ main{
 }
 .slider .list .item img{
     width: 100%;
-
+}
+@keyframes autorun{
+    from{
+        left: 100%;
+    }to{
+        left: calc(var(--width) * -1);
+    }
 }
 
 .slider:hover .item{
@@ -1261,10 +568,6 @@ main{
 .slider[reverse="True"] .item{
     animation: reverse-autoPlay 10s linear infinite;
 }
-/* ... (all your existing CSS code above) ... */
-
-
-/* === NEW CSS FOR THE SLIDER PRODUCT CARDS === */
 
 /* This targets the items ONLY within the sliders in the product-categories section */
 .product-catagories .slider .list .item {
@@ -1281,6 +584,99 @@ main{
     object-fit: cover;
     display: block;
 }
+
+.catagorywise-products h2 {
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: #f2e6ee; /* Using a light color from your theme */
+    font-weight: 800;
+}
+
+.gallery {
+    display: flex;
+    height: 25rem; /* Increased height for better visibility */
+    gap: 1rem;
+    padding: 1rem;
+}
+
+.gallery > a {
+    flex: 1;
+    border: 1px solid black;
+    border-radius: 1rem;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover; /* Use cover to fill the space nicely */
+    transition: all 0.8s cubic-bezier(0.25, 0.4, 0.45, 1.4); /* Smoother transition */
+    text-decoration: none;
+
+    /* Crucial for positioning the overlay inside */
+    position: relative;
+    overflow: hidden;
+
+    /* Flexbox to position the plate at the bottom */
+    display: flex;
+    align-items: flex-end; /* Push content to the bottom */
+}
+
+.gallery > a:hover {
+    flex: 4; /* This remains the same */
+}
+
+
+/* --- NEW: Glass Info Plate Styles --- */
+
+.glass-info-plate {
+    /* Sizing and Positioning */
+    width: 95%;
+    margin: 1rem;
+    padding: 1.5rem;
+    
+    /* The Glassmorphic Effect */
+    background: rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 0.75rem;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    
+    /* Text Styling */
+    color: #f2e6ee;
+    text-align: left;
+    
+    /* Initial state: Hidden */
+    opacity: 0;
+    transform: translateY(30px); /* Start slightly below */
+    
+    /* Animation Timing */
+    transition: all 0.6s cubic-bezier(0.25, 0.4, 0.45, 1.4) 0.2s; /* Delay the appearance */
+}
+
+/* Reveal the plate on hover of the parent link */
+.gallery > a:hover .glass-info-plate {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Styles for content inside the plate */
+.glass-info-plate h3 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.glass-info-plate .price {
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+    color: #ffccf2; /* Using an accent color from your theme */
+}
+
+.glass-info-plate p {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    opacity: 0.9;
+}
+
 </style>
 
 <body>
@@ -1343,7 +739,7 @@ main{
         <div class="slider-wrapper">
             <div class="product-scroll-container">
                 <div class="product-card">
-                    <!-- <div class="product-image-container">
+                    <div class="product-image-container">
                         <img src="/AirPods-max.jpg" alt="Aura Wireless Headphones">
                     </div>
                     <div class="product-details">
@@ -1353,7 +749,14 @@ main{
                             <span class="discounted-price">₹8,999</span>
                         </div>
                     </div>
-                    <button class="add-to-cart-btn">Add to Cart</button> -->
+                    <button class="add-to-cart-btn">Add to Cart</button>
+                    <!-- <svg width="0" height="0">
+                        <defs>
+                            <clipPath id="productCardShape" clipPathUnits="objectBoundingBox">
+                                <path d="M 0.05 0.3 L 0.2 0.3 A 0.1,0.1 0,0,0 0.3 0.2 L 0.3 0.1 A 0.1,0.1 0,0,1 0.4 0 L 0.9 0 A 0.1,0.1 0,0,1 1 0.1 L 1 0.5 A 0.1,0.1 0,0,1 0.9 0.6 L 0.7 0.6 A 0.1,0.1 0,0,0 0.6 0.65 L 0.6 0.75 A 0.1,0.1 0,0,0 0.7 0.8 L 0.9 0.8 A 0.1,0.1 0,0,1 1 0.85 L 1 0.95 A 0.1,0.1 0,0,1 0.9 1 L 0.1 1 A 0.1,0.1 0,0,1 0 0.9 L 0 0.4 A 0.1,0.1 0,0,1 0.1 0.3 Z"></path>
+                            </clipPath>
+                        </defs>
+                    </svg> -->
                 </div>
 
                 <div class="product-card">
@@ -1508,28 +911,77 @@ main{
                 <div class="item" style="--position: 10"><img src="image/slider1_10.png" alt="Audio-Technica"></div>
             </div>
         </div>
+        <div class="catagorywise-products">
+            <h2>Limited Edition</h2>
+            <div class="gallery">
+                <a href="#" style="background-image: url('');">
+                    <div class="glass-info-plate">
+                        <h3>Aura Wireless</h3>
+                        <div class="price">₹8,999</div>
+                        <p>High-Fidelity Audio with Active Noise Cancellation.</p>
+                    </div>
+                </a>
 
-        <h2>Limited Edition</h2>
+                <a href="#" style="background-image: url('');">
+                    <div class="glass-info-plate">
+                        <h3>Stealth Gamer</h3>
+                        <div class="price">₹12,499</div>
+                        <p>3D Audio Tuned for PlayStation 5 with a refined design.</p>
+                    </div>
+                </a>
 
+                <a href="#" style="background-image: url('');">
+                    <div class="glass-info-plate">
+                        <h3>Echo Buds Pro</h3>
+                        <div class="price">₹7,999</div>
+                        <p>Dynamic audio and crisp sound with Active Noise Cancellation.</p>
+                    </div>
+                </a>
+
+                <a href="#" style="background-image: url('');">
+                    <div class="glass-info-plate">
+                        <h3>Phantom LTD</h3>
+                        <div class="price">₹19,999</div>
+                        <p>Limited edition phantom black with unmatched bass.</p>
+                    </div>
+                </a>
+
+                <a href="#" style="background-image: url('');">
+                    <div class="glass-info-plate">
+                        <h3>Phantom LTD</h3>
+                        <div class="price">₹19,999</div>
+                        <p>Limited edition phantom black with unmatched bass.</p>
+                    </div>
+                </a>
+                
+                <a href="#" style="background-image: url('');">
+                    <div class="glass-info-plate">
+                        <h3>Phantom LTD</h3>
+                        <div class="price">₹19,999</div>
+                        <p>Limited edition phantom black with unmatched bass.</p>
+                    </div>
+                </a>
+            </div>
+        </div>
     </section>
     <!-- Notification Popup -->
     <!-- Green Success Notification Popup -->
     <div id="top-popup" style="
-  position: fixed;
-  top: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: #28a745; /* ✅ Green color */
-  color: white;
-  padding: 12px 24px;
-  border-radius: 8px;
-  font-size: 15px;
-  font-weight: 500;
-  z-index: 9999;
-  display: none;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-  transition: all 0.5s ease;
-"></div>
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #28a745; /* ✅ Green color */
+    color: white;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 500;
+    z-index: 9999;
+    display: none;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    transition: all 0.5s ease;
+    "></div>
 
 
     <script>
