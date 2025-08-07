@@ -12,6 +12,9 @@
     padding: 0;
     box-sizing: border-box;
 }
+html{
+    scroll-behavior: smooth;
+}
 :root{
     --color_I: #f2e6ee;
     --color_II: #8f73fb;
@@ -522,7 +525,7 @@ main{
 .slider{
     margin: 2rem;
     width: 100%;
-    /* border: 1px solid red; */
+    border: 1px solid red;
     height: var(--height);
     overflow: hidden;
     mask-image: linear-gradient(
@@ -693,12 +696,12 @@ main{
                 <div class="dropdown">
                     <a class="nav-link" href="#">CATEGORIES</a>
                     <div class="dropdown-content">
-                        <a href="#">True Wireless Earbuds</a>
-                        <a href="#">Wired Earphones</a>
-                        <a href="#">Wireless Headphones</a>
-                        <a href="#">Wired Headphones</a>
-                        <a href="#">Gaming Headphones</a>
-                        <a href="#">Neackbands</a>
+                        <a href="#true-wireless-earbuds">True Wireless Earbuds</a>
+                        <a href="#wired-headphone">Wired Headphone</a>
+                        <a href="#wireless-headphones">Wireless Headphones</a>
+                        <a href="#wired-earphone">Wired Earphone</a>
+                        <a href="#gaming-headphones">Gaming Headphones</a>
+                        <a href="#neakbands">Neakbands</a>
                         <a href="#">LIMITED EDITION</a>
                     </div>
                 </div>
@@ -714,7 +717,7 @@ main{
             </div>
             <div class="content">
                 <div class="tag-box">
-                    <div class="tag" id="buyNowButton">BUY NOW</div>
+                    <div class="tag" onclick="buyNow()" id="buyNowButton">BUY NOW</div>
                 </div>
                 <h1 id="cardHeading">THE<br>THUNDERSTRIKE</h1>
                 <p class="description">
@@ -726,7 +729,7 @@ main{
                     conventional Bluetooth®. -->
                 </p>
                 <div class="buttons">
-                    <a href="#" class="learn-more">learn more</a>
+                    <a href="/product/6894d8cc2edb6ea4c99f236f?json=false"  class="learn-more">learn more</a>
                 </div>
             </div>
             <div class="visual">
@@ -905,7 +908,7 @@ main{
             </div>
         </div>
         <div class="catagorywise-products">
-            <h2>Wireless Headphones</h2>
+            <!-- <h2>Wireless Headphones</h2>
             <div class="gallery">
                 <a href="#" style="background-image: url('');">
                     <div class="glass-info-plate">
@@ -1204,7 +1207,7 @@ main{
                         <p>Limited edition phantom black with unmatched bass.</p>
                     </div>
                 </a>
-            </div>
+            </div> -->
         </div>
     </section>
     <!-- Notification Popup -->
@@ -1228,6 +1231,28 @@ main{
 
 
     <script>
+
+        function buyNow(){
+            const id = "6894d8cc2edb6ea4c99f236f"
+
+            if (!id || id === "undefined") {
+                console.error("Invalid product ID passed to fetch!");
+                return;
+            }
+
+            window.location.href = `/buyNow/${id}?quantity=1`;
+        }
+
+        function goTo(){
+            const productID = "6894d8cc2edb6ea4c99f236f"
+
+            if (!productId) {
+                console.error("No product ID provided");
+                return;
+            }
+            window.location.href = `/product/${productId}?json=false`;
+        }
+
         // Get the necessary elements from the DOM
         const scrollContainer = document.querySelector(".product-scroll-container");
         const leftBtn = document.getElementById("scroll-left-btn");
@@ -1363,6 +1388,7 @@ main{
 
                     const heading = document.createElement("h2");
                     heading.textContent = category;
+                    heading.id = category.replace(/\s+/g, '-').toLowerCase();
                     section.appendChild(heading);
 
                     // ADDED: A container for our new horizontally scrollable list
