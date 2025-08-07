@@ -22,49 +22,75 @@
       --secsolor_I: #ffa930;
     }
 
-    body {
-      margin: 0;
-      padding: 20px;
-      background-attachment: fixed;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-      background: linear-gradient(120deg, var(--color_II), var(--color_VI));
-      color: black;
-      min-height: 100vh;
-      line-height: 1.5;
-      background: linear-gradient(120deg, var(--color_III), var(--color_VI), var(--color_VI));
-      background-size: 200% 200%;
-      /* Make the background larger than the viewport */
-      animation: gradientDrift 15s ease infinite;
-      /* Apply the animation */
+    body{
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        background: linear-gradient(120deg,var(--color_III),var(--color_VI));
+        color: #000000;
+        min-height: 100vh;
+        line-height: 1.5;
+        background: linear-gradient(120deg, var(--color_III), var(--color_II), var(--color_V));
+        background-size: 200% 200%; /* Make the background larger than the viewport */
+        animation: gradientDrift 15s ease infinite; /* Apply the animation */
     }
-
-    /*@keyframes gradientDrift {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}*/
+    @keyframes gradientDrift {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
     /* Noise Overlay */
     body::before {
-      content: "";
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      /* Tiny random dots */
-      background-image:
-        radial-gradient(rgba(0, 0, 0, 0.2) 1px, transparent 0);
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        /* Tiny random dots */
+        background-image: 
+            radial-gradient(rgba(0, 0, 0, 0.2) 1px, transparent 0);
 
-      background-size: 3px 3px;
-      /* density of dots */
-      opacity: 0.8;
-      /* how visible the grain is */
-      pointer-events: none;
-      /* lets clicks pass through */
-      z-index: -1;
+        background-size: 3px 3px; /* density of dots */
+        opacity: 0.8; /* how visible the grain is */
+        pointer-events: none; /* lets clicks pass through */
+        z-index: -1;
     }
 
+    
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5rem;
+            z-index: 1000;
+            /* Sticky position properties */
+            position: sticky;
+            top: 0;
+        }
 
+        header h1 {
+            margin: 0;
+            font-size: 3rem;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            margin-left: -5%;
+            z-index: 999;
+        }
+
+        .logo {
+            font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+        }
+
+        nav a {
+            font-size: 1rem;
+            letter-spacing: 0.1rem;
+            transition: color 0.2s ease-in-out;
+            text-decoration: none;
+            color: inherit;
+        }
 
     .container {
       max-width: 1000px;
@@ -75,17 +101,14 @@
       min-height: 700px;
       border-radius: 20px;
       transition: 0.3s ease-in-out;
-      /* Styling */
-      background: linear-gradient(to right, #ede9fe, #ddd6fe);
-      backdrop-filter: blur(10px);
-      min-width: 220px;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-      border-radius: 8px;
-      padding: 0.2rem 0;
-
-      /* Animation */
-      transition: opacity 0.3s ease, visibility 0.3s ease;
-    }
+        /* Styling */
+    background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(12px);
+        border-radius: 16px;
+        padding: 1.5rem;
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+      }
 
     .image-slider {
       display: flex;
@@ -125,7 +148,7 @@
       width: 100%;
       max-width: 400px;
       border-radius: 20px;
-      border: 6px solid #93c5fd;
+      border: 2px solid #000000;
       transition: transform 0.3s ease;
     }
 
@@ -150,18 +173,18 @@
     .title {
       font-size: 32px;
       font-weight: bold;
-      color: #000;
+      color: #ffffff;
       animation: fadeInUp 0.5s ease-in-out;
     }
 
     .subtitle {
-      color: #000;
+      color: #000000;
       margin-bottom: 10px;
     }
 
     .price {
       font-size: 26px;
-      color: #008000;
+      color: #ffffff;
       font-weight: bold;
       margin-bottom: 15px;
     }
@@ -175,14 +198,14 @@
     .tab-menu span {
       cursor: pointer;
       font-size: 16px;
-      color: #008000;
+      color: #ffffff;
       transition: all 0.3s ease;
       border-bottom: 2px solid transparent;
     }
 
     .tab-menu span:hover,
     .tab-menu span.active {
-      color: #2563eb;
+      color: #000000;
       border-bottom: 3px solid #2563eb;
       font-weight: bold;
     }
@@ -201,7 +224,7 @@
     }
 
     .read-more {
-      color: #008000;
+      color: #000000;
       cursor: pointer;
       display: inline-block;
       margin-top: 8px;
@@ -210,7 +233,7 @@
     }
 
     .read-more:hover {
-      color: #008000;
+      color: #000000;
     }
 
     .options {
@@ -227,7 +250,7 @@
     }
 
     .quantity-control button {
-      background: #2563eb;
+      background: #000000;
       color: #fff;
       border: none;
       padding: 6px 12px;
@@ -254,7 +277,7 @@
       font-weight: bold;
       margin-bottom: 20px;
       font-size: 18px;
-      color: #059669;
+      color: #ffffff;
     }
 
     .wishlist-btn,
@@ -265,6 +288,7 @@
       font-size: 16px;
       cursor: pointer;
       transition: all 0.2s;
+      font-weight: bold;
     }
 
     .wishlist-btn:hover,
@@ -273,15 +297,14 @@
     }
 
     .wishlist-btn {
-      background: none;
-      border: 2px solid #2563eb;
-      color: #2563eb;
+      background: #ffffff;
+      color: #000000;
     }
 
     .add-cart-btn {
-      background: #059669;
-      color: #fff;
-      border: none;
+      background: #ffffff;
+      color: #000000;
+      border: #2563eb;
       font-weight: bold;
       margin-top: 10px;
     }
@@ -324,20 +347,18 @@
       /* Center the buttons */
     }
 
-    .review-section {
-      max-width: 800px;
-      margin: 50px auto 20px;
-      background: linear-gradient(to right, #ede9fe, #ddd6fe);
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-    }
+.review-section {
+  max-width: 800px;
+  margin: 50px auto 20px;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
 
-    .review-section h2,
-    .review-section h3 {
-      color: #1e40af;
-      margin-bottom: 10px;
-    }
+.review-section h2, .review-section h3 {
+  color: #000;
+  margin-bottom: 10px;
+}
 
     .review {
       border-bottom: 1px solid #ddd;
@@ -345,9 +366,9 @@
       font-size: 15px;
     }
 
-    .review strong {
-      color: #2563eb;
-    }
+.review strong {
+  color: #ffffff;
+}
 
     #reviewForm {
       display: flex;
@@ -364,19 +385,19 @@
       font-size: 14px;
     }
 
-    #reviewForm button {
-      background-color: #2563eb;
-      color: white;
-      padding: 10px;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 15px;
-    }
+#reviewForm button {
+  background-color: #ffffff;
+  color: #000000;
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 15px;
+}
 
-    #reviewForm button:hover {
-      background-color: #1d4ed8;
-    }
+#reviewForm button:hover {
+  background-color: #000;
+}
 
     .star-rating {
       display: flex;
@@ -432,18 +453,44 @@
       gap: 15px;
     }
 
-    .stock-left {
-      color: #dc2626;
-      /* red tone */
-      font-size: 16px;
-      font-weight: bold;
-      margin-top: -10px;
-      margin-bottom: 15px;
-    }
+.stock-left {
+  color: #ffffff; /* red tone */
+  font-size: 16px;
+  font-weight: bold;
+  margin-top: -10px;
+  margin-bottom: 15px;
+}
+
   </style>
 </head>
 
 <body>
+
+    <header>
+            <h1 class="logo">Burst</h1>
+            <nav>
+                <a href="/user/createAccount">SIGN UP</a>
+                <a href="/user/login">LOG IN</a>
+                <a class="home" href="/home">HOME</a>
+                <!--<div class="dropdown">
+                    <a class="nav-link" href="#">CATEGORIES</a>
+                    <div class="dropdown-content">
+                        <a href="#">True Wireless Earbuds</a>
+                        <a href="#">Wired Earphones</a>
+                        <a href="#">Wireless Headphones</a>
+                        <a href="#">Wired Headphones</a>
+                        <a href="#">Gaming Headphones</a>
+                        <a href="#">Neackbands</a>
+                        <a href="#">LIMITED EDITION</a>
+                    </div>
+                </div> -->
+                <a href="/user/profile"><img src="/user.svg" alt="Profile"></a>
+                <a href="/cart?json=false"><img src="/shopping-bag.svg" alt="Cart"></a>
+
+            </nav>
+        </header>
+
+  
   <div class="container">
     <div class="image-slider">
       <img src="<%= product.image1 %>" alt="Headphone" onclick="changeImage(this)">
@@ -518,7 +565,7 @@
     </div>
 
     <div class="review-section">
-      <h2>Customer Reviews</h2>
+  <h2>CUSTOMER REVIEWS</h2>
 
       <!-- Sample reviews -->
       <div class="review">
@@ -536,20 +583,20 @@
         <p>Stylish and very comfortable to wear. Worth the price!</p>
       </div>
 
-      <!-- Review submission form -->
-      <h3>Leave a Review</h3>
-      <!-- Star Rating Input -->
-      <form id="reviewForm">
-        <div class="review-header-inline">
-          <h4><span class="user-icon">👤</span> Add_Name</h4>
-          <div class="star-rating">
-            <input type="radio" id="star5" name="rating" value="5" /><label for="star5">★</label>
-            <input type="radio" id="star4" name="rating" value="4" /><label for="star4">★</label>
-            <input type="radio" id="star3" name="rating" value="3" /><label for="star3">★</label>
-            <input type="radio" id="star2" name="rating" value="2" /><label for="star2">★</label>
-            <input type="radio" id="star1" name="rating" value="1" /><label for="star1">★</label>
-          </div>
-        </div>
+  <!-- Review submission form -->
+  <h2>LEAVE A REVIEW</h2>
+  <!-- Star Rating Input -->
+<form id="reviewForm">
+  <div class="review-header-inline">
+    <h4><span class="user-icon">👤</span> Add_Name</h4>
+    <div class="star-rating">
+      <input type="radio" id="star5" name="rating" value="5" /><label for="star5">★</label>
+      <input type="radio" id="star4" name="rating" value="4" /><label for="star4">★</label>
+      <input type="radio" id="star3" name="rating" value="3" /><label for="star3">★</label>
+      <input type="radio" id="star2" name="rating" value="2" /><label for="star2">★</label>
+      <input type="radio" id="star1" name="rating" value="1" /><label for="star1">★</label>
+    </div>
+  </div>
 
         <textarea id="reviewText" placeholder="Write your review..." required></textarea>
         <button type="submit">Submit Review</button>
