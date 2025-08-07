@@ -23,101 +23,117 @@
       --color_VII: #00003d;
       --secsolor_I: #ffa930;
     }
+   
 
     body {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-      background: linear-gradient(120deg, var(--color_II), var(--color_IV));
-      color: black;
-      min-height: 100vh;
-      line-height: 1.5;
-      background: linear-gradient(120deg, var(--color_III), var(--color_VI), var(--color_VI));
-      background-size: 200% 200%;
-      /* Make the background larger than the viewport */
-      animation: gradientDrift 15s ease infinite;
-      /* Apply the animation */
-      padding: 40px 20px;
-      display: flex;
-      justify-content: center;
+        background: linear-gradient(120deg,var(--color_III),var(--color_VI));
+        color: #000000;
+        min-height: 100vh;
+        line-height: 1.5;
+        background: linear-gradient(120deg, var(--color_III), var(--color_II), var(--color_V));
+        background-size: 200% 200%; /* Make the background larger than the viewport */
+        animation: gradientDrift 15s ease infinite; /* Apply the animation */
+    
     }
 
-    .navbar {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      background: linear-gradient(90deg, var(--color_VI), var(--color_IV), var(--color_III));
-      color: white;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 14px 30px;
-      z-index: 999;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    @keyframes gradientDrift {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+    /* Noise Overlay */
+    body::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        /* Tiny random dots */
+        background-image: 
+            radial-gradient(rgba(0, 0, 0, 0.2) 1px, transparent 0);
+
+        background-size: 3px 3px; /* density of dots */
+        opacity: 0.8; /* how visible the grain is */
+        pointer-events: none; /* lets clicks pass through */
+        z-index: -1;
     }
 
-    .navbar .logo {
-      font-size: 24px;
-      font-weight: bold;
-    }
+    header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5rem;
+            z-index: 1000;
+            /* Sticky position properties */
+            position: sticky;
+            top: 0;
+        }
 
-    .nav-links {
-      list-style: none;
-      display: flex;
-      gap: 20px;
-    }
+        header h1 {
+            margin: 0;
+            font-size: 3rem;
+        }
 
-    .nav-links li a {
-      color: white;
-      text-decoration: none;
-      font-size: 16px;
-      transition: color 0.2s;
-    }
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            margin-left: -5%;
+            z-index: 999;
+        }
 
-    .nav-links li a:hover {
-      color: var(--color_VI);
-    }
+        .logo {
+            font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+        }
 
-    body {
-      padding-top: 80px;
-      /* Add spacing to prevent overlap with navbar */
-    }
-
-
+        nav a {
+            font-size: 1rem;
+            letter-spacing: 0.1rem;
+            transition: color 0.2s ease-in-out;
+            text-decoration: none;
+            color: inherit;
+        }
 
     .main {
-      display: flex;
-      flex-direction: row;
-      gap: 30px;
-      max-width: 1200px;
-      width: 100%;
-      margin-top: 40px;
-    }
+        display: flex;
+        flex-direction: row;
+        gap: 30px;
+        max-width: 1200px;
+        width: 100%;
+        margin: 40px auto 0 auto; /* 👈 Center horizontally */
+        padding: 0 20px; /* 👈 Optional, for some spacing on small screens */
+      }
+
 
     .cart-container {
-      flex: 2;
-      background: linear-gradient(to right, #ede9fe, #ddd6fe);
-
-      border-radius: 20px;
-      padding: 30px;
-      box-shadow: 0 0 20px rgba(30, 58, 138, 0.1);
+      flex: 6;
+       /* Styling */
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(12px);
+        border-radius: 16px;
+        padding: 1.5rem;
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        border: 1px solid rgba(255, 255, 255, 0.18);
     }
 
     .summary-box {
       flex: 1;
       position: sticky;
       top: 40px;
-      background: linear-gradient(to right, #ede9fe, #ddd6fe);
-
-
-      border-radius: 20px;
-      padding: 30px;
-      box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
-      height: fit-content;
+       background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(12px);
+        border-radius: 16px;
+        padding: 1.5rem;
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        border: 1px solid rgba(255, 255, 255, 0.18);
     }
 
     h1 {
       font-size: 32px;
       font-weight: 600;
-      color: #1e3a8a;
+      color: #000000;
       margin-bottom: 25px;
       text-align: center;
     }
@@ -154,7 +170,7 @@
 
     .item-description {
       font-size: 14px;
-      color: #64748b;
+      color: #ffffff;
       margin-bottom: 6px;
     }
 
@@ -166,8 +182,8 @@
     }
 
     .quantity-control button {
-      background-color: #3b82f6;
-      color: white;
+      background-color: #ffffff;
+      color: #000000;
       border: none;
       padding: 6px 10px;
       border-radius: 6px;
@@ -210,7 +226,7 @@
     .summary-box h2 {
       font-size: 24px;
       margin-bottom: 20px;
-      color: #1e3a8a;
+      color: #ffffff;
     }
 
     .summary-box .total {
@@ -219,8 +235,9 @@
     }
 
     .checkout-btn {
-      background-color: #3b82f6;
-      color: white;
+      transition: background 0.3s ease, transform 0.2s ease;
+      box-shadow: 0 4px 12px rgba(0, 123, 255, 0.25);
+      color: #000000;
       padding: 12px 20px;
       border: none;
       border-radius: 10px;
@@ -229,16 +246,36 @@
       width: 100%;
     }
 
+
+    .checkout-btn:hover {
+      background: var(--color_III);
+      transform: scale(1.02);
+    }
+
+    .checkout-btn:active {
+      transform: scale(0.99);
+    }
+
     .buy-all-btn {
       margin-top: 10px;
-      background-color: #1e3a8a;
-      color: white;
+      transition: background 0.3s ease, transform 0.2s ease;
+      box-shadow: 0 4px 12px rgba(0, 123, 255, 0.25);
+      color: #000000;
       padding: 12px 20px;
       border: none;
       border-radius: 10px;
       font-size: 16px;
       cursor: pointer;
       width: 100%;
+    }
+
+    .buy-all-btn:hover {
+      background: #008000;
+      transform: scale(1.02);
+    }
+
+    .buy-all-btn:active {
+      transform: scale(0.99);
     }
 
     @media (max-width: 900px) {
@@ -255,15 +292,30 @@
 </head>
 
 <body>
-  <nav class="navbar">
-    <div class="logo">ShopEase</div>
-    <ul class="nav-links">
-      <li><a href="#">Home</a></li>
-      <li><a href="#">Cart</a></li>
-      <li><a href="#">Orders</a></li>
-      <li><a href="#">Profile</a></li>
-    </ul>
-  </nav>
+  
+  <header>
+            <h1 class="logo">Burst</h1>
+            <nav>
+                <a href="/user/createAccount">SIGN UP</a>
+                <a href="/user/login">LOG IN</a>
+                <a class="home" href="/home">HOME</a>
+                <!--<div class="dropdown">
+                    <a class="nav-link" href="#">CATEGORIES</a>
+                    <div class="dropdown-content">
+                        <a href="#">True Wireless Earbuds</a>
+                        <a href="#">Wired Earphones</a>
+                        <a href="#">Wireless Headphones</a>
+                        <a href="#">Wired Headphones</a>
+                        <a href="#">Gaming Headphones</a>
+                        <a href="#">Neackbands</a>
+                        <a href="#">LIMITED EDITION</a>
+                    </div>
+                </div> -->
+                <a href="/user/profile"><img src="/user.svg" alt="Profile"></a>
+                
+
+            </nav>
+        </header>
 
   <div class="main">
     <div class="cart-container">
