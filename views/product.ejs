@@ -417,6 +417,14 @@ body::before {
   gap: 15px;
 }
 
+.stock-left {
+  color: #dc2626; /* red tone */
+  font-size: 16px;
+  font-weight: bold;
+  margin-top: -10px;
+  margin-bottom: 15px;
+}
+
   </style>
 </head>
 <body>
@@ -437,6 +445,8 @@ body::before {
           <div class="title"><%= product.productName %></div>
           <div class="subtitle">Stylish & Comfortable</div>
           <div class="price" id="price">₹<%= product.price %></div>
+          <div class="stock-left" id="stock">Only <%= product.stock %> left in stock!</div>
+
 
           <div class="tab-menu">
   <span class="active" onclick="showTab('desc')">Description</span>
@@ -629,6 +639,9 @@ document.getElementById('reviewForm').addEventListener('submit', function(e) {
     alert("Please fill out all fields and select a rating.");
   }
 });
+
+document.getElementById('stock').innerText = `Only ${product.stock} left in stock!`;
+
 
 
   </script>
