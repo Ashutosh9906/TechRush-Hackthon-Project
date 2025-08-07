@@ -92,7 +92,7 @@ async function handleGetProfile(req, res) {
     // console.log(orders);
     const order = await Order.find({ userId }).populate({
         path: "products.productId",
-        select: "productName price description category stock image"
+        select: "productName price description category stock image1"
     });
     console.log(order);
     return res.render("profile", {

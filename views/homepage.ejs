@@ -7,478 +7,556 @@
     <title>BURST</title>
 </head>
 <style>
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-html{
-    scroll-behavior: smooth;
-}
-:root{
-    --color_I: #f2e6ee;
-    --color_II: #8f73fb;
-    --color_V: #593ccd;
-    --color_VI: #ffccf2;
-    --color_III: #0033ff;
-    --color_IV: #0600ab;
-    --color_VII: #000e45;
-    --secsolor_I: #ffa930;
-}
-body{
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    background: linear-gradient(120deg,var(--color_III),var(--color_VI));
-    color: black;
-    min-height: 100vh;
-    line-height: 1.5;
-    background: linear-gradient(120deg, var(--color_III), var(--color_II), var(--color_VI));
-    background-size: 200% 200%; /* Make the background larger than the viewport */
-    animation: gradientDrift 15s ease infinite; /* Apply the animation */
-}
-@keyframes gradientDrift {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
-/* Noise Overlay */
-body::before {
-    content: "";
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    /* Tiny random dots */
-    background-image: 
-        radial-gradient(rgba(0, 0, 0, 0.2) 1px, transparent 0);
-
-    background-size: 3px 3px; /* density of dots */
-    opacity: 0.8; /* how visible the grain is */
-    pointer-events: none; /* lets clicks pass through */
-    z-index: -1;
-}
-
-/* glowing effect around the gradient */
-.layerblur{
-    height: 0;
-    width: 20rem;
-    position: absolute;
-    top: 85%;
-    right: 20%;
-    box-shadow: 0 0 100px 15px black ;
-    z-index: -1;
-}
-/* Main container for the dropdown */
-.dropdown {
-    position: relative;
-    display: inline-block; /* Keeps elements contained */
-    z-index: 999;
-}
-
-/* The dropdown menu - hidden by default */
-.dropdown-content {
-    /* Hiding properties */
-    visibility: hidden;
-    opacity: 0;
-    
-    /* Positioning */
-    position: absolute;
-    top: 100%; /* Position it right below the CATEGORIES link */
-    left: 50%;
-    transform: translateX(-50%); /* Center the dropdown */
-    z-index: 1000;
-
-    /* Styling */
-    background: rgba(255, 255, 255, 0.15); /* Glass effect */
-    backdrop-filter: blur(10px);
-    min-width: 220px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-    border-radius: 8px;
-    padding: 0.5rem 0;
-    
-    /* Animation */
-    transition: opacity 0.3s ease, visibility 0.3s ease;
-}
-
-/* Style the links inside the dropdown */
-.dropdown-content a {
-    color: white; /* Or your desired text color */
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block; /* Makes the entire area clickable */
-    text-align: left;
-    transition: background-color 0.2s ease;
-}
-
-/* Change color of dropdown links on hover */
-.dropdown-content a:hover {
-    background-color: rgba(255, 255, 255, 0.2);
-    color: black;
-}
-
-/* Show the dropdown menu on hover */
-.dropdown:hover .dropdown-content {
-    visibility: visible;
-    opacity: 1;
-}
-.container{
-    width: 100%;
-    margin: 0 auto;
-    padding: 0;
-    position: relative;
-    overflow: hidden;
-}
-header{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 5rem;
-    z-index: 1000;
-    /* Sticky position properties */
-    position: sticky;
-    top: 0;
-}
-header h1{
-    margin: 0;
-    font-size: 3rem;
-}
-nav{
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-    margin-left: -5%;
-    z-index: 999;
-}
-.logo{
-    font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-}
-nav a{
-    font-size: 1rem;
-    letter-spacing: 0.1rem;
-    transition: color 0.2s ease-in-out;
-    text-decoration: none;
-    color: inherit;
-}
-/* MAIN */
-main{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    min-height: calc(90vh - 6rem);
-}
-.content{
-    max-width: 40rem;
-    margin-left: 14%;
-    z-index: 999;
-
-    /* --- Glass Effect Properties --- */
-    background: rgba(255, 255, 255, 0.1); /* Semi-transparent background */
-    backdrop-filter: blur(10px);             /* Blurs the background */
-    border-radius: 16px;                     /* Rounded corners */
-    padding: 2rem;                           /* Spacing for the content */
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37); /* Drop shadow for depth */
-
-}
-.tag-box{
-    position: relative;
-    width: 8rem;
-    height: 2.5rem;
-    border-radius: 50px;
-    /* background: linear-gradient(var(--color_VII), var(--color_IV)); */
-    background: rgba(255, 255, 255, 0.406);
-    border-radius: 30px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-    backdrop-filter: blur(8px);
-    background-size: 200%;
-    animation: anigradient 2.5s linear infinite;
-}
-@keyframes anigradient {
-    to{
-        background-position: 200%;
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
     }
-}
-.tag{
-    position: absolute;
-    inset: 3px 3px 3px 3px;
-    border-radius: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: 0.5 ease-in-out;
-    cursor: pointer;
-}
-.tag-box:hover{
-    transition: transform 0.4s ease-in-out, box-shadow 0.4s ease-in-out,background-color 0.3s ease 0.2s;
-    transform: scale(1.05); /* Makes it pop up */
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Adds depth */
-    background-color: #ffa930;
-}
-.content h1{
-    font-size: 2rem;
-    font-weight: 700;
-    letter-spacing: 0.1rem;
-    margin: 0.6rem 0;
-    line-height: 1.2;
-    /* text-shadow: 0 0 10px rgb(114, 114, 114); */
-}
-.content .description{
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-}
-.buttons{
-    display: flex;
-    gap: 1rem;
-    margin-top: 1.5rem;
-}
-.learn-more{
-    text-decoration: none;
-    color: var(--color_VII);
-    /* border: 1px solid rgb(84, 84, 84); */
-    padding: 0.4rem 1.2rem;
-    border-radius: 50px;
-    font-size: 1.2rem;
-    font-weight: 600;
-    letter-spacing: 0.02em;
-    transition: background-color 0.2s ease;
-}
-.learn-more:hover{
-    background-color: transparent;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-    transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 
-}
-/* text behind image and border in front effect */
-.title-over-headphones h1{
-    position: relative;
-    top: -50px;
-    font-size: 4rem;
-    text-align: center;
-    font-weight: 800;
-    letter-spacing: 0.12rem;
-    margin: 0.4rem 0;
-    line-height: 1.2;
-    color: var(--color_VII);
-}
-.title-over-headphones h1::after{
-    position: absolute;
-    inset: 0 0 0 0; /*aligns the solid text and border perfectly*/
-    content: attr(data-content);
-    -webkit-text-stroke: 2px var(--color_VII); /*border color*/
-    z-index: 3; /*z index higher than image and text to keep it in the front*/
-    color: transparent; /*makes the text transparent and alone border is visible*/
-}
-@keyframes fadeInUp {
-    from {
+    html {
+        scroll-behavior: smooth;
+    }
+
+    :root {
+        --color_I: #f2e6ee;
+        --color_II: #8f73fb;
+        --color_V: #593ccd;
+        --color_VI: #ffccf2;
+        --color_III: #0033ff;
+        --color_IV: #0600ab;
+        --color_VII: #000e45;
+        --secsolor_I: #ffa930;
+    }
+
+    body {
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        background: linear-gradient(120deg, var(--color_III), var(--color_VI));
+        color: black;
+        min-height: 100vh;
+        line-height: 1.5;
+        background: linear-gradient(120deg, var(--color_III), var(--color_II), var(--color_VI));
+        background-size: 200% 200%;
+        /* Make the background larger than the viewport */
+        animation: gradientDrift 15s ease infinite;
+        /* Apply the animation */
+    }
+
+    @keyframes gradientDrift {
+        0% {
+            background-position: 0% 50%;
+        }
+
+        50% {
+            background-position: 100% 50%;
+        }
+
+        100% {
+            background-position: 0% 50%;
+        }
+    }
+
+    /* Noise Overlay */
+    body::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        /* Tiny random dots */
+        background-image:
+            radial-gradient(rgba(0, 0, 0, 0.2) 1px, transparent 0);
+
+        background-size: 3px 3px;
+        /* density of dots */
+        opacity: 0.8;
+        /* how visible the grain is */
+        pointer-events: none;
+        /* lets clicks pass through */
+        z-index: -1;
+    }
+
+    /* glowing effect around the gradient */
+    .layerblur {
+        height: 0;
+        width: 20rem;
+        position: absolute;
+        top: 85%;
+        right: 20%;
+        box-shadow: 0 0 100px 15px black;
+        z-index: -1;
+    }
+
+    /* Main container for the dropdown */
+    .dropdown {
+        position: relative;
+        display: inline-block;
+        /* Keeps elements contained */
+        z-index: 999;
+    }
+
+    /* The dropdown menu - hidden by default */
+    .dropdown-content {
+        /* Hiding properties */
+        visibility: hidden;
         opacity: 0;
-        transform: translateY(10px);
+
+        /* Positioning */
+        position: absolute;
+        top: 100%;
+        /* Position it right below the CATEGORIES link */
+        left: 50%;
+        transform: translateX(-50%);
+        /* Center the dropdown */
+        z-index: 1000;
+
+        /* Styling */
+        background: rgba(255, 255, 255, 0.15);
+        /* Glass effect */
+        backdrop-filter: blur(10px);
+        min-width: 220px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        border-radius: 8px;
+        padding: 0.5rem 0;
+
+        /* Animation */
+        transition: opacity 0.3s ease, visibility 0.3s ease;
     }
-    to {
+
+    /* Style the links inside the dropdown */
+    .dropdown-content a {
+        color: white;
+        /* Or your desired text color */
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+        /* Makes the entire area clickable */
+        text-align: left;
+        transition: background-color 0.2s ease;
+    }
+
+    /* Change color of dropdown links on hover */
+    .dropdown-content a:hover {
+        background-color: rgba(255, 255, 255, 0.2);
+        color: black;
+    }
+
+    /* Show the dropdown menu on hover */
+    .dropdown:hover .dropdown-content {
+        visibility: visible;
         opacity: 1;
     }
-}
-#headphone-main-visual {
-    position: absolute;
-    scale: 1.5;
-    top: 72%;
-    right: 300px;
-    transform: translateY(-45%);
-    height: 90vh;
-    width: auto;
-    z-index: 2;
-    opacity: 0; 
-    animation: fadeInUp 0.8s ease-out 0.3s forwards; 
-}
-.product-showcase {
-    padding: 4rem 0;
-    width: 100%;
-}
 
-.product-showcase h2 {
-    font-size: 2.5rem;
-    text-align: center;
-    margin-bottom: 2rem;
-    font-weight: 800;
-    text-shadow: 0 0 10px rgb(84, 84, 84);
-    color: black;
-}
-.slider-wrapper {
-    position: relative; /* Acts as a positioning container for the buttons */
-    width: 100%;
-}
-.product-scroll-container {
-    display: flex;
-    overflow-x: auto;
-    gap: 1rem;
-    padding: 1rem 5%;
-    scroll-behavior: smooth;
-    scrollbar-width: none; /* Firefox */
-    -ms-overflow-style: none; /* IE and Edge */
-}
-.product-scroll-container::-webkit-scrollbar {
-    display: none;
-}
-/* Styling for both scroll buttons */
-.scroll-btn {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 10;
-    
-    background-color: rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(5px);
-    border: none;
-    border-radius: 50%;
-    width: 44px;
-    height: 44px;
-    cursor: pointer;
-    
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background-color 0.2s ease;
-}
+    .container {
+        width: 100%;
+        margin: 0 auto;
+        padding: 0;
+        position: relative;
+        overflow: hidden;
+    }
 
-.scroll-btn:hover {
-    background-color: rgba(255, 255, 255, 0.4);
-}
+    header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 5rem;
+        z-index: 1000;
+        /* Sticky position properties */
+        position: sticky;
+        top: 0;
+    }
 
-.scroll-btn svg {
-    stroke: white;
-}
+    header h1 {
+        margin: 0;
+        font-size: 3rem;
+    }
 
-/* Position the left and right buttons */
-#scroll-left-btn {
-    left: 1rem;
-}
+    nav {
+        display: flex;
+        align-items: center;
+        gap: 2rem;
+        margin-left: -5%;
+        z-index: 999;
+    }
 
-#scroll-right-btn {
-    right: 1rem;
-}
+    .logo {
+        font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    }
 
-/* --- Product Card Styling --- */
-.product-card {
-    flex: 0 0 300px;
-    background: rgba(255, 255, 255, 0.406);
-    border-radius: 30px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-    backdrop-filter: blur(8px);
-    padding: 1rem;
-    text-align: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    /* Added flex display to help structure content vertically */
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
+    nav a {
+        font-size: 1rem;
+        letter-spacing: 0.1rem;
+        transition: color 0.2s ease-in-out;
+        text-decoration: none;
+        color: inherit;
+    }
 
-.product-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
-}
+    /* MAIN */
+    main {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        min-height: calc(90vh - 6rem);
+    }
 
-/* MODIFIED: Increased height to give image more space */
-.product-image-container {
-    width: 100%;
-    height: 220px; /* Increased height */
-    overflow: hidden;
-    border-radius: 8px; /* Slightly adjusted radius */
-    margin-bottom: 1rem;
-}
+    .content {
+        max-width: 40rem;
+        margin-left: 14%;
+        z-index: 999;
 
-/* MODIFIED: Changed object-fit to 'cover' */
-.product-image-container img {
-    width: 100%;
-    height: 100%; /* Make image fill the container's height */
-    object-fit: cover; /* This is the key change to make the image fill the space */
-    display: block;
-}
+        /* --- Glass Effect Properties --- */
+        background: rgba(255, 255, 255, 0.1);
+        /* Semi-transparent background */
+        backdrop-filter: blur(10px);
+        /* Blurs the background */
+        border-radius: 16px;
+        /* Rounded corners */
+        padding: 2rem;
+        /* Spacing for the content */
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        /* Drop shadow for depth */
 
-.product-name {
-    font-family: impact;
-    font-size: 1.6rem;
-    letter-spacing: 0.08rem;
-    font-weight: 200;
-    margin: 0.5rem 0;
-    color: var(--color_I);
-}
-/* NEW: Container for both prices */
-.price-container {
-    display: flex;
-    justify-content: center;
-    align-items: baseline;
-    gap: 0.75rem; /* Space between the two prices */
-    margin-bottom: 1rem;
-}
+    }
 
-/* NEW: Style for the original, struck-through price */
-.original-price {
-    font-size: 1.2rem;
-    font-weight: 400;
-    color:rgb(127, 127, 127);
-    text-decoration: line-through; /* This adds the cancel line */
-}
+    .tag-box {
+        position: relative;
+        width: 8rem;
+        height: 2.5rem;
+        border-radius: 50px;
+        /* background: linear-gradient(var(--color_VII), var(--color_IV)); */
+        background: rgba(255, 255, 255, 0.406);
+        border-radius: 30px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        backdrop-filter: blur(8px);
+        background-size: 200%;
+        animation: anigradient 2.5s linear infinite;
+    }
 
-/* NEW: Style for the current, discounted price */
-.discounted-price {
-    font-size: 1.2rem;
-    font-weight: 700;
-    color: #ffffff;
-}
+    @keyframes anigradient {
+        to {
+            background-position: 200%;
+        }
+    }
 
-.add-to-cart-btn {
-    background-color: #fff;
-    color: #333;
-    border: none;
-    border-radius: 20px;
-    padding: 10px 20px;
-    font-weight: bold;
-    cursor: pointer;
-    width: 80%;
-    align-self: center; /* Center button within the flex container */
-    transition: background-color 0.3s ease;
-}
+    .tag {
+        position: absolute;
+        inset: 3px 3px 3px 3px;
+        border-radius: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: 0.5 ease-in-out;
+        cursor: pointer;
+    }
 
-.add-to-cart-btn:hover {
-    background-color: #ccc;
-}
+    .tag-box:hover {
+        transition: transform 0.4s ease-in-out, box-shadow 0.4s ease-in-out, background-color 0.3s ease 0.2s;
+        transform: scale(1.05);
+        /* Makes it pop up */
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        /* Adds depth */
+        background-color: #ffa930;
+    }
 
-.featured-items h2{
-    font-size: 2.5rem;
-    text-align: center;
-    margin-bottom: 2rem;
-    font-weight: 800;
-    text-shadow: 0 0 10px rgb(84, 84, 84);
-    color: black;
-}
+    .content h1 {
+        font-size: 2rem;
+        font-weight: 700;
+        letter-spacing: 0.1rem;
+        margin: 0.6rem 0;
+        line-height: 1.2;
+        /* text-shadow: 0 0 10px rgb(114, 114, 114); */
+    }
 
-/* FEATURED ITEMS STYLES */
-.featured-items {
-    padding: 4rem 5%; /* Adjust padding to match your site's layout */
-}
+    .content .description {
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    }
 
-.featured-items h2 {
-    text-align: center;
-    font-size: 2.5rem;
-    font-weight: 800;
-    margin-bottom: 3rem;
-    color: #000000;
-}
+    .buttons {
+        display: flex;
+        gap: 1rem;
+        margin-top: 1.5rem;
+    }
 
-.feature-row {
-    display: flex;
-    align-items: center;
-    gap: 3rem; /* Space between video and text */
-    margin-bottom: 4rem; /* Space between each featured product row */
-}
+    .learn-more {
+        text-decoration: none;
+        color: var(--color_VII);
+        /* border: 1px solid rgb(84, 84, 84); */
+        padding: 0.4rem 1.2rem;
+        border-radius: 50px;
+        font-size: 1.2rem;
+        font-weight: 600;
+        letter-spacing: 0.02em;
+        transition: background-color 0.2s ease;
+    }
 
-/* This simple rule reverses the order of the columns */
-.feature-row--reverse {
-    flex-direction: row-reverse;
-}
+    .learn-more:hover {
+        background-color: transparent;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 
-.feature-media,
-.feature-description {
-    flex: 1; /* This makes both columns take up 50% of the space */
-}
+    }
+
+    /* text behind image and border in front effect */
+    .title-over-headphones h1 {
+        position: relative;
+        top: -50px;
+        font-size: 4rem;
+        text-align: center;
+        font-weight: 800;
+        letter-spacing: 0.12rem;
+        margin: 0.4rem 0;
+        line-height: 1.2;
+        color: var(--color_VII);
+    }
+
+    .title-over-headphones h1::after {
+        position: absolute;
+        inset: 0 0 0 0;
+        /*aligns the solid text and border perfectly*/
+        content: attr(data-content);
+        -webkit-text-stroke: 2px var(--color_VII);
+        /*border color*/
+        z-index: 3;
+        /*z index higher than image and text to keep it in the front*/
+        color: transparent;
+        /*makes the text transparent and alone border is visible*/
+    }
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+
+        to {
+            opacity: 1;
+        }
+    }
+
+    #headphone-main-visual {
+        position: absolute;
+        scale: 1.5;
+        top: 72%;
+        right: 300px;
+        transform: translateY(-45%);
+        height: 90vh;
+        width: auto;
+        z-index: 2;
+        opacity: 0;
+        animation: fadeInUp 0.8s ease-out 0.3s forwards;
+    }
+
+    .product-showcase {
+        padding: 4rem 0;
+        width: 100%;
+    }
+
+    .product-showcase h2 {
+        font-size: 2.5rem;
+        text-align: center;
+        margin-bottom: 2rem;
+        font-weight: 800;
+        text-shadow: 0 0 10px rgb(84, 84, 84);
+        color: black;
+    }
+
+    .slider-wrapper {
+        position: relative;
+        /* Acts as a positioning container for the buttons */
+        width: 100%;
+    }
+
+    .product-scroll-container {
+        display: flex;
+        overflow-x: auto;
+        gap: 1rem;
+        padding: 1rem 5%;
+        scroll-behavior: smooth;
+        scrollbar-width: none;
+        /* Firefox */
+        -ms-overflow-style: none;
+        /* IE and Edge */
+    }
+
+    .product-scroll-container::-webkit-scrollbar {
+        display: none;
+    }
+
+    /* Styling for both scroll buttons */
+    .scroll-btn {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 10;
+
+        background-color: rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(5px);
+        border: none;
+        border-radius: 50%;
+        width: 44px;
+        height: 44px;
+        cursor: pointer;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background-color 0.2s ease;
+    }
+
+    .scroll-btn:hover {
+        background-color: rgba(255, 255, 255, 0.4);
+    }
+
+    .scroll-btn svg {
+        stroke: white;
+    }
+
+    /* Position the left and right buttons */
+    #scroll-left-btn {
+        left: 1rem;
+    }
+
+    #scroll-right-btn {
+        right: 1rem;
+    }
+
+    /* --- Product Card Styling --- */
+    .product-card {
+        flex: 0 0 300px;
+        background: rgba(255, 255, 255, 0.406);
+        border-radius: 30px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        backdrop-filter: blur(8px);
+        padding: 1rem;
+        text-align: center;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        /* Added flex display to help structure content vertically */
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .product-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    /* MODIFIED: Increased height to give image more space */
+    .product-image-container {
+        width: 100%;
+        height: 220px;
+        /* Increased height */
+        overflow: hidden;
+        border-radius: 8px;
+        /* Slightly adjusted radius */
+        margin-bottom: 1rem;
+    }
+
+    /* MODIFIED: Changed object-fit to 'cover' */
+    .product-image-container img {
+        width: 100%;
+        height: 100%;
+        /* Make image fill the container's height */
+        object-fit: cover;
+        /* This is the key change to make the image fill the space */
+        display: block;
+    }
+
+    .product-name {
+        font-family: impact;
+        font-size: 1.6rem;
+        letter-spacing: 0.08rem;
+        font-weight: 200;
+        margin: 0.5rem 0;
+        color: var(--color_I);
+    }
+
+    /* NEW: Container for both prices */
+    .price-container {
+        display: flex;
+        justify-content: center;
+        align-items: baseline;
+        gap: 0.75rem;
+        /* Space between the two prices */
+        margin-bottom: 1rem;
+    }
+
+    /* NEW: Style for the original, struck-through price */
+    .original-price {
+        font-size: 1.2rem;
+        font-weight: 400;
+        color: rgb(127, 127, 127);
+        text-decoration: line-through;
+        /* This adds the cancel line */
+    }
+
+    /* NEW: Style for the current, discounted price */
+    .discounted-price {
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: #ffffff;
+    }
+
+    .add-to-cart-btn {
+        background-color: #fff;
+        color: #333;
+        border: none;
+        border-radius: 20px;
+        padding: 10px 20px;
+        font-weight: bold;
+        cursor: pointer;
+        width: 80%;
+        align-self: center;
+        /* Center button within the flex container */
+        transition: background-color 0.3s ease;
+    }
+
+    .add-to-cart-btn:hover {
+        background-color: #ccc;
+    }
+
+    .featured-items h2 {
+        font-size: 2.5rem;
+        text-align: center;
+        margin-bottom: 2rem;
+        font-weight: 800;
+        text-shadow: 0 0 10px rgb(84, 84, 84);
+        color: black;
+    }
+
+    /* FEATURED ITEMS STYLES */
+    .featured-items {
+        padding: 4rem 5%;
+        /* Adjust padding to match your site's layout */
+    }
+
+    .featured-items h2 {
+        text-align: center;
+        font-size: 2.5rem;
+        font-weight: 800;
+        margin-bottom: 3rem;
+        color: #000000;
+    }
+
+    .feature-row {
+        display: flex;
+        align-items: center;
+        gap: 3rem;
+        /* Space between video and text */
+        margin-bottom: 4rem;
+        /* Space between each featured product row */
+    }
+
+    /* This simple rule reverses the order of the columns */
+    .feature-row--reverse {
+        flex-direction: row-reverse;
+    }
+
+    .feature-media,
+    .feature-description {
+        flex: 1;
+        /* This makes both columns take up 50% of the space */
+    }
 
     .feature-media video {
         width: 100%;
@@ -513,64 +591,71 @@ main{
         transition: background-color 0.3s ease;
     }
 
-.feature-btn:hover {
-    background-color: #000;
-}
-.product-catagories h2{
-    margin: 1rem;
-    padding: 1rem;
-}
-
-/* brand partners slider */
-.slider{
-    margin: 2rem;
-    width: 100%;
-    border: 1px solid red;
-    height: var(--height);
-    overflow: hidden;
-    mask-image: linear-gradient(
-        to right, 
-        transparent, 
-        black 10% 90%, 
-        transparent
-    );
-}
-.slider .list{
-    display: flex;
-    width: 100%;
-    min-width: calc(var(--width) * var(--quantity));
-    position: relative;
-}
-.slider .list .item{
-    width: var(--width);
-    height: var(--height);
-    position: absolute;
-    left: 100%;
-    animation: autoRun 10s linear infinite;
-    transition: filter 0.5s;
-    animation-delay: calc( (10s/ var(--quantity)) * (var(--position) - 1) )!important;
-}
-.slider .list .item img{
-    width: 100%;
-}
-@keyframes autorun{
-    from{
-        left: 100%;
-    }to{
-        left: calc(var(--width) * -1);
+    .feature-btn:hover {
+        background-color: #000;
     }
-}
 
-.slider:hover .item{
-    animation-play-state: paused!important;
-    filter: grayscale(1);
-}
-.slider .item:hover{
-    filter: grayscale(0);
-}
-.slider[reverse="True"] .item{
-    animation: reverse-autoPlay 10s linear infinite;
-}
+    .product-catagories h2 {
+        margin: 1rem;
+        padding: 1rem;
+    }
+
+    /* brand partners slider */
+    .slider {
+        margin: 2rem;
+        width: 100%;
+        border: 1px solid red;
+        height: var(--height);
+        overflow: hidden;
+        mask-image: linear-gradient(to right,
+                transparent,
+                black 10% 90%,
+                transparent);
+    }
+
+    .slider .list {
+        display: flex;
+        width: 100%;
+        min-width: calc(var(--width) * var(--quantity));
+        position: relative;
+    }
+
+    .slider .list .item {
+        width: var(--width);
+        height: var(--height);
+        position: absolute;
+        left: 100%;
+        animation: autorun 10s linear infinite;
+        transition: filter 0.5s;
+        animation-delay: calc((10s/ var(--quantity)) * (var(--position) - 1)) !important;
+    }
+
+    .slider .list .item img {
+        width: 100%;
+    }
+
+    @keyframes autorun {
+        from {
+            left: 100%;
+        }
+
+        to {
+            left: calc(var(--width) * -1);
+        }
+    }
+
+    .slider:hover .item {
+        animation-play-state: paused !important;
+        filter: grayscale(1);
+    }
+
+    .slider .item:hover {
+        filter: grayscale(0);
+    }
+
+    .slider[reverse="True"] .item {
+        animation: reverse-autoPlay 10s linear infinite;
+    }
 
     /* This targets the items ONLY within the sliders in the product-categories section */
     .product-catagories .slider .list .item {
@@ -580,106 +665,299 @@ main{
         justify-content: space-between;
     }
 
-/* Ensure the image inside the new card doesn't break out */
-.product-catagories .slider .list .item .product-image-container img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-}
+    /* Ensure the image inside the new card doesn't break out */
+    .product-catagories .slider .list .item .product-image-container img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
 
-.catagorywise-products h2 {
-    font-size: 2.5rem;
-    text-align: center;
-    margin-bottom: 1.5rem;
-    color: #f2e6ee; /* Using a light color from your theme */
-    font-weight: 800;
-}
+    .catagorywise-products h2 {
+        font-size: 2.5rem;
+        text-align: center;
+        margin-bottom: 1.5rem;
+        color: #f2e6ee;
+        /* Using a light color from your theme */
+        font-weight: 800;
+    }
 
-.gallery {
-    display: flex;
-    height: 25rem; /* Increased height for better visibility */
-    gap: 1rem;
-    padding: 1rem;
-}
+    .gallery {
+        display: flex;
+        height: 25rem;
+        /* Increased height for better visibility */
+        gap: 1rem;
+        padding: 1rem;
+    }
 
-.gallery > a {
-    flex: 1;
-    border: 1px solid black;
-    border-radius: 1rem;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover; /* Use cover to fill the space nicely */
-    transition: all 0.8s cubic-bezier(0.25, 0.4, 0.45, 1.4); /* Smoother transition */
-    text-decoration: none;
+    .gallery>a {
+        flex: 1;
+        border: 1px solid black;
+        border-radius: 1rem;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        /* Use cover to fill the space nicely */
+        transition: all 0.8s cubic-bezier(0.25, 0.4, 0.45, 1.4);
+        /* Smoother transition */
+        text-decoration: none;
 
-    /* Crucial for positioning the overlay inside */
-    position: relative;
-    overflow: hidden;
+        /* Crucial for positioning the overlay inside */
+        position: relative;
+        overflow: hidden;
 
-    /* Flexbox to position the plate at the bottom */
-    display: flex;
-    align-items: flex-end; /* Push content to the bottom */
-}
+        /* Flexbox to position the plate at the bottom */
+        display: flex;
+        align-items: flex-end;
+        /* Push content to the bottom */
+    }
 
-.gallery > a:hover {
-    flex: 4; /* This remains the same */
-}
+    .gallery>a:hover {
+        flex: 4;
+        /* This remains the same */
+    }
 
 
-/* --- NEW: Glass Info Plate Styles --- */
+    /* --- NEW: Glass Info Plate Styles --- */
 
-.glass-info-plate {
-    /* Sizing and Positioning */
-    width: 95%;
-    margin: 1rem;
-    padding: 1.5rem;
-    
-    /* The Glassmorphic Effect */
-    background: rgba(0, 0, 0, 0.35);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border-radius: 0.75rem;
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    
-    /* Text Styling */
-    color: #f2e6ee;
-    text-align: left;
-    
-    /* Initial state: Hidden */
-    opacity: 0;
-    transform: translateY(30px); /* Start slightly below */
-    
-    /* Animation Timing */
-    transition: all 0.6s cubic-bezier(0.25, 0.4, 0.45, 1.4) 0.2s; /* Delay the appearance */
-}
+    .glass-info-plate {
+        /* Sizing and Positioning */
+        width: 95%;
+        margin: 1rem;
+        padding: 1.5rem;
 
-/* Reveal the plate on hover of the parent link */
-.gallery > a:hover .glass-info-plate {
-    opacity: 1;
-    transform: translateY(0);
-}
+        /* The Glassmorphic Effect */
+        background: rgba(0, 0, 0, 0.35);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border-radius: 0.75rem;
+        border: 1px solid rgba(255, 255, 255, 0.18);
 
-/* Styles for content inside the plate */
-.glass-info-plate h3 {
-    font-size: 1.8rem;
-    font-weight: 700;
-    margin-bottom: 0.5rem;
-}
+        /* Text Styling */
+        color: #f2e6ee;
+        text-align: left;
 
-.glass-info-plate .price {
-    font-size: 1.2rem;
-    font-weight: 500;
-    margin-bottom: 1rem;
-    color: #ffccf2; /* Using an accent color from your theme */
-}
+        /* Initial state: Hidden */
+        opacity: 0;
+        transform: translateY(30px);
+        /* Start slightly below */
 
-.glass-info-plate p {
-    font-size: 0.9rem;
-    line-height: 1.5;
-    opacity: 0.9;
-}
+        /* Animation Timing */
+        transition: all 0.6s cubic-bezier(0.25, 0.4, 0.45, 1.4) 0.2s;
+        /* Delay the appearance */
+    }
 
+    /* Reveal the plate on hover of the parent link */
+    .gallery>a:hover .glass-info-plate {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    /* Styles for content inside the plate */
+    .glass-info-plate h3 {
+        font-size: 1.8rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+    }
+
+    .glass-info-plate .price {
+        font-size: 1.2rem;
+        font-weight: 500;
+        margin-bottom: 1rem;
+        color: #ffccf2;
+        /* Using an accent color from your theme */
+    }
+
+    .glass-info-plate p {
+        font-size: 0.9rem;
+        line-height: 1.5;
+        opacity: 0.9;
+    }
+
+    /* --- Site Footer Section --- */
+    .site-footer {
+        position: relative;
+        color: var(--color_I, #f2e6ee);
+        /* Default light color */
+        padding: 8rem 5% 2rem 5%;
+        /* Extra top padding for the clip-path shape */
+        margin-top: 5rem;
+        /* Space above the footer */
+
+        /* The Glassmorphic Effect */
+        background: rgba(15, 63, 254, 0.2);
+        /* Semi-transparent blue from theme */
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+
+        /* Applying the custom shape */
+        clip-path: url(#footerShape);
+    }
+
+    .footer-grid {
+        display: grid;
+        /* Creates responsive columns: they wrap automatically on smaller screens */
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 2.5rem;
+        margin-bottom: 3rem;
+    }
+
+    .footer-column h4 {
+        font-size: 1.1rem;
+        font-weight: 700;
+        margin-bottom: 1.25rem;
+        color: var(--color_VII);
+        /* Accent color */
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+    }
+
+    .footer-column ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .footer-column ul li {
+        margin-bottom: 0.75rem;
+    }
+
+    .footer-column ul li a {
+        color: var(--color_I);
+        text-decoration: none;
+        opacity: 0.8;
+        transition: opacity 0.3s ease;
+    }
+
+    .footer-column ul li a:hover {
+        opacity: 1;
+        text-decoration: underline;
+    }
+
+    /* Social Media Icons */
+    .social-icons {
+        display: flex;
+        gap: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .social-icons a {
+        display: block;
+    }
+
+    .social-icons svg {
+        width: 24px;
+        height: 24px;
+        fill: white;
+        opacity: 0.8;
+        transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    .social-icons svg:hover {
+        opacity: 1;
+        transform: scale(1.1);
+    }
+
+    /* Localization Selectors */
+    .localization {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+        align-items: flex-start;
+    }
+
+    .localization .selector {
+        padding: 0.5rem 1rem;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 20px;
+        font-size: 0.9rem;
+        background: rgba(255, 255, 255, 0.1);
+        cursor: pointer;
+    }
+
+    /* Bottom Bar with Business Info */
+    .footer-bottom-bar {
+        border-top: 1px solid rgba(255, 255, 255, 0.2);
+        padding-top: 2rem;
+        text-align: center;
+        font-size: 0.85rem;
+        opacity: 0.7;
+    }
+
+    .business-info {
+        margin-bottom: 1rem;
+        line-height: 1.6;
+    }
+
+    .business-info span {
+        font-weight: bold;
+        color: var(--color_VII);
+    }
+
+    /* Responsive adjustments for smaller screens */
+    @media (max-width: 768px) {
+        .site-footer {
+            padding-top: 6rem;
+            clip-path: none;
+            /* Can simplify shape on mobile if needed */
+            border-top-left-radius: 30px;
+            border-top-right-radius: 30px;
+        }
+
+        .footer-grid {
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .footer-column {
+            text-align: center;
+        }
+
+        .localization {
+            align-items: center;
+        }
+
+        .social-icons {
+            justify-content: center;
+        }
+    }
+
+    .brand-partners {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem 1rem;
+    }
+
+    .brand-partners h2 {
+        text-align: center;
+        font-size: 2rem;
+        margin-bottom: 1rem;
+    }
+
+    .brand-logos {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1.5rem;
+    }
+
+    .brand-item {
+        width: 120px;
+        height: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 12px;
+        background-color: white;
+        padding: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .brand-item img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+    }
 </style>
 
 <body>
@@ -702,7 +980,7 @@ main{
                         <a href="#wired-earphone">Wired Earphone</a>
                         <a href="#gaming-headphones">Gaming Headphones</a>
                         <a href="#neakbands">Neakbands</a>
-                        <a href="#">LIMITED EDITION</a>
+                        <!-- <a href="#">LIMITED EDITION</a> -->
                     </div>
                 </div>
                 <a href="/user/profile"><img src="/user.svg" alt="Profile"></a>
@@ -729,7 +1007,7 @@ main{
                     conventional Bluetooth®. -->
                 </p>
                 <div class="buttons">
-                    <a href="/product/6894d8cc2edb6ea4c99f236f?json=false"  class="learn-more">learn more</a>
+                    <a href="/product/6894d8cc2edb6ea4c99f236f?json=false" class="learn-more">learn more</a>
                 </div>
             </div>
             <div class="visual">
@@ -888,25 +1166,22 @@ main{
         </div>
     </section>
     <section class="product-catagories" id="dynamic-products-section">
-        <h2>Our Brand Partners</h2>
-        <div class="slider" style="
-                    --width: 200px;
-                    --height: 50px;
-                    --quantity: 10;
-                ">
-            <div class="list">
-                <div class="item" style="--position: 1"><img src="image/slider1_1.png" alt="Boat"></div>
-                <div class="item" style="--position: 2"><img src="image/slider1_2.png" alt="Noise"></div>
-                <div class="item" style="--position: 3"><img src="image/slider1_3.png" alt="sony"></div>
-                <div class="item" style="--position: 4"><img src="image/slider1_4.png" alt="skullcandy"></div>
-                <div class="item" style="--position: 5"><img src="image/slider1_5.png" alt="JBL"></div>
-                <div class="item" style="--position: 6"><img src="image/slider1_6.png" alt="Apple"></div>
-                <div class="item" style="--position: 7"><img src="image/slider1_7.png" alt="Beats"></div>
-                <div class="item" style="--position: 8"><img src="image/slider1_8.png" alt="soundcore"></div>
-                <div class="item" style="--position: 9"><img src="image/slider1_9.png" alt="Sennheiser"></div>
-                <div class="item" style="--position: 10"><img src="image/slider1_10.png" alt="Audio-Technica"></div>
+        <section class="brand-partners">
+            <h2>Our Brand Partners</h2>
+            <div class="brand-logos">
+                <div class="brand-item"><img src="/boat.jpg" alt="Boat"></div>
+                <div class="brand-item"><img src="/noise.jpg" alt="Noise"></div>
+                <div class="brand-item"><img src="/sony.jpg" alt="Sony"></div>
+                <div class="brand-item"><img src="/skullcandy.jpg" alt="Skullcandy"></div>
+                <div class="brand-item"><img src="/jbl.jpg" alt="JBL"></div>
+                <div class="brand-item"><img src="/apple.jpg" alt="Apple"></div>
+                <div class="brand-item"><img src="/beats.jpg" alt="Beats"></div>
+                <div class="brand-item"><img src="/soundcore.jpg" alt="Soundcore"></div>
+                <div class="brand-item"><img src="/sennheiser.jpg" alt="Sennheiser"></div>
+                <div class="brand-item"><img src="/oneplus.jpg" alt="OnePlus"></div>
             </div>
-        </div>
+        </section>
+
         <div class="catagorywise-products">
             <!-- <h2>Wireless Headphones</h2>
             <div class="gallery">
@@ -1229,10 +1504,100 @@ main{
     transition: all 0.5s ease;
     "></div>
 
+    </section>
+    <svg width="0" height="0" style="position:absolute;">
+        <defs>
+            <clipPath id="footerShape" clipPathUnits="objectBoundingBox">
+                <path
+                    d="M 0,0.15 C 0.1,0, 0.25,-0.05, 0.35,0.1 C 0.5,0.3, 0.6,0.25, 0.75,0.1 C 0.85,-0.05, 0.95,0, 1,0.1 V 1 H 0 Z">
+                </path>
+            </clipPath>
+        </defs>
+    </svg>
+
+
+    <footer class="site-footer">
+        <div class="footer-grid">
+
+            <div class="footer-column">
+                <h4>My Account</h4>
+                <ul>
+                    <li><a href="#">My Bag</a></li>
+                    <li><a href="#">My Profile</a></li>
+                    <li><a href="#">My Orders</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <h4>Customer Support</h4>
+                <ul>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">Help Center / FAQ</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <h4>Legal & Policy</h4>
+                <ul>
+                    <li><a href="#">Terms & Conditions</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Cookie Policy</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <h4>About Burst</h4>
+                <ul>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Blogs</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <h4>Let's Get Social</h4>
+                <div class="social-icons">
+                    <a href="#" title="Facebook"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path
+                                d="M14 13.5h2.5l1-4H14v-2c0-1.03 0-2 2-2h1.5V2.14c-.326-.043-1.557-.14-2.857-.14C11.928 2 10 3.657 10 6.7v2.8H7v4h3V22h4v-8.5z" />
+                        </svg></a>
+                    <a href="#" title="X (Twitter)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path
+                                d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                        </svg></a>
+                    <a href="#" title="Instagram"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path
+                                d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85s-.011 3.584-.069 4.85c-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.069-4.85.069s-3.584-.011-4.85-.069c-3.225-.149-4.771-1.664-4.919-4.919-.058-1.265-.069-1.644-.069-4.85s.011-3.584.069-4.85c.149-3.225 1.664-4.771 4.919-4.919C8.416 2.175 8.796 2.163 12 2.163m0-1.62c-3.264 0-3.66.014-4.944.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.284-.073 1.68-.073 4.944s.014 3.66.072 4.944c.2 4.358 2.618 6.78 6.98 6.98 1.284.059 1.68.073 4.944.073s3.66-.014 4.944-.072c4.358-.2 6.78-2.618 6.98-6.98.059-1.284.073-1.68.073-4.944s-.014-3.66-.072-4.944c-.2-4.358-2.618-6.78-6.98-6.98C15.66.557 15.264.543 12 .543z" />
+                            <path
+                                d="M12 6.837c-2.846 0-5.163 2.317-5.163 5.163s2.317 5.163 5.163 5.163 5.163-2.317 5.163-5.163S14.846 6.837 12 6.837zM12 15.5c-1.933 0-3.5-1.567-3.5-3.5s1.567-3.5 3.5-3.5 3.5 1.567 3.5 3.5-1.567 3.5-3.5 3.5z" />
+                            <circle cx="16.802" cy="7.2" r="1.44" />
+                        </svg></a>
+                    <a href="#" title="YouTube"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path
+                                d="M21.582 7.697c-.22-1.332-1.35-2.36-2.65-2.52C16.5 4.88 12 4.88 12 4.88s-4.5 0-6.932.297c-1.3.16-2.43.96-2.65 2.292C2.175 9.08 2.175 12 2.175 12s0 2.92.243 4.303c.22 1.332 1.35 2.36 2.65 2.52C7.5 19.12 12 19.12 12 19.12s4.5 0 6.932-.297c1.3-.16 2.43-.96 2.65-2.292C21.825 14.92 21.825 12 21.825 12s0-2.92-.243-4.303zM9.91 14.56V9.44l4.56 2.56-4.56 2.56z" />
+                        </svg></a>
+                </div>
+                <div class="localization">
+                    <div class="selector">Country: India</div>
+                    <div class="selector">Currency: INR</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom-bar">
+            <div class="business-info">
+                <p><span>Registered Address:</span> For queries contact us: Manager, Merge-Conflicts Marketing Limited
+                    Building no. 204 & 205, 2nd floor, A2-wing, Corporate Avenue, near Trimurti Chowk Dhankawadi,
+                    Bibwewadi, Pune, Maharashtra-424001, India</p>
+                <p><span>Company Mail:</span> info@burst.com | <span>GSTIN:</span> 27AAFCI2601A1Z9</p>
+            </div>
+            <p class="copyright">&copy; 2025 Burst Audio Inc. All Rights Reserved.</p>
+        </div>
+    </footer>
+
 
     <script>
 
-        function buyNow(){
+        function buyNow() {
             const id = "6894d8cc2edb6ea4c99f236f"
 
             if (!id || id === "undefined") {
@@ -1243,7 +1608,7 @@ main{
             window.location.href = `/buyNow/${id}?quantity=1`;
         }
 
-        function goTo(){
+        function goTo() {
             const productID = "6894d8cc2edb6ea4c99f236f"
 
             if (!productId) {

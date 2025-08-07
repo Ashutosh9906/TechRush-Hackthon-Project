@@ -349,13 +349,6 @@
 
 <body>
     <div class="container">
-        <header>
-            <h1 class="logo">Burst</h1>
-            <nav>
-                <a href="#"><img src="../public/user.svg" alt="Profile"></a>
-                <a href="#"><img src="../public/shopping-bag.svg" alt="Cart"></a>
-            </nav>
-        </header>
 
         <main class="profile-main">
             <div class="profile-header">
@@ -400,7 +393,7 @@
                             <% ord.products.forEach(prod=> { %>
                                 <div class="order-card">
                                     <div class="order-product-image">
-                                        <img src="./<%= prod.productId.image1 %>" alt="<%= prod.productId.image1 %>">
+                                        <img src="<%= prod.productId.image1 %>" alt="<%= prod.productId.image1 %>">
                                     </div>
                                     <div class="order-details">
                                         <h3 class="order-product-name">

@@ -10,7 +10,7 @@ async function handleItemsOfCart(req, res) {
         // return res.status(200).json(items);
         const populateItems = await Cart.find({ userId }).populate({
             path: "productId",
-            select: "productName description category price stock"
+            select: "productName description category price stock image1"
         });
         console.log(json);
         if (json == "true") {
