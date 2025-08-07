@@ -477,38 +477,38 @@ main{
     flex: 1; /* This makes both columns take up 50% of the space */
 }
 
-.feature-media video {
-    width: 100%;
-    height: auto;
-    display: block;
-    border-radius: 12px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-}
+    .feature-media video {
+        width: 100%;
+        height: auto;
+        display: block;
+        border-radius: 12px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
 
-.feature-description h3 {
-    font-size: 2rem;
-    font-weight: 700;
-    margin-bottom: 1rem;
-    color: #000;
-}
+    .feature-description h3 {
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        color: #000;
+    }
 
-.feature-description p {
-    font-size: 1.1rem;
-    line-height: 1.6;
-    color: #000000;
-    margin-bottom: 1.5rem;
-}
+    .feature-description p {
+        font-size: 1.1rem;
+        line-height: 1.6;
+        color: #000000;
+        margin-bottom: 1.5rem;
+    }
 
-.feature-btn {
-    display: inline-block;
-    background-color: #333;
-    color: #fff;
-    padding: 12px 24px;
-    text-decoration: none;
-    border-radius: 25px;
-    font-weight: bold;
-    transition: background-color 0.3s ease;
-}
+    .feature-btn {
+        display: inline-block;
+        background-color: #333;
+        color: #fff;
+        padding: 12px 24px;
+        text-decoration: none;
+        border-radius: 25px;
+        font-weight: bold;
+        transition: background-color 0.3s ease;
+    }
 
 .feature-btn:hover {
     background-color: #000;
@@ -569,13 +569,13 @@ main{
     animation: reverse-autoPlay 10s linear infinite;
 }
 
-/* This targets the items ONLY within the sliders in the product-categories section */
-.product-catagories .slider .list .item {
-    /* Use flexbox to structure the card content vertically */
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
+    /* This targets the items ONLY within the sliders in the product-categories section */
+    .product-catagories .slider .list .item {
+        /* Use flexbox to structure the card content vertically */
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
 
 /* Ensure the image inside the new card doesn't break out */
 .product-catagories .slider .list .item .product-image-container img {
@@ -687,9 +687,9 @@ main{
         <header>
             <h1 class="logo">Burst</h1>
             <nav>
-                <a href="#">SIGN UP</a>
-                <a href="#">LOG IN</a>
-                <a class="home" href="#">HOME</a>
+                <a href="/user/createAccount">SIGN UP</a>
+                <a href="/user/login">LOG IN</a>
+                <a class="home" href="/home">HOME</a>
                 <div class="dropdown">
                     <a class="nav-link" href="#">CATEGORIES</a>
                     <div class="dropdown-content">
@@ -702,8 +702,8 @@ main{
                         <a href="#">LIMITED EDITION</a>
                     </div>
                 </div>
-                <a href="/profile"><img src="/user.svg" alt="Profile"></a>
-                <a href="/cart"><img src="/shopping-bag.svg" alt="Cart"></a>
+                <a href="/user/profile"><img src="/user.svg" alt="Profile"></a>
+                <a href="/cart?json=false"><img src="/shopping-bag.svg" alt="Cart"></a>
 
             </nav>
         </header>
@@ -1095,44 +1095,45 @@ main{
             "Neckbands"
         ];
 
+
         async function loadProductsByCategory() {
-    const section = document.getElementById("dynamic-products-section");
-    // This should be defined somewhere in your script
-    const categories = ["Wireless Headphones", "Gaming Headphones", "LIMITED EDITION"]; // Example categories
+            const section = document.getElementById("dynamic-products-section");
+            // This should be defined somewhere in your script
+            // const categories = ["Wireless Headphones", "Gaming Headphones", "LIMITED EDITION"]; // Example categories
 
-    for (const category of categories) {
-        try {
-            // In a real app, you would fetch from your backend
-            // const response = await fetch(`/product?category=${encodeURIComponent(category)}`);
-            // const products = await response.json();
+            for (const category of categories) {
+                try {
+                    // In a real app, you would fetch from your backend
+                    const response = await fetch(`/product?category=${encodeURIComponent(category)}`);
+                    const products = await response.json();
 
-            // --- Using mock data for demonstration ---
-            const mockProducts = [
-                { _id: '1', productName: 'Aura Wireless', price: '8,999', image2: '../public/AirPods-max.jpg' },
-                { _id: '2', productName: 'Stealth Gamer', price: '12,499', image2: '../public/gaming-ps5.jpg' },
-                { _id: '3', productName: 'Echo Buds Pro', price: '7,999', image2: '../public/KZ-wired-earphones.jpg' },
-                { _id: '4', productName: 'Classic Wired', price: '1,499', image2: '../public/Nothing-headphones.jpg' }
-            ];
-            const products = mockProducts;
-            // --- End of mock data ---
+                    // --- Using mock data for demonstration ---
+                    // const mockProducts = [
+                    //     { _id: '1', productName: 'Aura Wireless', price: '8,999', image2: '../public/AirPods-max.jpg' },
+                    //     { _id: '2', productName: 'Stealth Gamer', price: '12,499', image2: '../public/gaming-ps5.jpg' },
+                    //     { _id: '3', productName: 'Echo Buds Pro', price: '7,999', image2: '../public/KZ-wired-earphones.jpg' },
+                    //     { _id: '4', productName: 'Classic Wired', price: '1,499', image2: '../public/Nothing-headphones.jpg' }
+                    // ];
+                    // const products = mockProducts;
+                    // --- End of mock data ---
 
-            const heading = document.createElement("h2");
-            heading.textContent = category;
-            section.appendChild(heading);
+                    const heading = document.createElement("h2");
+                    heading.textContent = category;
+                    section.appendChild(heading);
 
-            // ADDED: A container for our new horizontally scrollable list
-            const productContainer = document.createElement("div");
-            productContainer.className = "product-scroll-container";
+                    // ADDED: A container for our new horizontally scrollable list
+                    const productContainer = document.createElement("div");
+                    productContainer.className = "product-scroll-container";
 
-            products.forEach((product, index) => {
-                // CHANGED: The item is now a 'product-card' for better semantics
-                const card = document.createElement("div");
-                card.className = "product-card";
+                    products.forEach((product, index) => {
+                        // CHANGED: The item is now a 'product-card' for better semantics
+                        const card = document.createElement("div");
+                        card.className = "product-card";
 
-                // REMOVED: No longer need the '--position' property for animations
-                // item.style.setProperty('--position', index + 1);
+                        // REMOVED: No longer need the '--position' property for animations
+                        // item.style.setProperty('--position', index + 1);
 
-                card.innerHTML = `
+                        card.innerHTML = `
                     <div class="product-image-container" onclick="goToProduct('${product._id}')">
                         <img src="${product.image2}" alt="${product.productName}">
                     </div>
@@ -1144,24 +1145,24 @@ main{
                     </div>
                     <button class="add-to-cart-btn" onclick="addToCart('${product._id}')">Add to Cart</button>`;
 
-                productContainer.appendChild(card);
-            });
+                        productContainer.appendChild(card);
+                    });
 
-            section.appendChild(productContainer);
-        } catch (error) {
-            console.error(`Error loading category "${category}":`, error);
+                    section.appendChild(productContainer);
+                } catch (error) {
+                    console.error(`Error loading category "${category}":`, error);
+                }
+            }
         }
-    }
-}
 
-// Don't forget to call the function when the page loads
-document.addEventListener("DOMContentLoaded", loadProductsByCategory);
+        // Don't forget to call the function when the page loads
+        //document.addEventListener("DOMContentLoaded", loadProductsByCategory);
 
         async function addToCart(productId) {
             console.log("Add to Cart clicked for product:", productId);
             // You can implement a fetch POST request to /cart here
             const quantity = 1;
-            const response = await fetch("/cart", {
+            const response = await fetch("/cart?json=true", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -1169,6 +1170,9 @@ document.addEventListener("DOMContentLoaded", loadProductsByCategory);
                 body: JSON.stringify({ productId, quantity })
             });
             const responseBody = await response.json()
+            if (responseBody.redirect) {
+                window.location.href = responseBody.redirect;
+            }
             // console.log(responseBody.msg)
             showPopup(responseBody.msg)
         }

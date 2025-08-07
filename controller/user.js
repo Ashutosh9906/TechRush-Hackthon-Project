@@ -1,4 +1,5 @@
 const User = require("../models/user")
+const Order = require("../models/order")
 const crpto = require("crypto");
 const { sendOtp } = require("../utilities/mailUtility");
 const { hash, compare } = require("bcryptjs");
@@ -85,7 +86,19 @@ async function handleVerifyPassword(req, res) {
     });
 }
 
+async function handleGetProfile(req, res){
+    const userId = req.user.id;
+    const user = await User.findById(userId)
+    // console.log(orders);
+    const order = await Order.find({ userId })
+    return res.render("profile", {
+        user,
+        order
+    });
+}
+
 module.exports = {
     handleUserInfo,
-    handleVerifyPassword
+    handleVerifyPassword,
+    handleGetProfile
 }
