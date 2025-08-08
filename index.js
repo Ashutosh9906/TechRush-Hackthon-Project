@@ -17,7 +17,7 @@ const { verifyToken } = require("./middlewares/validateEmail")
 
 
 const app = express();
-const PORT = 7000;
+const PORT = process.env.PORT;
 
 //to serve public folder for rendering
 app.use(express.static(path.join(__dirname, "public"))); 
