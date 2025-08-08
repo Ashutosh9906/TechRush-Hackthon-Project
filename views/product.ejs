@@ -159,25 +159,26 @@
       justify-content: center;
     }
 
-    .left img {
-      width: 100%;
-      max-width: 400px;
-      height: auto;
-      object-fit: contain;
-      /* Or use 'cover' if you want full coverage */
-      border-radius: 20px;
-      border: 2px solid #000000;
-      transition: transform 0.3s ease;
-    }
-
     .left {
       flex: 1 1 300px;
       display: flex;
       justify-content: center;
       align-items: center;
       height: 400px;
-      /* Or auto, based on your layout */
+      /* Fixed height for consistency */
+      background: transparent;
+      /* optional, or add a light bg to see bounds */
     }
+
+    .left img {
+      max-height: 100%;
+      max-width: 100%;
+      object-fit: contain;
+      border-radius: 20px;
+      border: 2px solid #000000;
+      transition: transform 0.3s ease;
+    }
+
 
     img {
       max-width: 100%;
