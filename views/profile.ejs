@@ -380,7 +380,10 @@
                         </div>
                         <div class="action-buttons">
                             <a onclick="addToCart(`<%= user.address %>`)" class="btn btn-primary">Go to Cart</a>
-                            <a href="/user/logout" class="btn btn-secondary">Log Out</a>
+                            <% if (user.role=="ADMIN" ) { %>
+                                <a href="/user/admin" class="btn btn-primary">Edit Stock</a>
+                                <% } %>
+                                    <a href="/user/logout" class="btn btn-secondary">Log Out</a>
                         </div>
                         <!-- //<a href="#" class="edit-profile-link">Edit Profile</a> -->
                     </div>

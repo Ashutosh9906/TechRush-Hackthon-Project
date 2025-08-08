@@ -6,6 +6,7 @@ const { hash, compare } = require("bcryptjs");
 const { createTokenForUser } = require("../utilities/authentication")
 
 const Otp = require("../models/otp");
+const Product = require("../models/product");
 
 async function handleUserInfo(req, res) {
     //console.log(req.body);
@@ -101,8 +102,14 @@ async function handleGetProfile(req, res) {
     });
 }
 
+async function handleAdminPage(req, res){
+    const products = await Product.find()
+    return res.render("admin", { products });
+}
+
 module.exports = {
     handleUserInfo,
     handleVerifyPassword,
-    handleGetProfile
+    handleGetProfile,
+    handleAdminPage
 }

@@ -35,6 +35,9 @@ app.use(express.urlencoded({ extended:false }))
 app.use(cookieParser());
 
 //defining the base route
+app.get("/", (req, res) => {
+    return res.render("homepage")
+})
 app.get("/home", (req, res) => {
     return res.render("homepage")
 })
