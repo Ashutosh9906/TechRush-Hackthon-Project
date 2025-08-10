@@ -53,12 +53,14 @@ async function handleProductStock(req, res) {
     try {
         const { productId, newStock } = req.body;
         const product = await Product.findById(productId);
-        // console.log(product);
+        console.log(product);
+        console.log(newStock);
         if (!product) {
             return res.status(400).json({ msg: "No Such Product" })
         }
         const items = await Product.findOneAndUpdate({ _id: productId }, { stock: newStock }, { new: true })
-        res.status(200).json(items);
+        // res.status(200).json({ redirect: `/user/admin` });
+        return res.status(200).json(items);
     } catch (error) {
         console.log(error);
         res.status(400).json({ msg: "Internal Server Error" })

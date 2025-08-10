@@ -13,6 +13,11 @@
         box-sizing: border-box;
     }
 
+    input {
+        width: 25%;
+        height: 50%;
+    }
+
     :root {
         --color_I: #f2e6ee;
         --color_II: #8f73fb;
@@ -326,6 +331,65 @@
     .form-actions .btn-danger:hover {
         background-color: var(--secsolor_I);
     }
+
+    .stockVal {
+        width: 70px;
+        padding: 6px 8px;
+        font-size: 14px;
+        text-align: center;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        outline: none;
+        transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        background-color: #f9f9f9;
+    }
+
+    /* Hover effect */
+    .stockVal:hover {
+        border-color: #888;
+    }
+
+    /* Focus effect */
+    .stockVal:focus {
+        border-color: #6c63ff;
+        /* purple-ish highlight */
+        box-shadow: 0 0 4px rgba(108, 99, 255, 0.4);
+        background-color: #fff;
+    }
+
+    /* Optional: remove default spinner for number inputs */
+    .stockVal::-webkit-outer-spin-button,
+    .stockVal::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    .stockVal[type=number] {
+        -moz-appearance: textfield;
+        /* Firefox */
+    }
+
+    /* Remove Button - Theme Matching & Eye-Catching */
+    .btn-remove {
+        background: linear-gradient(135deg, #ff5f7e, #b30047);
+        /* vibrant pinkish-red with purple undertone */
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        /* match Save button padding */
+        border-radius: 20px;
+        /* same pill shape as Save */
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .btn-remove:hover {
+        background: linear-gradient(135deg, #ff7692, #cc0055);
+        /* lighter hover */
+        transform: scale(1.05);
+        box-shadow: 0 3px 8px rgba(255, 105, 135, 0.5);
+    }
 </style>
 
 <body>
@@ -367,12 +431,18 @@
                         <div class="stock-item">
                             <div class="product-info">
                                 <img src="<%= product.image1 %>" alt="THUNDERSTRIKE">
-                                <span><%= product.productName %></span>
+                                <span>
+                                    <%= product.productName %>
+                                </span>
                             </div>
-                            <div class="product-category"><%= product.category %></div>
-                            <div class="product-stock"><%= product.stock %> Units</div>
+                            <div class="product-category">
+                                <%= product.category %>
+                            </div>
+                            <input class="stockVal" type="number" class="product-stock"
+                                value="<%= product.stock %>"></input>
                             <div class="product-action">
-                                <button class="btn-edit" onclick="openModal(`<%= product %>`)">Edit Stock</button>
+                                <button class="btn-edit" onclick="updateStock(`<%= product._id %>`, this)">Save</button>
+                                <button class="btn-remove" onclick="removeProduct('<%= product._id %>')">Remove</button>
                             </div>
                         </div>
                         <% }) %>
@@ -417,7 +487,7 @@
             </main>
         </div>
 
-        <div class="modal-overlay" id="editStockModal">
+        <!-- <div class="modal-overlay" id="editStockModal">
             <div class="modal-content">
                 <button class="modal-close" onclick="closeModal()">×</button>
                 <h2>Edit Stock: THUNDERSTRIKE</h2>
@@ -427,28 +497,16 @@
                         <input type="text" id="productName" value="THUNDERSTRIKE">
                     </div>
                     <div class="form-group">
-                        <label for="productCategory">Category</label>
-                        <select id="productCategory">
-                            <option>True Wireless Earbuds</option>
-                            <option>Wired Earphones</option>
-                            <option selected>Wireless Headphones</option>
-                            <option>Wired Headphones</option>
-                            <option>Gaming Headphones</option>
-                            <option>Neckbands</option>
-                            <option>LIMITED EDITION</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
                         <label for="currentStock">Current Stock</label>
                         <input type="number" id="currentStock" value="150">
                     </div>
                     <div class="form-actions">
-                        <button type="button" class="btn btn-primary">Update Stock</button>
-                        <button type="button" class="btn btn-danger">Remove Product</button>
+                        <button type="button" class="btn btn-primary" onclick="updateStock()">Update Stock</button>
+                        <button type="button" class="btn btn-danger" onclick="removeProduct()">Remove Product</button>
                     </div>
                 </form>
             </div>
-        </div>
+        </div> -->
 
         <script>
             // Simple JavaScript to control the modal visibility
@@ -462,6 +520,25 @@
             function closeModal() {
                 modal.style.display = 'none';
             }
+
+            async function updateStock(productId, btnElement) {
+                const stockInput = btnElement.closest(".stock-item").querySelector(".stockVal");
+                const newStock = parseInt(stockInput.value, 10);
+                // console.log(newStock);
+
+                const res = await fetch(`/product`, {
+                    method: "PATCH",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ productId, newStock })
+                });
+
+                if (res.ok) {
+                    console.log(`Stock for ${productId} updated to ${newStock}`);
+                } else {
+                    console.error("Error updating stock");
+                }
+            }
+
 
             // Close modal if user clicks on the overlay
             window.onclick = function (event) {
