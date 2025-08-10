@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Modern Blue Chair</title>
+  <title>Burst - Product Detail</title>
   <style>
     * {
       box-sizing: border-box;
@@ -497,6 +497,23 @@
       margin-top: -10px;
       margin-bottom: 15px;
     }
+
+    #reviewForm button {
+      background: linear-gradient(90deg, var(--color_III), var(--color_VI));
+      color: black;
+      padding: 10px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 15px;
+      font-weight: bold;
+      transition: all 0.3s ease;
+    }
+
+    #reviewForm button:hover {
+      background: linear-gradient(90deg, var(--color_V), var(--color_II));
+      transform: scale(1.05);
+    }
   </style>
 </head>
 
@@ -600,11 +617,9 @@
       </div>
     </div>
 
-    <div class="review-section">
-      <h2>CUSTOMER REVIEWS</h2>
-
+    <div class="review-section" id="reviews-section">
       <!-- Sample reviews -->
-      <div class="review">
+      <!-- <div class="review">
         <div class="review-header">
           <strong><span class="user-icon">👤</span> Riya S.</strong>
           <span class="inline-stars">★★★★☆</span>
@@ -617,14 +632,16 @@
           <span class="inline-stars">★★★★★</span>
         </div>
         <p>Stylish and very comfortable to wear. Worth the price!</p>
-      </div>
+      </div> -->
 
       <!-- Review submission form -->
       <h2>LEAVE A REVIEW</h2>
       <!-- Star Rating Input -->
-      <form id="reviewForm">
+      <div id="reviewForm">
         <div class="review-header-inline">
-          <h4><span class="user-icon">👤</span> Add_Name</h4>
+          <h4><span class="user-icon">👤</span>
+            <%= user.firstName %>
+          </h4>
           <div class="star-rating">
             <input type="radio" id="star5" name="rating" value="5" /><label for="star5">★</label>
             <input type="radio" id="star4" name="rating" value="4" /><label for="star4">★</label>
@@ -634,9 +651,11 @@
           </div>
         </div>
 
-        <textarea id="reviewText" placeholder="Write your review..." required></textarea>
-        <button type="submit">Submit Review</button>
-      </form>
+        <textarea id="reviewText" name="review" placeholder="Write your review..." required></textarea>
+        <button type="submit" onclick="addreview()">Submit Review</button>
+      </div>
+
+      <h2>CUSTOMER REVIEWS</h2>
 
       <!-- New reviews will be added here -->
       <div id="newReviews"></div>
@@ -661,6 +680,10 @@
 "></div>
 
   <script>
+    window.onload = () => {
+      console.log("Window loaded, calling productsFetchCall, reviews...");
+      loadReview();
+    };
     const priceElement = document.getElementById("price");
     const priceText = priceElement.textContent.trim(); // "₹2999"
     const numericPrice = parseFloat(priceText.replace(/[^\d.]/g, '')); // 2999
@@ -751,37 +774,130 @@
       document.getElementById("main-image").src = thumb.src;
     }
 
-    document.getElementById('reviewForm').addEventListener('submit', function (e) {
-      e.preventDefault();
+    async function loadReview() {
+      const productId = "<%= product._id %>"; // Pass product ID from backend EJS render
+      const reviewsContainer = document.getElementById("reviews-section");
 
-      const name = "Guest User";
-      const text = document.getElementById('reviewText').value.trim();
-      const rating = document.querySelector('input[name="rating"]:checked');
+      try {
+        const response = await fetch(`/review/${productId}`);
+        const reviews = await response.json();
+        console.log(reviews);
 
-      if (name && text && rating) {
-        const stars = '★'.repeat(rating.value) + '☆'.repeat(5 - rating.value);
+        // reviewsContainer.innerHTML = ""; // Clear placeholder
 
-        const newReview = document.createElement('div');
-        newReview.classList.add('review');
-        newReview.innerHTML = `
-  <div class="review-header">
-    <strong><span class="user-icon">👤</span> ${name}</strong>
-    <span class="inline-stars">${stars}</span>
-  </div>
-  <p>${text}</p>`;
+        reviews.forEach(r => {
+          const stars = "★".repeat(r.rating) + "☆".repeat(5 - r.rating);
 
+          const reviewHTML = `
+      <div class="review">
+        <p><strong>👤 ${r.userId?.firstName || "Anonymous"}</strong>
+          <span style="color: gold;">${stars}</span></p>
+        <p>${r.review}</p>
+      </div>
+                `;
+          reviewsContainer.innerHTML += reviewHTML;
 
-        document.getElementById('newReviews').prepend(newReview);
-
-        // Clear form
-        document.getElementById('reviewForm').reset();
-      } else {
-        alert("Please fill out all fields and select a rating.");
+        });
+      } catch (error) {
+        console.error(error);
       }
+    };
+
+    document.getElementById("reviewForm").addEventListener("submit", function (e) {
+      e.preventDefault(); // Stop page reload
+
+      const text = document.getElementById("reviewText").value.trim();
+      const rating = document.querySelector('input[name="rating"]:checked')?.value;
+
+      if (!text || !rating) {
+        showPopup("Please enter a review and select a rating.");
+
+      }
+
+      // Example: send to backend
+      // fetch("/review", {
+      //   method: "POST",
+      //   headers: { "Content-Type": "application/json" },
+      //   body: JSON.stringify({ review: text, rating })
+      // })
+      //   .then(res => res.json())
+      //   .then(data => {
+      //     console.log("Review saved:", data);
+
+      //     // Add to DOM instantly
+      //     const stars = "★".repeat(rating) + "☆".repeat(5 - rating);
+      //     document.getElementById("newReviews").insertAdjacentHTML("afterbegin", `
+      //   <div class="review">
+      //     <div class="review-header">
+      //       <strong><span class="user-icon">👤</span> ${data.userName || "Anonymous"}</strong>
+      //       <span class="inline-stars">${stars}</span>
+      //     </div>
+      //     <p>${text}</p>
+      //   </div>
+      // `);
+
+      // Clear form
+      // document.getElementById("reviewForm").reset();
+      // })
+      // .catch(err => console.error(err));
     });
 
-    document.getElementById('stock').innerText = `Only ${product.stock} left in stock!`;
 
+    // document.getElementById('reviewForm').addEventListener('submit', function (e) {
+    // e.preventDefault();
+
+    // const name = "Guest User";
+    // const text = document.getElementById('reviewText').value.trim();
+    // const rating = document.querySelector('input[name="rating"]:checked');
+
+    // if (name && text && rating) {
+    // const stars = '★'.repeat(rating.value) + '☆'.repeat(5 - rating.value);
+
+    // const newReview = document.createElement('div');
+    // newReview.classList.add('review');
+    // newReview.innerHTML = `
+    // <div class="review-header">
+    // <strong><span class="user-icon">👤</span> ${name}</strong>
+    // <span class="inline-stars">${stars}</span>
+    // </div>
+    // <p>${text}</p>`;
+
+
+    // document.getElementById('newReviews').prepend(newReview);
+
+    // // Clear form
+    // document.getElementById('reviewForm').reset();
+    // } else {
+    // alert("Please fill out all fields and select a rating.");
+    // }
+    // });
+
+    document.getElementById('stock').innerText = `Only ${product.stock} left in stock!`;
+    async function addreview() {
+      try {
+        const reviewText = document.getElementById("reviewText").value.trim();
+        const rating = document.querySelector('input[name="rating"]:checked')?.value;
+        const productId = "<%= product._id %>";
+        console.log("Product ID:", productId);
+        console.log("Rating:", rating);
+        console.log("Review:", reviewText);
+        const res = await fetch(`/review/${productId}`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ rating, review: reviewText })
+        });
+        if (!res.ok) {
+          throw new Error(`Server responded with ${res.status}`);
+        }
+        const data = await res.json();
+        console.log(data);
+        if (data.redirect) {
+          window.location.href = data.redirect;
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    }
 
 
   </script>

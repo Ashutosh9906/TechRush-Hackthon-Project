@@ -17,7 +17,7 @@ const router = Router();
 //mounting routes on base route
 router.get("/all", handleItemAll)
 router.get("/", handleItemCatgories)
-router.get("/:id", handleProductDetail)
+router.get("/:id", verifyToken, handleProductDetail)
 router.post("/", verifyToken, checkAuthorizationForAdmin, handleAddProduct)
 router.patch("/", verifyToken, checkAuthorizationForAdmin, handleProductStock)
 router.delete("/", verifyToken, checkAuthorizationForAdmin, handleRemoveitem)

@@ -5,6 +5,6 @@ const { verifyToken } = require("../middlewares/validateEmail");
 const router = Router();
 
 router.get("/:id", handleGetReview);
-router.post("/", verifyToken, handleAddReview);
+router.post("/:id", verifyToken, handleAddReview);
 
 module.exports = router;

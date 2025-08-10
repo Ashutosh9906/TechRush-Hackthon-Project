@@ -3,7 +3,7 @@ const { Schema, model } = require("mongoose")
 const reviewSchema = new Schema({
     userId: {
         type: Schema.Types.ObjectId,
-        ref: "user",
+        ref: "users",
         required: true,
     },
     productId: {
